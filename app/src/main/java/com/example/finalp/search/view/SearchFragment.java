@@ -26,6 +26,7 @@ import com.example.finalp.model.Repo;
 import com.example.finalp.model.database.MealLocalDataSource;
 import com.example.finalp.model.network.MealRemoteDataSource;
 import com.example.finalp.search.presenter.SearchPresenter;
+import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
 import java.util.ArrayList;
@@ -58,7 +59,7 @@ public class SearchFragment extends Fragment implements SearchView, onClickAdapt
 
         chipGroup=view.findViewById(R.id.chipGroup);
         chipGroup.setSingleSelection(true);
-        // setUpFilter();
+         setUpFilter();
 
         searchRecyclerView = view.findViewById(R.id.searchrecycle);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -77,6 +78,10 @@ public class SearchFragment extends Fragment implements SearchView, onClickAdapt
 
         presenter = new SearchPresenter(this, Repo.getInstance(new MealRemoteDataSource(), MealLocalDataSource.getInstance(getContext())));
         presenter.getAllMeals();
+        Log.i("TAG", "onCreateView: Fragment Created////////////");
+
+        setUpFilter();
+        Log.i("TAG", "onCreateView: Fragment Created****************");
 
         return view;
     }
@@ -88,22 +93,26 @@ public class SearchFragment extends Fragment implements SearchView, onClickAdapt
 
     @Override
     public void setCategory(List<Category> categoryList) {
-        catadapter.setCategoryList(categoryList);
-        catadapter.notifyDataSetChanged();
+        if (searchRecyclerView.getAdapter() instanceof CategoryAdapter) {
+            ((CategoryAdapter) searchRecyclerView.getAdapter()).setCategoryList(categoryList);
+            searchRecyclerView.getAdapter().notifyDataSetChanged();
+        }
     }
 
     @Override
     public void setArea(List<Area> areaList) {
-        //areaAdapter.setAreaList(areaList);
-        //areaAdapter.notifyDataSetChanged();
+        if (searchRecyclerView.getAdapter() instanceof AreaAdapter) {
+            ((AreaAdapter) searchRecyclerView.getAdapter()).setAreaList(areaList);
+            searchRecyclerView.getAdapter().notifyDataSetChanged();
+        }
     }
-
-
 
     @Override
     public void setIngredient(List<Ingredient> ingredientList) {
-        //ingredientAdapter.setIngredientList(ingredientList);
-        //ingredientAdapter.notifyDataSetChanged();
+        if (searchRecyclerView.getAdapter() instanceof IngredientAdapter) {
+            ((IngredientAdapter) searchRecyclerView.getAdapter()).setIngredientList(ingredientList);
+            searchRecyclerView.getAdapter().notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -125,4 +134,39 @@ public class SearchFragment extends Fragment implements SearchView, onClickAdapt
     public void onIngClick(Ingredient ingredient) {
 
     }
+    private void setUpFilter() {
+        Log.i("TAG", "setUpFilter: Function Called*******");
+        for (int i = 0; i < chipGroup.getChildCount(); i++) {
+            Chip chip = (Chip) chipGroup.getChildAt(i);
+            chip.setOnCheckedChangeListener((compoundButton, isChecked) -> {
+                if (isChecked) {
+                    String selectedFilter = chip.getText().toString();
+                    updateAdapter(selectedFilter);
+                }
+            });
+        }
+    }
+
+    private void updateAdapter(String filter) {
+        switch (filter) {
+            case "Category":
+                catadapter = new CategoryAdapter(getContext(), new ArrayList<>(), this);
+                searchRecyclerView.setAdapter(catadapter);
+                presenter.getAllMeals();
+                break;
+
+            case "Area":
+                areaAdapter = new AreaAdapter(getContext(), new ArrayList<>(), this);
+                searchRecyclerView.setAdapter(areaAdapter);
+                presenter.getAllMeals();
+                break;
+
+            case "Ingredient":
+                ingredientAdapter = new IngredientAdapter(getContext(), new ArrayList<>(), this);
+                searchRecyclerView.setAdapter(ingredientAdapter);
+                presenter.getAllMeals();
+                break;
+        }
+    }
+
 }
