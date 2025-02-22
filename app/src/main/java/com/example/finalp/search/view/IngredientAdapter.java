@@ -1,4 +1,4 @@
-package com.example.finalp.home.view;
+package com.example.finalp.search.view;
 
 import android.content.Context;
 import android.os.Handler;
@@ -17,28 +17,32 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.finalp.R;
+import com.example.finalp.home.view.onClickAdapter;
 import com.example.finalp.model.Category;
+import com.example.finalp.model.Ingredient;
 
 import java.util.List;
 
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
+
+
+    public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.ViewHolder> {
         private  final Context context ;
 
-        public void setCategoryList(List<Category> categoryList) {
-            this.categoryList = categoryList;
+        public void setIngredientList(List<Ingredient> ingredientList) {
+            this.ingredientList = ingredientList;
         }
 
-        List<Category>categoryList ;
+        List<Ingredient>ingredientList ;
 
         private onClickAdapter listener ;
         private Handler handler = new Handler(Looper.getMainLooper());
         // private L
         private static final String  TAG = "Recycle";
         //product
-        public CategoryAdapter(Context context, List<Category> categoryList , onClickAdapter listener) {
+        public IngredientAdapter(Context context, List<Ingredient> ingredientList , onClickAdapter listener) {
             this.listener=listener;
             this.context = context;
-            this.categoryList=categoryList;
+            this.ingredientList=ingredientList;
         }
 
 
@@ -46,8 +50,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-            View v = inflater.inflate(R.layout.single_category,parent,false);
-           ViewHolder holder = new ViewHolder(v);
+            View v = inflater.inflate(R.layout.single_ingredient,parent,false);
+            ViewHolder holder = new ViewHolder(v);
             Log.i(TAG, "onCreateViewHolder: ");
             return holder;
 
@@ -55,21 +59,21 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-            holder.title.setText(categoryList.get(position).getStrCategory());
-            Glide.with(context).load(categoryList.get(position).getStrCategoryThumb()).apply(
+            holder.title.setText(ingredientList.get(position).getStrIngredient());
+           /* Glide.with(context).load(ingredientList.get(position).g).apply(
                             new RequestOptions().override(200,200))
-                    .placeholder(R.drawable.ic_launcher_background).error(R.drawable.ic_launcher_foreground).into(holder.image);
+                    .placeholder(R.drawable.ic_launcher_background).error(R.drawable.ic_launcher_foreground).into(holder.image);*/
             holder.constraintLayout.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view) {
-                    listener.onCategoryClick(categoryList.get(position));
+                    listener.onIngClick(ingredientList.get(position));
                 }
             });
         }
 
         @Override
         public int getItemCount() {
-            return categoryList.size();
+            return ingredientList.size();
         }
 
 

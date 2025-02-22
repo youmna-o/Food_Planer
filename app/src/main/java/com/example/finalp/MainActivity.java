@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements MyView {
         navController = navHostFragment.getNavController();
         bottomNavigationView = findViewById(R.id.bottom_navigationView);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
-        //NavigationUI.setupActionBarWithNavController(this, navController);
+        NavigationUI.setupActionBarWithNavController(this, navController);
 
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
             if (destination.getId() == R.id.login) {

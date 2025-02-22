@@ -75,10 +75,17 @@ public class FavoritsFragment extends Fragment implements NetworkCallBack_meal {
 
     @Override
     public void onSuccess(List<Meal> mealList) {
-        if (isAdded() && !isDetached()) { // تأكد أن الـ Fragment لا يزال موجودًا
+        if (isAdded() && !isDetached()) {
             for (Meal meal : mealList) {
                 Log.i(TAG, "Product: " + meal.getStrInstructions());
             }
+        }
+    }
+
+    @Override
+    public void onSuccessgetMealsOfCategory(List<Meal> mealList) {
+        for (Meal meal: mealList) {
+            Log.i(TAG, "Product****************************: " + meal.getStrInstructions());
         }
     }
 

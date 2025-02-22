@@ -108,50 +108,31 @@ public class MealRemoteDataSource {
             }
         });
 
+            Call<MealResponse> call5 = mealService.getMealOfThisCategory("Beef");
+            call5.enqueue(new Callback<MealResponse>() {
+                @Override
+                public void onResponse(Call<MealResponse> call, Response<MealResponse> response) {
+                    if(response.isSuccessful()&& response.body()!=null){
+                        networkCallBackMeal.onSuccessgetMealsOfCategory(response.body().getMeals());
+                    }else {
+                        Log.i(TAG, "onResponse: "+response.code());
+                        networkCallBackMeal.onFailure(response.errorBody().toString());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<MealResponse> call, Throwable throwable) {
+                    Log.e(TAG, "onFailure: " + throwable.getMessage());
+
+                }
+            });
+        }
+
 
 
 
     }
 
-    /* public  void getDataOverNetwork(NetworkCallBack_ingredient networkCallBackIngredient) {
-         Call<IngredientResponse> call = mealService.getIngrediant();
-         call.enqueue(new Callback<IngredientResponse>() {
-             @Override
-             public void onResponse(Call<IngredientResponse> call, Response<IngredientResponse> response) {
-                 if (response.isSuccessful() && response.body() != null) {
-                     networkCallBackIngredient.onSuccess(response.body().getIngredient());
-                 } else {
-                     Log.i(TAG, "onResponse: " + response.code());
-                     networkCallBackIngredient.onFailure(response.errorBody().toString());
-                 }
-             }
-
-             @Override
-             public void onFailure(Call<IngredientResponse> call, Throwable throwable) {
-                 Log.e(TAG, "onFailure: " + throwable.getMessage());
-
-             }
-         });
-     }*/
-    /*public  void getDataOverNetwork(NetworkCallBack_category networkCallBackCategory){
-        Call<CategoryResponse> call = mealService.getCategory();
-        call.enqueue(new Callback<CategoryResponse>() {
-            @Override
-            public void onResponse(Call<CategoryResponse> call, Response<CategoryResponse> response) {
-                if(response.isSuccessful()&& response.body()!=null){
-                   networkCallBackCategory.onSuccess(response.body().getCategories());
-                }else {
-                    Log.i(TAG, "onResponse: "+response.code());
-                    networkCallBackCategory.onFailure(response.errorBody().toString());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<CategoryResponse> call, Throwable throwable) {
-                Log.e(TAG, "onFailure: " + throwable.getMessage());
-
-            }
-        });*/
 
 
 
@@ -266,7 +247,7 @@ public class MealRemoteDataSource {
             }
         });
     }*/
-}
+
 
 
 

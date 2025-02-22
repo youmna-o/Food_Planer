@@ -1,11 +1,14 @@
 package com.example.finalp.search.view;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +17,7 @@ import com.example.finalp.R;
 import com.example.finalp.home.view.AreaAdapter;
 import com.example.finalp.home.view.CategoryAdapter;
 import com.example.finalp.home.view.onClickAdapter;
+import com.example.finalp.meals_of_category.view.MealsOfCategoryFragment;
 import com.example.finalp.model.Area;
 import com.example.finalp.model.Category;
 import com.example.finalp.model.Ingredient;
@@ -33,6 +37,7 @@ public class SearchFragment extends Fragment implements SearchView, onClickAdapt
     private CategoryAdapter catadapter;
     private AreaAdapter areaAdapter ;
     private SearchPresenter presenter;
+    private IngredientAdapter ingredientAdapter;
     ChipGroup chipGroup ;
 
     public SearchFragment() {
@@ -49,6 +54,8 @@ public class SearchFragment extends Fragment implements SearchView, onClickAdapt
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.filter, container, false);
 
+
+
         chipGroup=view.findViewById(R.id.chipGroup);
         chipGroup.setSingleSelection(true);
         // setUpFilter();
@@ -61,12 +68,12 @@ public class SearchFragment extends Fragment implements SearchView, onClickAdapt
         searchRecyclerView.setLayoutManager(gridLayoutManager);
 
 
-
+        // ingredientAdapter=new IngredientAdapter(getContext(),new ArrayList<>() ,this);
+         //searchRecyclerView.setAdapter(ingredientAdapter);
          // areaAdapter=new AreaAdapter(getContext(),new ArrayList<>() ,this);
           //searchRecyclerView.setAdapter(areaAdapter);
          catadapter = new CategoryAdapter(getContext(), new ArrayList<>(), this);
         searchRecyclerView.setAdapter(catadapter);
-
 
         presenter = new SearchPresenter(this, Repo.getInstance(new MealRemoteDataSource(), MealLocalDataSource.getInstance(getContext())));
         presenter.getAllMeals();
@@ -95,7 +102,8 @@ public class SearchFragment extends Fragment implements SearchView, onClickAdapt
 
     @Override
     public void setIngredient(List<Ingredient> ingredientList) {
-
+        //ingredientAdapter.setIngredientList(ingredientList);
+        //ingredientAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -105,11 +113,16 @@ public class SearchFragment extends Fragment implements SearchView, onClickAdapt
 
     @Override
     public void onCategoryClick(Category category) {
+        Log.i("TAG", "onCategoryClick: "+category.getStrCategory());
+         }
+
+    @Override
+    public void onAreaClick(Area area) {
 
     }
 
     @Override
-    public void onAreaClick(Area area) {
+    public void onIngClick(Ingredient ingredient) {
 
     }
 }

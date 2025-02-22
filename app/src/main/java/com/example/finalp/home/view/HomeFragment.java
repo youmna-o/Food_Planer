@@ -9,6 +9,7 @@ import androidx.navigation.NavController;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import com.example.finalp.favorites.view.MyView;
 import com.example.finalp.home.presenter.HomePresenter;
 import com.example.finalp.model.Area;
 import com.example.finalp.model.Category;
+import com.example.finalp.model.Ingredient;
 import com.example.finalp.model.Meal;
 import com.example.finalp.model.Repo;
 import com.example.finalp.model.database.MealLocalDataSource;
@@ -136,11 +138,16 @@ public class HomeFragment extends Fragment implements MyView,onClickAdapter {
 
     @Override
     public void onCategoryClick(Category category) {
-
+        Log.i("TAG", "onCategoryClick: "+category.getStrCategory());
     }
 
     @Override
     public void onAreaClick(Area area) {
+
+    }
+
+    @Override
+    public void onIngClick(Ingredient ingredient) {
 
     }
 }
