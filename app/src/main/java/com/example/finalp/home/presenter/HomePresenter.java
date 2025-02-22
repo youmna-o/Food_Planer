@@ -1,16 +1,11 @@
 package com.example.finalp.home.presenter;
 
-import static android.content.ContentValues.TAG;
-
-import android.util.Log;
-
 import com.example.finalp.favorites.view.MyView;
 import com.example.finalp.model.Area;
 import com.example.finalp.model.Category;
 import com.example.finalp.model.Ingredient;
 import com.example.finalp.model.Meal;
 import com.example.finalp.model.Repo;
-import com.example.finalp.model.network.NetworkCallBack;
 import com.example.finalp.model.network.NetworkCallBack_meal;
 
 import java.util.List;
@@ -63,6 +58,11 @@ public class HomePresenter {
             @Override
             public void onSuccess(List <Meal> mealList) {
               //  view.setMeal(mealList);
+            }
+
+            @Override
+            public void onSuccessgetMealsOfCategory(List<Meal> mealList) {
+                view.setMeal(mealList);
             }
 
             @Override

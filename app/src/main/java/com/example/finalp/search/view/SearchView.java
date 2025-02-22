@@ -12,5 +12,4 @@ public interface SearchView {
         void setCategory(List<Category> categoryList);
         void setArea(List<Area> areaList) ;
         void setIngredient(List<Ingredient> ingredientList);
-
 }

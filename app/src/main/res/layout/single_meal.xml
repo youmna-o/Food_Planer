@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
         android:layout_marginTop="4dp"
-        android:text="اسم المنتج"
+        android:text="namee"
         android:textAlignment="center"
         android:textColor="@android:color/black"
         android:textSize="18sp"
