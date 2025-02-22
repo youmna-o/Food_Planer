@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/login">
+    <fragment
+        android:id="@+id/login"
+        android:name="com.example.finalp.LoginFragment"
+        android:label="Login" >
+        <action
+            android:id="@+id/action_login_to_register"
+            app:destination="@id/register" />
+        <action
+            android:id="@+id/action_login_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/register"
+        android:name="com.example.finalp.RegisterFragment"
+        android:label="Register" >
+        <action
+            android:id="@+id/action_register_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.finalp.home.view.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_favoritsFragment"
+            app:destination="@id/favoritsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_planeFragment"
+            app:destination="@id/planeFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_searchFragment2"
+            app:destination="@id/searchFragment2" />
+        <action
+            android:id="@+id/action_homeFragment_to_categoryMealsFragment"
+            app:destination="@id/categoryMealsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoritsFragment"
+        android:name="com.example.finalp.favorites.view.FavoritsFragment"
+        android:label="Favorits Meal" />
+    <fragment
+        android:id="@+id/planeFragment"
+        android:name="com.example.finalp.PlaneFragment"
+        android:label="Your Plane" />
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.example.finalp.SplashFragment"
+        android:label="SplashFragment" />
+    <fragment
+        android:id="@+id/searchFragment2"
+        android:name="com.example.finalp.search.view.SearchFragment"
+        android:label="Search" />
+    <fragment
+        android:id="@+id/categoryMealsFragment"
+        android:name="com.example.finalp.CategoryMealsFragment"
+        android:label="Category">
+        <action
+            android:id="@+id/action_categoryMealsFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.example.finalp.DetailsFragment"
+        android:label="Meal Details"
+        tools:layout="@layout/fragment_details" />
+</navigation>

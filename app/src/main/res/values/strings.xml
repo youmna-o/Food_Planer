@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">FinalP</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="Categories">Categories</string>
+    <string name="countries">countries</string>
+    <string name="Loading">Loading</string>
+    <string name="Meal_Of_Day">Meal Of Day</string>
+    <string name="category">category</string>
+    <string name="country">country</string>
+    <string name="ingredient">ingredient</string>
+</resources>
