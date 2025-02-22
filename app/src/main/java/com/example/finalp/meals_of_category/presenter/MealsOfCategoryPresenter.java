@@ -30,7 +30,7 @@ public class MealsOfCategoryPresenter {
 
                 @Override
                 public void onSuccessRundom(List<Meal> rundomMealList) {
-                    view.setMeal(rundomMealList);
+
                 }
 
                 @Override
@@ -40,6 +40,7 @@ public class MealsOfCategoryPresenter {
 
                 @Override
                 public void onSuccessgetMealsOfCategory(List<Meal> mealList) {
+                    view.setMeal(mealList);
 
                 }
 

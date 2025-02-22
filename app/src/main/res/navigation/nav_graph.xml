@@ -53,10 +53,6 @@
         android:name="com.example.finalp.PlaneFragment"
         android:label="Your Plane" />
     <fragment
-        android:id="@+id/splashFragment"
-        android:name="com.example.finalp.SplashFragment"
-        android:label="SplashFragment" />
-    <fragment
         android:id="@+id/searchFragment2"
         android:name="com.example.finalp.search.view.SearchFragment"
         android:label="Search" >

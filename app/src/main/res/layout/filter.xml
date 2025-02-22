@@ -45,25 +45,29 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
+        app:singleSelection="true"
         app:layout_constraintTop_toBottomOf="@+id/searchTextInputLayout">
 
         <com.google.android.material.chip.Chip
             android:id="@+id/categorychip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/category" />
+            style="@style/Widget.Material3.Chip.Filter"
+            android:text="Category" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/areachip"
+            style="@style/Widget.Material3.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/country" />
+            android:text="Area" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/ingredchip"
+            style="@style/Widget.Material3.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/ingredient" />
+            android:text="Ingredient" />
     </com.google.android.material.chip.ChipGroup>
 
     <androidx.recyclerview.widget.RecyclerView
