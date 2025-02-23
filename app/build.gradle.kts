@@ -61,5 +61,7 @@ dependencies {
     //firebase
     implementation ("com.google.android.gms:play-services-auth:21.3.0")
     implementation ("com.google.firebase:firebase-auth:22.1.1")
+    //animation
+    implementation ("com.airbnb.android:lottie:6.0.0")
 
 }
