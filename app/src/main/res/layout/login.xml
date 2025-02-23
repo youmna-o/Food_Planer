@@ -84,7 +84,7 @@
         android:layout_height="64dp"
         android:backgroundTint="@color/green"
         android:text="Login"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintBottom_toTopOf="@+id/googlebtn"
         app:layout_constraintEnd_toEndOf="@id/guideline5"
         app:layout_constraintStart_toStartOf="@id/guideline4"
         app:layout_constraintTop_toBottomOf="@+id/password"
@@ -93,7 +93,7 @@
         />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/googlebtn"
         android:layout_width="310dp"
         android:layout_height="64dp"
         android:layout_marginBottom="4dp"
@@ -130,7 +130,7 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
+        app:layout_constraintTop_toBottomOf="@+id/googlebtn" />
 
 
     <TextView
@@ -158,8 +158,8 @@
         android:layout_width="42dp"
         android:layout_height="34dp"
         android:layout_marginStart="40dp"
-        app:layout_constraintBottom_toBottomOf="@+id/button2"
-        app:layout_constraintStart_toStartOf="@+id/button2"
+        app:layout_constraintBottom_toBottomOf="@+id/googlebtn"
+        app:layout_constraintStart_toStartOf="@+id/googlebtn"
         app:layout_constraintTop_toBottomOf="@+id/register"
         app:srcCompat="@drawable/mygoogle" />
 
