@@ -98,13 +98,6 @@ public class HomeFragment extends Fragment implements MyView,onClickAdapter {
         presenrer = new HomePresenter(this, Repo.getInstance(new MealRemoteDataSource(), MealLocalDataSource.getInstance(getContext())));
         presenrer.getAllMeals();
 
-       // String username = HomeFragmentArgs.fromBundle(getArguments()).getUser().getEmail();
-       // Toast.makeText(getContext(),username,Toast.LENGTH_LONG).show();
-
-      /*  navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView);
-        bottomNavigationView = view.findViewById(R.id.bottom_navigationView);
-        NavigationUI.setupWithNavController(bottomNavigationView, navController);
-   */
     }
 
 

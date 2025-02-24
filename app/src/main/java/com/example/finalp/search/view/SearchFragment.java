@@ -1,6 +1,5 @@
 package com.example.finalp.search.view;
 
-import  android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,18 +9,15 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavHost;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.finalp.BlankFragment;
 import com.example.finalp.R;
 import com.example.finalp.home.view.AreaAdapter;
 import com.example.finalp.home.view.CategoryAdapter;
 import com.example.finalp.home.view.onClickAdapter;
-import com.example.finalp.meals_of_category.view.MealsOfCategoryFragment;
 import com.example.finalp.model.Area;
 import com.example.finalp.model.Category;
 import com.example.finalp.model.Ingredient;

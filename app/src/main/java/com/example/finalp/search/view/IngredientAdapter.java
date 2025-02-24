@@ -30,6 +30,7 @@ import java.util.List;
 
         public void setIngredientList(List<Ingredient> ingredientList) {
             this.ingredientList = ingredientList;
+            notifyDataSetChanged();
         }
 
         List<Ingredient>ingredientList ;
@@ -59,8 +60,10 @@ import java.util.List;
 
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
             holder.title.setText(ingredientList.get(position).getStrIngredient());
-           /* Glide.with(context).load(ingredientList.get(position).g).apply(
+            Log.d("AdapterTest", "********************************************Binding: " + ingredientList.get(position).getStrIngredient());
+            /* Glide.with(context).load(ingredientList.get(position).g).apply(
                             new RequestOptions().override(200,200))
                     .placeholder(R.drawable.ic_launcher_background).error(R.drawable.ic_launcher_foreground).into(holder.image);*/
             holder.constraintLayout.setOnClickListener(new View.OnClickListener(){

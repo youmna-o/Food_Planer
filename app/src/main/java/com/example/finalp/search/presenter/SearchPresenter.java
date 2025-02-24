@@ -60,8 +60,8 @@ public class SearchPresenter {
 
 
             @Override
-            public void onSuccess(List <Meal> mealList) {
-                //  view.setMeal(mealList);
+            public void onSuccessgetMeal(Meal meal) {
+
             }
 
             @Override

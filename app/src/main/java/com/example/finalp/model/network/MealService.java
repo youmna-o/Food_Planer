@@ -6,6 +6,7 @@ package com.example.finalp.model.network;
 import com.example.finalp.model.AreaResponse;
 import com.example.finalp.model.CategoryResponse;
 import com.example.finalp.model.IngredientResponse;
+import com.example.finalp.model.Meal;
 import com.example.finalp.model.MealResponse;
 
 import retrofit2.Call;

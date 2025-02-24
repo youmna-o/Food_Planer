@@ -1,13 +1,9 @@
 package com.example.finalp.model.network;
-
 import android.util.Log;
-
-
 import com.example.finalp.model.AreaResponse;
 import com.example.finalp.model.CategoryResponse;
 import com.example.finalp.model.IngredientResponse;
 import com.example.finalp.model.MealResponse;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -108,24 +104,6 @@ public class MealRemoteDataSource {
             }
         });
 
-       /* Call<MealResponse> call6 = mealService.getRandomMeal();
-        call6.enqueue(new Callback<MealResponse>() {
-            @Override
-            public void onResponse(Call<MealResponse> call, Response<MealResponse> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    networkCallBackMeal.onSuccessgetMealsOfCategory(response.body().getMeals());
-                } else {
-                    Log.i(TAG, "onResponse: " + response.code());
-                    networkCallBackMeal.onFailure(response.errorBody().toString());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<MealResponse> call, Throwable throwable) {
-                Log.e(TAG, "onFailure: " + throwable.getMessage());
-
-            }
-        });*/
     }
    public void filterByCategory(NetworkCallBack_meal networkCallBackMeal,String cat){
        Call<MealResponse> call5 = mealService.getMealOfThisCategory(cat);
@@ -187,81 +165,13 @@ public class MealRemoteDataSource {
             }
         });
     }
-
-       /* public void getMealsByFilter(NetworkCallBack_meal networkCallBackMeal, String filterType, String filterValue) {
-            Call<MealResponse> call = null;
-
-            switch (filterType) {
-                case "Category":
-                    call = mealService.getMealOfThisCategory(filterValue);
-                    break;
-                case "Area":
-                    call = mealService.getMealsByCountry(filterValue);
-                    break;
-                case "Ingredient":
-                    call = mealService.getMealsByIngrediant(filterValue);
-                    break;
-            }
-
-            if (call != null) {
-                call.enqueue(new Callback<MealResponse>() {
-                    @Override
-                    public void onResponse(Call<MealResponse> call, Response<MealResponse> response) {
-                        if (response.isSuccessful() && response.body() != null) {
-                            networkCallBackMeal.onSuccessgetMealsOfCategory(response.body().getMeals());
-                        } else {
-                            Log.i(TAG, "onResponse: " + response.code());
-                            networkCallBackMeal.onFailure(response.errorBody().toString());
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<MealResponse> call, Throwable throwable) {
-                        Log.e(TAG, "onFailure: " + throwable.getMessage());
-                    }
-                });
-            }
-        }*/
-
-
-
-
-
-    }
-
-
-
-
-    //get all meals of category by send category name :
-      /*public  void getDataOverNetwork(NetworkCallBack_meal networkCallBackMeal){
-        Call<MealResponse> call = mealService.getMealOfThisCategory("Beef");
-        call.enqueue(new Callback<MealResponse>() {
-            @Override
-            public void onResponse(Call<MealResponse> call, Response<MealResponse> response) {
-                if(response.isSuccessful()&& response.body()!=null){
-                    networkCallBackMeal.onSuccess(response.body().getMeals());
-                }else {
-                    Log.i(TAG, "onResponse: "+response.code());
-                    networkCallBackMeal.onFailure(response.errorBody().toString());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<MealResponse> call, Throwable throwable) {
-                Log.e(TAG, "onFailure: " + throwable.getMessage());
-
-            }
-        });
-    }*/
-
-   //get details by  id :
-    /*public void getDataOverNetwork(NetworkCallBack_meal networkCallBackMeal) {
-        Call<MealResponse> call = mealService.getMealDetails("52771");
-        call.enqueue(new Callback<MealResponse>() {
+    public void getMealByID(NetworkCallBack_meal networkCallBackMeal,String id){
+        Call<MealResponse> call6 = mealService.getMealDetails(id);
+        call6.enqueue(new Callback<MealResponse>() {
             @Override
             public void onResponse(Call<MealResponse> call, Response<MealResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    networkCallBackMeal.onSuccess(response.body().getMeals());
+                    networkCallBackMeal.onSuccessgetMeal(response.body().getMeals().get(0));
                 } else {
                     Log.i(TAG, "onResponse: " + response.code());
                     networkCallBackMeal.onFailure(response.errorBody().toString());
@@ -270,80 +180,11 @@ public class MealRemoteDataSource {
 
             @Override
             public void onFailure(Call<MealResponse> call, Throwable throwable) {
-                Log.e(TAG, "onFailure: " + throwable.getMessage());
 
             }
+
         });
-    }*/
+    }
 
 
-       /* public  void getDataOverNetwork(NetworkCallBack_area  networkCallBack_area ){
-            Call<AreaResponse> call = mealService.getAreas();
-            call.enqueue(new Callback<AreaResponse>() {
-                @Override
-                public void onResponse(Call<AreaResponse> call, Response<AreaResponse> response) {
-                    if(response.isSuccessful()&& response.body()!=null){
-                        networkCallBack_area.onSuccess(response.body().getAreas());
-                    }else {
-                        Log.i(TAG, "onResponse: "+response.code());
-                        networkCallBack_area.onFailure(response.errorBody().toString());
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<AreaResponse> call, Throwable throwable) {
-                    Log.e(TAG, "onFailure: " + throwable.getMessage());
-
-                }
-            });
-
-        }
-}*/
-
-
-// shoe all category name :
-    /*public  void getDataOverNetwork(NetworkCallBack_category networkCallBackCategory){
-        Call<CategoryResponse> call = mealService.getCategory();
-        call.enqueue(new Callback<CategoryResponse>() {
-            @Override
-            public void onResponse(Call<CategoryResponse> call, Response<CategoryResponse> response) {
-                if(response.isSuccessful()&& response.body()!=null){
-                   networkCallBackCategory.onSuccess(response.body().getCategories());
-                }else {
-                    Log.i(TAG, "onResponse: "+response.code());
-                    networkCallBackCategory.onFailure(response.errorBody().toString());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<CategoryResponse> call, Throwable throwable) {
-                Log.e(TAG, "onFailure: " + throwable.getMessage());
-
-            }
-        });
-
-    }*/
-   /*public  void getDataOverNetwork(NetworkCallBack_meal networkCallBackMeal){
-        Call<MealResponse> call = mealService.getRandomMeal();
-        call.enqueue(new Callback<MealResponse>() {
-            @Override
-            public void onResponse(Call<MealResponse> call, Response<MealResponse> response) {
-                if(response.isSuccessful()&& response.body()!=null){
-                    networkCallBackMeal.onSuccess(response.body().getMeals());
-                }else {
-                    Log.i(TAG, "onResponse: "+response.code());
-                    networkCallBackMeal.onFailure(response.errorBody().toString());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<MealResponse> call, Throwable throwable) {
-                Log.e(TAG, "onFailure: " + throwable.getMessage());
-
-            }
-        });
-    }*/
-
-
-
-
+    }
