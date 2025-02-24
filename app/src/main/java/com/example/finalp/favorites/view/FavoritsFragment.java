@@ -40,7 +40,7 @@ public class FavoritsFragment extends Fragment implements NetworkCallBack_meal {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // استدعاء الدالة لجلب البيانات
+
         loadData();
     }
 
@@ -73,13 +73,10 @@ public class FavoritsFragment extends Fragment implements NetworkCallBack_meal {
 
     }
 
+
     @Override
-    public void onSuccess(List<Meal> mealList) {
-        if (isAdded() && !isDetached()) {
-            for (Meal meal : mealList) {
-                Log.i(TAG, "Product: " + meal.getStrInstructions());
-            }
-        }
+    public void onSuccessgetMeal(Meal meal) {
+
     }
 
     @Override

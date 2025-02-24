@@ -47,6 +47,9 @@ public class Repo {
     public void  getAllMealsofThisIng(NetworkCallBack_meal networkCallBackMeal,String ing){
         remoteDataSource.filterByIng(networkCallBackMeal,ing);
     }
+    public void  getAllMeaByID(NetworkCallBack_meal networkCallBackMeal,String id){
+        remoteDataSource.getMealByID(networkCallBackMeal,id);
+    }
 
     public LiveData<List<Meal>> getStore(){
         return  localDataSource.getStoredData();

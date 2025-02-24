@@ -57,15 +57,16 @@
         <action
             android:id="@+id/action_searchFragment2_to_mealsOfCategoryFragment"
             app:destination="@id/mealsOfCategoryFragment" />
-        <action
-            android:id="@+id/action_searchFragment2_to_blankFragment"
-            app:destination="@id/blankFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.example.finalp.DetailsFragment"
+        android:name="com.example.finalp.meal_details.view.DetailsFragment"
         android:label="Meal Details"
-        tools:layout="@layout/fragment_details" />
+        tools:layout="@layout/fragment_details" >
+        <argument
+            android:name="id"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/mealsOfCategoryFragment"
         android:name="com.example.finalp.meals_of_category.view.MealsOfCategoryFragment"
@@ -76,6 +77,9 @@
         <argument
             android:name="type"
             app:argType="string" />
+        <action
+            android:id="@+id/action_mealsOfCategoryFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/splashFragment"
@@ -87,14 +91,5 @@
         <action
             android:id="@+id/action_splashFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/blankFragment"
-        android:name="com.example.finalp.BlankFragment"
-        android:label="fragment_blank"
-        tools:layout="@layout/fragment_blank" >
-        <argument
-            android:name="filterKey"
-            app:argType="string" />
     </fragment>
 </navigation>

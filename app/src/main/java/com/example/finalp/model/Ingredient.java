@@ -5,7 +5,7 @@ public class Ingredient {
         public String idIngredient;
         public String strIngredient;
         public String strDescription;
-public Ingredient(){}
+public Ingredient(String ingredientName){}
     public Ingredient(String idIngredient, String strIngredient, String strDescription) {
         this.idIngredient = idIngredient;
         this.strIngredient = strIngredient;

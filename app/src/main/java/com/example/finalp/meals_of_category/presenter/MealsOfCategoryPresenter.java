@@ -27,8 +27,10 @@ public class MealsOfCategoryPresenter {
         }
         public void getMealsOfThisCat(String cat){
             repo.getAllMealsofThisCategory(new NetworkCallBack_meal() {
+
+
                 @Override
-                public void onSuccess(List<Meal> mealList) {
+                public void onSuccessgetMeal(Meal meal) {
 
                 }
 
@@ -65,8 +67,10 @@ public class MealsOfCategoryPresenter {
         }
         public void getMealsOfThisArea(String area){
         repo.getAllMealsofThisArea(new NetworkCallBack_meal() {
+
+
             @Override
-            public void onSuccess(List<Meal> mealList) {
+            public void onSuccessgetMeal(Meal meal) {
 
             }
 
@@ -103,13 +107,15 @@ public class MealsOfCategoryPresenter {
     }
         public void getMealsOfThisIng(String ing){
         repo.getAllMealsofThisIng(new NetworkCallBack_meal() {
+
             @Override
-            public void onSuccess(List<Meal> mealList) {
+            public void onSuccessgetMeal(Meal meal) {
 
             }
 
             @Override
             public void onSuccessgetMealsOfCategory(List<Meal> mealList) {
+
                 view.setMeal(mealList);
             }
 
