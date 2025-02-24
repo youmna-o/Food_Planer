@@ -1,19 +1,23 @@
 package com.example.finalp;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public class PlaneFragment extends Fragment {
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
-  Button btn ;
-    public PlaneFragment() {
+
+public class BlankFragment extends Fragment {
+
+
+    TextView textView ;
+
+    public BlankFragment() {
         // Required empty public constructor
     }
 
@@ -28,11 +32,15 @@ public class PlaneFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.date_picker, container, false);
+        return inflater.inflate(R.layout.fragment_blank, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        textView=view.findViewById(R.id.band);
+       String filter=BlankFragmentArgs.fromBundle(getArguments()).getFilterKey();
+       textView.setText(filter);
+
     }
 }

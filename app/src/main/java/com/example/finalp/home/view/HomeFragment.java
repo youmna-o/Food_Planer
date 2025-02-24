@@ -132,22 +132,22 @@ public class HomeFragment extends Fragment implements MyView,onClickAdapter {
     }
 
     @Override
-    public void onMealClick(Meal meal) {
+    public void onMealClick(Meal meal,View view) {
 
     }
 
     @Override
-    public void onCategoryClick(Category category) {
+    public void onCategoryClick(Category category,View view) {
         Log.i("TAG", "onCategoryClick: "+category.getStrCategory());
     }
 
     @Override
-    public void onAreaClick(Area area) {
+    public void onAreaClick(Area area,View view) {
 
     }
 
     @Override
-    public void onIngClick(Ingredient ingredient) {
+    public void onIngClick(Ingredient ingredient,View view) {
 
     }
 }

@@ -25,14 +25,8 @@ public class MealsOfCategoryPresenter {
 
             new Thread(() -> repo.insert(meal)).start();
         }
-        public void getAllMeals(){
-            repo.getAllMeals(new NetworkCallBack_meal() {
-
-                @Override
-                public void onSuccessRundom(List<Meal> rundomMealList) {
-
-                }
-
+        public void getMealsOfThisCat(String cat){
+            repo.getAllMealsofThisCategory(new NetworkCallBack_meal() {
                 @Override
                 public void onSuccess(List<Meal> mealList) {
 
@@ -41,7 +35,6 @@ public class MealsOfCategoryPresenter {
                 @Override
                 public void onSuccessgetMealsOfCategory(List<Meal> mealList) {
                     view.setMeal(mealList);
-
                 }
 
                 @Override
@@ -59,16 +52,96 @@ public class MealsOfCategoryPresenter {
 
                 }
 
+                @Override
+                public void onSuccessRundom(List<Meal> rundomMealList) {
 
+                }
 
                 @Override
                 public void onFailure(String error) {
 
                 }
-
-
-            });
+            }, cat);
         }
+        public void getMealsOfThisArea(String area){
+        repo.getAllMealsofThisArea(new NetworkCallBack_meal() {
+            @Override
+            public void onSuccess(List<Meal> mealList) {
+
+            }
+
+            @Override
+            public void onSuccessgetMealsOfCategory(List<Meal> mealList) {
+                view.setMeal(mealList);
+            }
+
+            @Override
+            public void onSuccessIng(List<Ingredient> ingredients) {
+
+            }
+
+            @Override
+            public void onSuccessCategory(List<Category> categorieslList) {
+
+            }
+
+            @Override
+            public void onSuccessArea(List<Area> areaList) {
+
+            }
+
+            @Override
+            public void onSuccessRundom(List<Meal> rundomMealList) {
+
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        }, area);
+    }
+        public void getMealsOfThisIng(String ing){
+        repo.getAllMealsofThisIng(new NetworkCallBack_meal() {
+            @Override
+            public void onSuccess(List<Meal> mealList) {
+
+            }
+
+            @Override
+            public void onSuccessgetMealsOfCategory(List<Meal> mealList) {
+                view.setMeal(mealList);
+            }
+
+            @Override
+            public void onSuccessIng(List<Ingredient> ingredients) {
+
+            }
+
+            @Override
+            public void onSuccessCategory(List<Category> categorieslList) {
+
+            }
+
+            @Override
+            public void onSuccessArea(List<Area> areaList) {
+
+            }
+
+            @Override
+            public void onSuccessRundom(List<Meal> rundomMealList) {
+
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        }, ing);
+    }
+
+
+
 
         public void onMealClick(Meal meal) {
             new Thread(() -> {
