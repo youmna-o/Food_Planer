@@ -30,7 +30,13 @@ public interface MealService {
     Call<MealResponse> getMealDetails(@Query("i" )String id);
 
     @GET("filter.php")
-    Call<MealResponse> getMealOfThisCategory(@Query("c") String category) ;
+    Call<MealResponse> getMealOfThisCategory(@Query("c") String category);
+
+    @GET("filter.php")
+    Call<MealResponse> getMealsByCountry(@Query("a") String country);
+
+    @GET("filter.php")
+    Call<MealResponse> getMealsByIngrediant(@Query("i") String ing);
 
     @GET("search.php")
     Call<MealResponse> getMealWithName(@Query("s") String name) ;

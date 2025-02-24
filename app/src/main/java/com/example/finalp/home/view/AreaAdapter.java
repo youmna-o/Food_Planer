@@ -62,7 +62,7 @@ import java.util.List;
             holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    listener.onAreaClick(areaList.get(position));
+                    listener.onAreaClick(areaList.get(position),view);
                 }
             });
         }

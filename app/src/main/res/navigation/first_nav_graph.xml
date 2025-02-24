@@ -10,6 +10,6 @@
         android:label="LoginFragment" />
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.finalp.RegisterFragment"
+        android:name="com.example.finalp.register.view.RegisterFragment"
         android:label="RegisterFragment" />
 </navigation>

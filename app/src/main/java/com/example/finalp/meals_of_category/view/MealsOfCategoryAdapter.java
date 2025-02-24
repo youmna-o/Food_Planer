@@ -29,6 +29,7 @@ import java.util.List;
 
         public void setMealList(List<Meal> mealList) {
             this.mealList = mealList;
+            notifyDataSetChanged();
         }
 
         List<Meal>mealList ;
@@ -66,7 +67,7 @@ import java.util.List;
                 @Override
                 public void onClick(View view) {
 
-                    listener.onMealClick(mealList.get(position));
+                    listener.onMealClick(mealList.get(position),view);
                 }
 
             });

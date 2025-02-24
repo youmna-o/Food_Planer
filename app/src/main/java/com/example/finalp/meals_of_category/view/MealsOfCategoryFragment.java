@@ -8,10 +8,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.example.finalp.BlankFragmentArgs;
 import com.example.finalp.R;
 import com.example.finalp.home.view.onClickAdapter;
 import com.example.finalp.meals_of_category.presenter.MealsOfCategoryPresenter;
@@ -29,6 +32,7 @@ import java.util.List;
 
 public class MealsOfCategoryFragment extends Fragment implements onClickAdapter, MealsOfCategoryView {
 
+    TextView textView;
    MealsOfCategoryPresenter mealsOfCategoryPresenter;
 RecyclerView recyclerView ;
 MealsOfCategoryAdapter mealsOfCategoryAdapter ;
@@ -56,35 +60,48 @@ MealsOfCategoryAdapter mealsOfCategoryAdapter ;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        String filterType = MealsOfCategoryFragmentArgs.fromBundle(getArguments()).getFilter();
+        String filter =MealsOfCategoryFragmentArgs.fromBundle(getArguments()).getType();
+
+        Log.d("//////////////////////////FilterCheck", "Filter Type: " + filterType + ", Filter Value: " + filter);
+
         recyclerView = view.findViewById(R.id.recycleofmeals);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager3 = new LinearLayoutManager(getContext());
-        layoutManager3.setOrientation(RecyclerView.HORIZONTAL);
+        layoutManager3.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(layoutManager3);
         mealsOfCategoryAdapter = new MealsOfCategoryAdapter(getContext(), new ArrayList<>(),  this);
         recyclerView.setAdapter(mealsOfCategoryAdapter);
 
-     mealsOfCategoryPresenter = new MealsOfCategoryPresenter(this, Repo.getInstance(new MealRemoteDataSource(), MealLocalDataSource.getInstance(getContext())));
-        mealsOfCategoryPresenter.getAllMeals();
+        mealsOfCategoryPresenter = new MealsOfCategoryPresenter(this, Repo.getInstance(new MealRemoteDataSource(), MealLocalDataSource.getInstance(getContext())));
+        if (filterType.equals("category")) {
+            Log.d("APIRequest", "&&&&&&&&&Fetching meals for category: " + filter);
+            mealsOfCategoryPresenter.getMealsOfThisCat(filter);
+        } else if (filterType.equals("ingredient")) {
+            mealsOfCategoryPresenter.getMealsOfThisIng(filter);
+        } else if (filterType.equals("area")) {
+            Log.d("APIRequest", "&&&&&&&&&&&&&&&&&&&Fetching meals for category: " + filter);
+            mealsOfCategoryPresenter.getMealsOfThisArea(filter);
+        }
     }
 
     @Override
-    public void onMealClick(Meal meal) {
+    public void onMealClick(Meal meal,View view) {
 
     }
 
     @Override
-    public void onCategoryClick(Category category) {
+    public void onCategoryClick(Category category,View view) {
 
     }
 
     @Override
-    public void onAreaClick(Area area) {
+    public void onAreaClick(Area area,View view) {
 
     }
 
     @Override
-    public void onIngClick(Ingredient ingredient) {
+    public void onIngClick(Ingredient ingredient,View view) {
 
     }
 
