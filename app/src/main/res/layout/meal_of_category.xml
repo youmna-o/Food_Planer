@@ -6,12 +6,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/searchTextInputLayout"
+        android:layout_width="390dp"
+        android:layout_height="85dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="16dp"
+        app:endIconMode="clear_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/searchcategoryEditText"
+            android:layout_width="366dp"
+            android:layout_height="55dp"
+            android:background="@drawable/custom_input"
+            android:drawableStart="@drawable/baseline_search_24"
+            android:gravity="bottom"
+            android:hint="search"
+
+            android:inputType="text"
+            android:textColor="@color/black"
+            android:textColorHint="#D1CFCF"
+            android:textSize="18dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleofmeals"
-        android:layout_width="409dp"
-        android:layout_height="844dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="1dp"
+        android:layout_width="416dp"
+        android:layout_height="683dp"
+        android:layout_marginTop="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/searchTextInputLayout" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

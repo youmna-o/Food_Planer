@@ -66,7 +66,7 @@ import java.util.List;
             holder.constraintLayout.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view) {
-                    listener.onIngClick(ingredientList.get(position));
+                    listener.onIngClick(ingredientList.get(position),view);
                 }
             });
         }

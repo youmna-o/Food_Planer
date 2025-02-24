@@ -5,54 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/searchTextInputLayout"
-        android:layout_width="370dp"
-        android:layout_height="70dp"
-        android:layout_marginStart="26dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
-        app:endIconMode="clear_text"
-        app:layout_constraintBottom_toTopOf="@+id/chipGroup"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/searchcategoryEditText"
-            android:layout_width="366dp"
-            android:layout_height="55dp"
-            android:background="@drawable/custom_input"
-            android:drawableStart="@drawable/baseline_search_24"
-            android:gravity="bottom"
-            android:hint="search"
-
-            android:inputType="text"
-            android:textColor="@color/black"
-            android:textColorHint="#D1CFCF"
-            android:textSize="18dp" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chipGroup"
-        android:layout_width="289dp"
-        android:layout_height="56dp"
-        android:layout_marginStart="62dp"
-        android:layout_marginEnd="60dp"
-        app:layout_constraintBottom_toTopOf="@+id/searchrecycle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:layout_width="290dp"
+        android:layout_height="81dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:singleSelection="true"
-        app:layout_constraintTop_toBottomOf="@+id/searchTextInputLayout">
+        app:layout_constraintTop_toTopOf="parent"
+        app:singleSelection="true">
 
         <com.google.android.material.chip.Chip
             android:id="@+id/categorychip"
+            style="@style/Widget.Material3.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/Widget.Material3.Chip.Filter"
             android:text="Category" />
 
         <com.google.android.material.chip.Chip
@@ -72,14 +39,15 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/searchrecycle"
-        android:layout_width="409dp"
-        android:layout_height="577dp"
+        android:layout_width="404dp"
+        android:layout_height="709dp"
         android:layout_marginStart="1dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/chipGroup" />
 

@@ -62,7 +62,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             holder.constraintLayout.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view) {
-                    listener.onCategoryClick(categoryList.get(position));
+                    listener.onCategoryClick(categoryList.get(position),view);
                 }
             });
         }
