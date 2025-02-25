@@ -8,11 +8,16 @@ import com.example.finalp.model.data_models.Meal;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+
 public class MealLocalDataSource {
     private Context context;
     private MealDAO mealDAO;
-    private LiveData<List<Meal>> storedMeals;
-
+   // private LiveData<List<Meal>> storedMeals;
+   private Flowable<List<Meal>> storedMeals;
     private static MealLocalDataSource repo = null;
 
     private MealLocalDataSource (Context _context) {
@@ -23,9 +28,8 @@ public class MealLocalDataSource {
 
     }
 
-    public LiveData<List<Meal>> getStoredData() {
+    public Flowable<List<Meal>> getStoredData() {
         return storedMeals; }
-
 
     public static MealLocalDataSource getInstance (Context _context) {
         if (repo == null) {
@@ -33,24 +37,16 @@ public class MealLocalDataSource {
         }
         return repo;
     }
-    public void delete (Meal meal) {
-        new Thread(new Runnable() {
-            @Override
-            public void run () {
-                mealDAO.deleteMeal(meal); }
-        }).start();
+    public Completable delete (Meal meal) {
+              return   mealDAO.deleteMeal(meal);
     }
-    public void insert(Meal meal) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                mealDAO.insertMeal(meal);
-                }
-        }).start();
+    public Completable insert (Meal meal) {
+        return   mealDAO.insertMeal(meal);
     }
-    public boolean isMealExist(Meal meal) {
-        return mealDAO.isMealExist(meal.getIdMeal())>0;
-
+    public Single<Boolean> isMealExist(Meal meal) {
+        return mealDAO.isMealExist(meal.getIdMeal())
+                .map(count -> count > 0)
+                .subscribeOn(Schedulers.io());
     }
 
 }

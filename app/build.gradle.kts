@@ -63,5 +63,11 @@ dependencies {
     implementation ("com.google.firebase:firebase-auth:22.1.1")
     //animation
     implementation ("com.airbnb.android:lottie:6.0.0")
-
+    //rx
+    implementation ("io.reactivex.rxjava3:rxjava:3.1.10")
+    implementation ("io.reactivex.rxjava3:rxjava:3.1.6")
+    implementation ("io.reactivex.rxjava3:rxandroid:3.0.2")
+    implementation ("com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0")
+    //rxRoom
+    implementation ("androidx.room:room-rxjava3:2.6.1");
 }

@@ -10,15 +10,19 @@ import com.example.finalp.model.data_models.Meal;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Single;
+
 @Dao
 public interface MealDAO {
     @Query("SELECT * FROM meal_table")
-    LiveData<List<Meal>> getAllMeals();
+    Flowable<List<Meal>> getAllMeals();
     @Insert
-    void insertMeal(Meal meal);
+    Completable insertMeal(Meal meal);
     @Delete
-    void deleteMeal(Meal meal);
+    Completable deleteMeal(Meal meal);
     @Query("SELECT COUNT(*) FROM meal_table WHERE idMeal = :mealID")
-    int isMealExist(String mealID);
+    Single<Integer> isMealExist(String mealID);
 }
 

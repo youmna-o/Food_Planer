@@ -71,16 +71,7 @@ public class HomePresenter {
             }
         });
     }
-    public void onMealClick(Meal meal) {
-        new Thread(() -> {
-            if (repo.isMealExist(meal)) {
-                repo.delete(meal);
 
-            } else {
-                repo.insert(meal);
-            }
-        }).start();
-    }
 
 
 

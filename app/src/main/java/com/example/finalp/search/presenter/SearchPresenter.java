@@ -43,9 +43,6 @@ public class SearchPresenter {
 
             @Override
             public void onSuccessArea(List<Area> areaList) {
-               /* for (Area area : areaList) {
-                    Log.i(TAG, "////////: " +area.strArea);
-                }*/
                 view.setArea(areaList);
             }
 
@@ -71,16 +68,7 @@ public class SearchPresenter {
         });
     }
 
-    public void onMealClick(Meal meal) {
-        new Thread(() -> {
-            if (repo.isMealExist(meal)) {
-                repo.delete(meal);
 
-            } else {
-                repo.insert(meal);
-            }
-        }).start();
-    }
 
 
 }
