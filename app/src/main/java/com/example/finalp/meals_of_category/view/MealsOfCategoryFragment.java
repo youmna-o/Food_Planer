@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,15 +15,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.finalp.BlankFragmentArgs;
+
 import com.example.finalp.R;
 import com.example.finalp.home.view.onClickAdapter;
 import com.example.finalp.meals_of_category.presenter.MealsOfCategoryPresenter;
-import com.example.finalp.model.Area;
-import com.example.finalp.model.Category;
-import com.example.finalp.model.Ingredient;
-import com.example.finalp.model.Meal;
-import com.example.finalp.model.Repo;
+import com.example.finalp.model.data_models.Area;
+import com.example.finalp.model.data_models.Category;
+import com.example.finalp.model.data_models.Ingredient;
+import com.example.finalp.model.data_models.Meal;
+import com.example.finalp.model.data_models.Repo;
 import com.example.finalp.model.database.MealLocalDataSource;
 import com.example.finalp.model.network.MealRemoteDataSource;
 
@@ -87,8 +88,17 @@ MealsOfCategoryAdapter mealsOfCategoryAdapter ;
 
     @Override
     public void onMealClick(Meal meal,View view) {
-
+        navigateToMealList(meal.getIdMeal(), view);
     }
+
+    private void navigateToMealList(String id, View view) {
+        MealsOfCategoryFragmentDirections.ActionMealsOfCategoryFragmentToDetailsFragment action =
+                MealsOfCategoryFragmentDirections.actionMealsOfCategoryFragmentToDetailsFragment(id);
+        Navigation.findNavController(view).navigate(action);
+    }
+
+
+
 
     @Override
     public void onCategoryClick(Category category,View view) {

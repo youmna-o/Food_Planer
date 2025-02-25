@@ -3,10 +3,10 @@ package com.example.finalp.model.network;
 
 
 
-import com.example.finalp.model.AreaResponse;
-import com.example.finalp.model.CategoryResponse;
-import com.example.finalp.model.IngredientResponse;
-import com.example.finalp.model.MealResponse;
+import com.example.finalp.model.data_models.AreaResponse;
+import com.example.finalp.model.data_models.CategoryResponse;
+import com.example.finalp.model.data_models.IngredientResponse;
+import com.example.finalp.model.data_models.MealResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

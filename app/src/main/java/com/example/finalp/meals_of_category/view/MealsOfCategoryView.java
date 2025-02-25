@@ -1,6 +1,6 @@
 package com.example.finalp.meals_of_category.view;
 
-import com.example.finalp.model.Meal;
+import com.example.finalp.model.data_models.Meal;
 
 import java.util.List;
 

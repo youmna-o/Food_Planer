@@ -1,13 +1,12 @@
 package com.example.finalp.meals_of_category.presenter;
 
 import com.example.finalp.meals_of_category.view.MealsOfCategoryView;
-import com.example.finalp.model.Area;
-import com.example.finalp.model.Category;
-import com.example.finalp.model.Ingredient;
-import com.example.finalp.model.Meal;
-import com.example.finalp.model.Repo;
+import com.example.finalp.model.data_models.Area;
+import com.example.finalp.model.data_models.Category;
+import com.example.finalp.model.data_models.Ingredient;
+import com.example.finalp.model.data_models.Meal;
+import com.example.finalp.model.data_models.Repo;
 import com.example.finalp.model.network.NetworkCallBack_meal;
-import com.example.finalp.search.view.SearchView;
 
 import java.util.List;
 
@@ -27,8 +26,10 @@ public class MealsOfCategoryPresenter {
         }
         public void getMealsOfThisCat(String cat){
             repo.getAllMealsofThisCategory(new NetworkCallBack_meal() {
+
+
                 @Override
-                public void onSuccess(List<Meal> mealList) {
+                public void onSuccessgetMeal(Meal meal) {
 
                 }
 
@@ -65,8 +66,10 @@ public class MealsOfCategoryPresenter {
         }
         public void getMealsOfThisArea(String area){
         repo.getAllMealsofThisArea(new NetworkCallBack_meal() {
+
+
             @Override
-            public void onSuccess(List<Meal> mealList) {
+            public void onSuccessgetMeal(Meal meal) {
 
             }
 
@@ -103,13 +106,15 @@ public class MealsOfCategoryPresenter {
     }
         public void getMealsOfThisIng(String ing){
         repo.getAllMealsofThisIng(new NetworkCallBack_meal() {
+
             @Override
-            public void onSuccess(List<Meal> mealList) {
+            public void onSuccessgetMeal(Meal meal) {
 
             }
 
             @Override
             public void onSuccessgetMealsOfCategory(List<Meal> mealList) {
+
                 view.setMeal(mealList);
             }
 

@@ -15,19 +15,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.finalp.MainActivity;
 import com.example.finalp.R;
 import com.example.finalp.favorites.view.MyView;
 import com.example.finalp.home.presenter.HomePresenter;
-import com.example.finalp.model.Area;
-import com.example.finalp.model.Category;
-import com.example.finalp.model.Ingredient;
-import com.example.finalp.model.Meal;
-import com.example.finalp.model.Repo;
+import com.example.finalp.model.data_models.Area;
+import com.example.finalp.model.data_models.Category;
+import com.example.finalp.model.data_models.Ingredient;
+import com.example.finalp.model.data_models.Meal;
+import com.example.finalp.model.data_models.Repo;
 import com.example.finalp.model.database.MealLocalDataSource;
 import com.example.finalp.model.network.MealRemoteDataSource;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,13 +96,6 @@ public class HomeFragment extends Fragment implements MyView,onClickAdapter {
         presenrer = new HomePresenter(this, Repo.getInstance(new MealRemoteDataSource(), MealLocalDataSource.getInstance(getContext())));
         presenrer.getAllMeals();
 
-       // String username = HomeFragmentArgs.fromBundle(getArguments()).getUser().getEmail();
-       // Toast.makeText(getContext(),username,Toast.LENGTH_LONG).show();
-
-      /*  navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView);
-        bottomNavigationView = view.findViewById(R.id.bottom_navigationView);
-        NavigationUI.setupWithNavController(bottomNavigationView, navController);
-   */
     }
 
 

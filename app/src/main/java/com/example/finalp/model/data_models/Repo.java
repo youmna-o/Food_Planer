@@ -1,4 +1,4 @@
-package com.example.finalp.model;
+package com.example.finalp.model.data_models;
 
 import androidx.lifecycle.LiveData;
 
@@ -46,6 +46,9 @@ public class Repo {
     }
     public void  getAllMealsofThisIng(NetworkCallBack_meal networkCallBackMeal,String ing){
         remoteDataSource.filterByIng(networkCallBackMeal,ing);
+    }
+    public void  getAllMeaByID(NetworkCallBack_meal networkCallBackMeal,String id){
+        remoteDataSource.getMealByID(networkCallBackMeal,id);
     }
 
     public LiveData<List<Meal>> getStore(){
