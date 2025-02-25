@@ -1,4 +1,4 @@
-package com.example.finalp.model;
+package com.example.finalp.model.data_models;
 
 public class Ingredient {
 

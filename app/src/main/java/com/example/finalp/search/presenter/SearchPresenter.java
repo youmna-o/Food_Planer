@@ -1,14 +1,10 @@
 package com.example.finalp.search.presenter;
 
-import static android.content.ContentValues.TAG;
-
-import android.util.Log;
-
-import com.example.finalp.model.Area;
-import com.example.finalp.model.Category;
-import com.example.finalp.model.Ingredient;
-import com.example.finalp.model.Meal;
-import com.example.finalp.model.Repo;
+import com.example.finalp.model.data_models.Area;
+import com.example.finalp.model.data_models.Category;
+import com.example.finalp.model.data_models.Ingredient;
+import com.example.finalp.model.data_models.Meal;
+import com.example.finalp.model.data_models.Repo;
 import com.example.finalp.model.network.NetworkCallBack_meal;
 import com.example.finalp.search.view.SearchView;
 

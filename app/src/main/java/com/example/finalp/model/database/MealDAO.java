@@ -6,7 +6,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-import com.example.finalp.model.Meal;
+import com.example.finalp.model.data_models.Meal;
 
 import java.util.List;
 

@@ -1,7 +1,6 @@
 package com.example.finalp.favorites.view;
 
-import com.example.finalp.model.Category;
-import com.example.finalp.model.Meal;
+import com.example.finalp.model.data_models.Category;
 
 public interface onClickAdapter {
 //void onMealClick(Meal meal);

@@ -6,7 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.example.finalp.model.Meal;
+import com.example.finalp.model.data_models.Meal;
 
 @Database(entities = {Meal.class},version = 1)
 public abstract class MealDataBase extends  RoomDatabase{
