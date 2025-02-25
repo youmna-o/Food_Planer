@@ -1,7 +1,6 @@
 package com.example.finalp.meal_details.view;
 
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,27 +13,25 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.finalp.R;
-import com.example.finalp.home.view.CategoryAdapter;
 import com.example.finalp.home.view.onClickAdapter;
 import com.example.finalp.meal_details.presenter.DetailsPresenter;
-import com.example.finalp.meals_of_category.presenter.MealsOfCategoryPresenter;
-import com.example.finalp.meals_of_category.view.MealsOfCategoryFragmentArgs;
-import com.example.finalp.model.Area;
-import com.example.finalp.model.Category;
-import com.example.finalp.model.Ingredient;
-import com.example.finalp.model.Meal;
-import com.example.finalp.model.Repo;
+import com.example.finalp.model.data_models.Area;
+import com.example.finalp.model.data_models.Category;
+import com.example.finalp.model.data_models.Ingredient;
+import com.example.finalp.model.data_models.Meal;
+import com.example.finalp.model.data_models.Repo;
 import com.example.finalp.model.database.MealLocalDataSource;
 import com.example.finalp.model.network.MealRemoteDataSource;
 import com.example.finalp.search.view.IngredientAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.Gson;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -49,6 +46,8 @@ public class DetailsFragment extends Fragment  implements  DetailsView,onClickAd
     private RecyclerView ingredientsRecycler;
     IngredientAdapter adapter ;
     private FloatingActionButton favouriteButton ,planButton;
+    boolean isFavorite = false;
+    boolean isSaved = false ;
     private DetailsPresenter presenter;
 
 
@@ -98,6 +97,31 @@ public class DetailsFragment extends Fragment  implements  DetailsView,onClickAd
 
         Log.d("TAG", "onViewCreated: //////////////////////");
 
+
+        favouriteButton.setOnClickListener(v -> {
+            isFavorite = !isFavorite;
+            if (isFavorite) {
+                favouriteButton.setImageResource(R.drawable.baseline_favorite_24);
+
+            } else {
+                favouriteButton.setImageResource(R.drawable.baseline_favorite_border_24);
+
+            }
+        });
+
+        planButton.setOnClickListener(v -> {
+            isSaved = !isSaved;
+            if (isSaved) {
+
+                planButton.setImageResource(R.drawable.baseline_playlist_add_check_24);
+
+            } else {
+
+                planButton.setImageResource(R.drawable.baseline_playlist_add_24);
+
+            }
+        });
+
     }
 
     @Override
@@ -126,28 +150,26 @@ public class DetailsFragment extends Fragment  implements  DetailsView,onClickAd
         mealName.setText(meal.strMeal);
         mealCountry.setText(meal.strArea);
         steps.setText(meal.strInstructions);
-        Log.d("vv", "*******************showMealDetailsById: "+meal.strMeal+meal.strArea+meal.getStrIngredient2());
-
-        // تحميل صورة الوجبة
+        String video=meal.getStrYoutube();
+       // Log.d("vv", "*******************showMealDetailsById: "+meal.strMeal+meal.strArea+meal.getStrIngredient2());
+        Log.d("MealData", "Meal Object: " + new Gson().toJson(meal));
         Glide.with(requireContext()).load(meal.strMealThumb).into(mealImage);
 
-        // إعداد الفيديو
-/*    String videoUrl = meal.strYoutube.replace("watch?v=", "embed/");
-      String embedHtml = "<iframe width=\"100%\" height=\"100%\" src=\"" + videoUrl + "\" frameborder=\"0\" allowfullscreen></iframe>";
-        videoWebView.loadData(embedHtml, "text/html", "utf-8");*/
+       loadYouTubeVideo(video);
 
         List<Ingredient> ingredients = new ArrayList<>();
         for (int i = 1; i <= 20; i++) {
             String ingredientName = getMealField(meal, "strIngredient" + i);
-            String measure = getMealField(meal, "strMeasure" + i);
 
-            Log.d("IngredientTest", "Ingredient " + i + ": " + ingredientName + " - " + measure);
-
-            if (ingredientName != null && !ingredientName.isEmpty()) {
-                ingredients.add(new Ingredient(ingredientName));
+            if (ingredientName != null && !ingredientName.trim().isEmpty()) {
+                Ingredient ingredient = new Ingredient(ingredientName);
+                ingredients.add(ingredient);
+                Log.d("IngredientCreation", "Added: " + ingredient.toString());
             }
         }
-        Log.d("AdapterTest", "Final Ingredients List: " + ingredients.size());
+
+        Log.d("Test", "Final Ingredients List: " + ingredients.size());
+        Log.d("Test", "Final Ingredients List: " + ingredients);
 
         adapter.setIngredientList(ingredients);
         adapter.notifyDataSetChanged();
@@ -155,17 +177,33 @@ public class DetailsFragment extends Fragment  implements  DetailsView,onClickAd
     private String getMealField(Meal meal, String fieldName) {
         try {
             Field field = meal.getClass().getDeclaredField(fieldName);
-            field.setAccessible(true); // للتأكد من الوصول حتى لو كان الحقل private
+            field.setAccessible(true);
             Object value = field.get(meal);
 
             Log.d("ReflectionTest", "Field " + fieldName + ": " + value);
-            return value != null ? value.toString() : "";  // تأكد من عدم إرجاع null
+            return (value != null && !value.toString().trim().isEmpty()) ? value.toString() : null;
         } catch (NoSuchFieldException e) {
             Log.e("ReflectionTest", "Field not found: " + fieldName);
         } catch (IllegalAccessException e) {
             Log.e("ReflectionTest", "Cannot access field: " + fieldName);
         }
-        return "";
+        return null;
     }
+    private void loadYouTubeVideo(String youtubeUrl) {
+        videoWebView.getSettings().setJavaScriptEnabled(true);
+        videoWebView.getSettings().setMediaPlaybackRequiresUserGesture(false);
+        videoWebView.setWebChromeClient(new WebChromeClient());
+        Uri uri = Uri.parse(youtubeUrl);
+        String videoId = uri.getQueryParameter("v");
 
+        if (videoId != null) {
+            String iframe = "<iframe width=\"100%\" height=\"100%\" " +
+                    "src=\"https://www.youtube.com/embed/" + videoId + "?autoplay=0&mute=0\" " +
+                    "frameborder=\"0\" allowfullscreen></iframe>";
+
+            videoWebView.loadData(iframe, "text/html", "utf-8");
+        } else {
+            videoWebView.setVisibility(View.GONE);
+        }
+    }
 }
