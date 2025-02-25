@@ -18,7 +18,7 @@ public class RegisterRepository {
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        saveUserToPrefs(email);
+                        saveUserToPrefs(email,password);
                         callback.onSuccess();
                     } else {
                         callback.onFailure(task.getException().getMessage());
@@ -26,8 +26,10 @@ public class RegisterRepository {
                 });
     }
 
-    private void saveUserToPrefs(String email) {
-        sharedPreferences.edit().putString("USER_EMAIL", email).apply();
+    private void saveUserToPrefs(String email,String password) {
+        sharedPreferences.edit().putString("EMAIL", email);
+        sharedPreferences.edit().putString("PASSWORD", password);
+        sharedPreferences.edit().putBoolean("Login", true).apply();
     }
 
     public interface RegisterCallback {
