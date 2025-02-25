@@ -20,13 +20,14 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.finalp.R;
-import com.example.finalp.home.view.onClickAdapter;
+import com.example.finalp.favorites.view.OnClickFavAdapter;
+import com.example.finalp.search.view.onClickAdapter;
 import com.example.finalp.meal_details.presenter.DetailsPresenter;
 import com.example.finalp.model.data_models.Area;
 import com.example.finalp.model.data_models.Category;
 import com.example.finalp.model.data_models.Ingredient;
 import com.example.finalp.model.data_models.Meal;
-import com.example.finalp.model.data_models.Repo;
+import com.example.finalp.model.Repo;
 import com.example.finalp.model.database.MealLocalDataSource;
 import com.example.finalp.model.network.MealRemoteDataSource;
 import com.example.finalp.search.view.IngredientAdapter;
@@ -38,18 +39,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class DetailsFragment extends Fragment  implements  DetailsView,onClickAdapter{
+public class DetailsFragment extends Fragment  implements  DetailsView  {
 
     private ImageView mealImage;
     private TextView mealName, steps, mealCountry;
     private WebView videoWebView;
     private RecyclerView ingredientsRecycler;
-    IngredientAdapter adapter ;
+    IngredientOfMealAdapter adapter ;
     private FloatingActionButton favouriteButton ,planButton;
     boolean isFavorite = false;
     boolean isSaved = false ;
     private DetailsPresenter presenter;
-
+    private Meal currentMeal;
 
 
     public DetailsFragment() {
@@ -89,7 +90,7 @@ public class DetailsFragment extends Fragment  implements  DetailsView,onClickAd
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(RecyclerView.HORIZONTAL);
         ingredientsRecycler.setLayoutManager(layoutManager);
-        adapter = new IngredientAdapter(getContext(), new ArrayList<>(), this);
+        adapter = new IngredientOfMealAdapter(getContext(), new ArrayList<>());
         ingredientsRecycler.setAdapter(adapter);
 
         presenter = new DetailsPresenter(this, Repo.getInstance(new MealRemoteDataSource(), MealLocalDataSource.getInstance(getContext())));
@@ -102,10 +103,15 @@ public class DetailsFragment extends Fragment  implements  DetailsView,onClickAd
             isFavorite = !isFavorite;
             if (isFavorite) {
                 favouriteButton.setImageResource(R.drawable.baseline_favorite_24);
+                if (currentMeal != null) {
+                    presenter.onMealClick(currentMeal);
+                }
 
             } else {
                 favouriteButton.setImageResource(R.drawable.baseline_favorite_border_24);
-
+                if (currentMeal != null) {
+                    presenter.onMealClick(currentMeal);
+                }
             }
         });
 
@@ -124,29 +130,10 @@ public class DetailsFragment extends Fragment  implements  DetailsView,onClickAd
 
     }
 
-    @Override
-    public void onMealClick(Meal meal, View view) {
-
-    }
-
-    @Override
-    public void onCategoryClick(Category category, View view) {
-
-    }
-
-    @Override
-    public void onAreaClick(Area area, View view) {
-
-    }
-
-    @Override
-    public void onIngClick(Ingredient ingredient, View view) {
-
-    }
 
     @Override
     public void showMealDetailsById(Meal meal) {
-
+        this.currentMeal = meal;
         mealName.setText(meal.strMeal);
         mealCountry.setText(meal.strArea);
         steps.setText(meal.strInstructions);
@@ -206,4 +193,6 @@ public class DetailsFragment extends Fragment  implements  DetailsView,onClickAd
             videoWebView.setVisibility(View.GONE);
         }
     }
+
+
 }

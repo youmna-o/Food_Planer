@@ -5,7 +5,7 @@ import com.example.finalp.model.data_models.Area;
 import com.example.finalp.model.data_models.Category;
 import com.example.finalp.model.data_models.Ingredient;
 import com.example.finalp.model.data_models.Meal;
-import com.example.finalp.model.data_models.Repo;
+import com.example.finalp.model.Repo;
 import com.example.finalp.model.network.NetworkCallBack_meal;
 
 import java.util.List;
@@ -147,17 +147,6 @@ public class MealsOfCategoryPresenter {
 
 
 
-
-        public void onMealClick(Meal meal) {
-            new Thread(() -> {
-                if (repo.isMealExist(meal)) {
-                    repo.delete(meal);
-
-                } else {
-                    repo.insert(meal);
-                }
-            }).start();
-        }
 
 
     }

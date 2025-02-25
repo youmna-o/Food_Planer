@@ -1,4 +1,4 @@
-package com.example.finalp.home.view;
+package com.example.finalp.favorites.view;
 
 import android.content.Context;
 import android.os.Handler;
@@ -17,29 +17,28 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.finalp.R;
-import com.example.finalp.model.data_models.Category;
-import com.example.finalp.search.view.onClickAdapter;
+import com.example.finalp.model.data_models.Meal;
 
 import java.util.List;
 
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
+
+    public class FavMealsAdapter  extends RecyclerView.Adapter<FavMealsAdapter.ViewHolder> {
         private  final Context context ;
 
-        public void setCategoryList(List<Category> categoryList) {
-            this.categoryList = categoryList;
+        public void setMealList(List<Meal> mealList) {
+            this.mealList = mealList;
+            notifyDataSetChanged();
         }
 
-        List<Category>categoryList ;
+        List<Meal>mealList ;
 
-        private onClickAdapter listener ;
+        private OnClickFavAdapter listener ;
         private Handler handler = new Handler(Looper.getMainLooper());
-        // private L
         private static final String  TAG = "Recycle";
-        //product
-        public CategoryAdapter(Context context, List<Category> categoryList , onClickAdapter listener) {
+        public FavMealsAdapter (Context context, List<Meal> mealList , OnClickFavAdapter listener) {
             this.listener=listener;
             this.context = context;
-            this.categoryList=categoryList;
+            this.mealList=mealList;
         }
 
 
@@ -47,8 +46,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-            View v = inflater.inflate(R.layout.single_category,parent,false);
-           ViewHolder holder = new ViewHolder(v);
+            View v = inflater.inflate(R.layout.fav_meal,parent,false);
+            ViewHolder holder = new ViewHolder(v);
             Log.i(TAG, "onCreateViewHolder: ");
             return holder;
 
@@ -56,27 +55,29 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-            holder.title.setText(categoryList.get(position).getStrCategory());
-            Glide.with(context).load(categoryList.get(position).getStrCategoryThumb()).apply(
+            holder.title.setText(mealList.get(position).getStrMeal());
+            Glide.with(context).load(mealList.get(position).getStrMealThumb()).apply(
                             new RequestOptions().override(200,200))
                     .placeholder(R.drawable.ic_launcher_background).error(R.drawable.ic_launcher_foreground).into(holder.image);
-            holder.constraintLayout.setOnClickListener(new View.OnClickListener(){
+            holder.icon.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view) {
-                    listener.onCategoryClick(categoryList.get(position),view);
+                    listener.onFavMealClick(mealList.get(position),view);
                 }
+
             });
         }
 
         @Override
         public int getItemCount() {
-            return categoryList.size();
+            return mealList.size();
         }
 
 
         public class ViewHolder extends RecyclerView.ViewHolder{
             ImageView image ;
             TextView title ;
+            ImageView icon ;
 
             public ConstraintLayout constraintLayout ;
             public  View layout ;
@@ -84,13 +85,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);
                 layout = itemView ;
-                image=itemView.findViewById(R.id.ingredImage);
-                title=itemView.findViewById(R.id.ingredname);
-                constraintLayout =itemView.findViewById(R.id.singleIngred);
+                image=itemView.findViewById(R.id.favimage);
+                title=itemView.findViewById(R.id.favname);
+                icon =itemView.findViewById(R.id.delete);
+                constraintLayout =itemView.findViewById(R.id.favcard);
             }
         }
-
     }
-
-
 

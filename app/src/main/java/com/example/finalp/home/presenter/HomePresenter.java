@@ -1,20 +1,20 @@
 package com.example.finalp.home.presenter;
 
-import com.example.finalp.favorites.view.MyView;
+import com.example.finalp.home.view.HomeView;
 import com.example.finalp.model.data_models.Area;
 import com.example.finalp.model.data_models.Category;
 import com.example.finalp.model.data_models.Ingredient;
 import com.example.finalp.model.data_models.Meal;
-import com.example.finalp.model.data_models.Repo;
+import com.example.finalp.model.Repo;
 import com.example.finalp.model.network.NetworkCallBack_meal;
 
 import java.util.List;
 
 public class HomePresenter {
-    private MyView view;
+    private HomeView view;
     private Repo repo;
 
-    public HomePresenter(MyView view, Repo repo){
+    public HomePresenter(HomeView view, Repo repo){
         this.view=view;
         this.repo=repo;
     }

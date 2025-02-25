@@ -35,22 +35,22 @@
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                app:layout_constraintBottom_toTopOf="@+id/catimage"
-                app:layout_constraintEnd_toEndOf="@+id/catimage"
+                app:layout_constraintBottom_toTopOf="@+id/favimage"
+                app:layout_constraintEnd_toEndOf="@+id/favimage"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="@+id/catimage"
+                app:layout_constraintStart_toStartOf="@+id/favimage"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="1.0" />
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/catimage"
+                android:id="@+id/favimage"
                 android:scaleType="centerCrop"
                 android:layout_width="match_parent"
                 android:layout_height="207dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/card_background"
-                app:layout_constraintBottom_toTopOf="@+id/catName"
+                app:layout_constraintBottom_toTopOf="@+id/favname"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -60,7 +60,7 @@
                 app:srcCompat="@drawable/img" />
 
             <TextView
-                android:id="@+id/catName"
+                android:id="@+id/favname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"

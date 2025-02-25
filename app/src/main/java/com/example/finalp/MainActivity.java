@@ -10,11 +10,12 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.finalp.favorites.view.MyView;
+
 import com.example.finalp.home.presenter.HomePresenter;
 
 import com.example.finalp.home.view.AreaAdapter;
 import com.example.finalp.home.view.CategoryAdapter;
+import com.example.finalp.home.view.HomeView;
 import com.example.finalp.home.view.MealAdapter;
 import com.example.finalp.model.data_models.Area;
 import com.example.finalp.model.data_models.Category;
@@ -25,7 +26,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements MyView {
+public class MainActivity extends AppCompatActivity implements HomeView {
     private NavController navController;
     private NavigationView navigationView;
     private BottomNavigationView bottomNavigationView;

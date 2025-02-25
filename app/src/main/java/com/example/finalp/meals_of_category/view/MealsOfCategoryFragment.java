@@ -17,13 +17,13 @@ import android.widget.TextView;
 
 
 import com.example.finalp.R;
-import com.example.finalp.home.view.onClickAdapter;
+import com.example.finalp.search.view.onClickAdapter;
 import com.example.finalp.meals_of_category.presenter.MealsOfCategoryPresenter;
 import com.example.finalp.model.data_models.Area;
 import com.example.finalp.model.data_models.Category;
 import com.example.finalp.model.data_models.Ingredient;
 import com.example.finalp.model.data_models.Meal;
-import com.example.finalp.model.data_models.Repo;
+import com.example.finalp.model.Repo;
 import com.example.finalp.model.database.MealLocalDataSource;
 import com.example.finalp.model.network.MealRemoteDataSource;
 
@@ -35,8 +35,8 @@ public class MealsOfCategoryFragment extends Fragment implements onClickAdapter,
 
     TextView textView;
    MealsOfCategoryPresenter mealsOfCategoryPresenter;
-RecyclerView recyclerView ;
-MealsOfCategoryAdapter mealsOfCategoryAdapter ;
+   RecyclerView recyclerView ;
+   MealsOfCategoryAdapter mealsOfCategoryAdapter ;
     public MealsOfCategoryFragment() {
         // Required empty public constructor
     }
@@ -88,6 +88,7 @@ MealsOfCategoryAdapter mealsOfCategoryAdapter ;
 
     @Override
     public void onMealClick(Meal meal,View view) {
+
         navigateToMealList(meal.getIdMeal(), view);
     }
 

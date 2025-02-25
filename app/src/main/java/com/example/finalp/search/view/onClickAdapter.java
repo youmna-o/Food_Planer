@@ -1,4 +1,4 @@
-package com.example.finalp.home.view;
+package com.example.finalp.search.view;
 
 import android.view.View;
 
