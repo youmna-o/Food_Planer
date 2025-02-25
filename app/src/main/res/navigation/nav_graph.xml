@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/register"
-        android:name="com.example.finalp.RegisterFragment"
+        android:name="com.example.finalp.register.view.RegisterFragment"
         android:label="Register" >
         <action
             android:id="@+id/action_register_to_homeFragment"
@@ -37,9 +37,7 @@
         <action
             android:id="@+id/action_homeFragment_to_searchFragment2"
             app:destination="@id/searchFragment2" />
-        <action
-            android:id="@+id/action_homeFragment_to_categoryMealsFragment"
-            app:destination="@id/categoryMealsFragment" />
+
         <action
             android:id="@+id/action_homeFragment_to_mealsOfCategoryFragment"
             app:destination="@id/mealsOfCategoryFragment" />
@@ -61,22 +59,28 @@
             app:destination="@id/mealsOfCategoryFragment" />
     </fragment>
     <fragment
-        android:id="@+id/categoryMealsFragment"
-        android:name="com.example.finalp.CategoryMealsFragment"
-        android:label="Category">
-        <action
-            android:id="@+id/action_categoryMealsFragment_to_detailsFragment"
-            app:destination="@id/detailsFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.example.finalp.DetailsFragment"
+        android:name="com.example.finalp.meal_details.view.DetailsFragment"
         android:label="Meal Details"
-        tools:layout="@layout/fragment_details" />
+        tools:layout="@layout/fragment_details" >
+        <argument
+            android:name="id"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/mealsOfCategoryFragment"
         android:name="com.example.finalp.meals_of_category.view.MealsOfCategoryFragment"
-        android:label="MealsOfCategoryFragment" />
+        android:label="MealsOfCategoryFragment" >
+        <argument
+            android:name="filter"
+            app:argType="string" />
+        <argument
+            android:name="type"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_mealsOfCategoryFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/splashFragment"
         android:name="com.example.finalp.splash.view.SplashFragment"

@@ -1,12 +1,13 @@
 package com.example.finalp.search.view;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -17,12 +18,11 @@ import com.example.finalp.R;
 import com.example.finalp.home.view.AreaAdapter;
 import com.example.finalp.home.view.CategoryAdapter;
 import com.example.finalp.home.view.onClickAdapter;
-import com.example.finalp.meals_of_category.view.MealsOfCategoryFragment;
-import com.example.finalp.model.Area;
-import com.example.finalp.model.Category;
-import com.example.finalp.model.Ingredient;
-import com.example.finalp.model.Meal;
-import com.example.finalp.model.Repo;
+import com.example.finalp.model.data_models.Area;
+import com.example.finalp.model.data_models.Category;
+import com.example.finalp.model.data_models.Ingredient;
+import com.example.finalp.model.data_models.Meal;
+import com.example.finalp.model.data_models.Repo;
 import com.example.finalp.model.database.MealLocalDataSource;
 import com.example.finalp.model.network.MealRemoteDataSource;
 import com.example.finalp.search.presenter.SearchPresenter;
@@ -55,8 +55,6 @@ public class SearchFragment extends Fragment implements SearchView, onClickAdapt
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.filter, container, false);
 
-
-
         chipGroup=view.findViewById(R.id.chipGroup);
         chipGroup.setSingleSelection(true);
          setUpFilter();
@@ -67,12 +65,6 @@ public class SearchFragment extends Fragment implements SearchView, onClickAdapt
         searchRecyclerView.setLayoutManager(layoutManager);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         searchRecyclerView.setLayoutManager(gridLayoutManager);
-
-
-        // ingredientAdapter=new IngredientAdapter(getContext(),new ArrayList<>() ,this);
-         //searchRecyclerView.setAdapter(ingredientAdapter);
-         // areaAdapter=new AreaAdapter(getContext(),new ArrayList<>() ,this);
-          //searchRecyclerView.setAdapter(areaAdapter);
          catadapter = new CategoryAdapter(getContext(), new ArrayList<>(), this);
         searchRecyclerView.setAdapter(catadapter);
 
@@ -84,6 +76,11 @@ public class SearchFragment extends Fragment implements SearchView, onClickAdapt
         Log.i("TAG", "onCreateView: Fragment Created****************");
 
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
     }
 
     @Override
@@ -116,23 +113,32 @@ public class SearchFragment extends Fragment implements SearchView, onClickAdapt
     }
 
     @Override
-    public void onMealClick(Meal meal) {
+    public void onMealClick(Meal meal,View view) {
 
     }
 
     @Override
-    public void onCategoryClick(Category category) {
-        Log.i("TAG", "onCategoryClick: "+category.getStrCategory());
-         }
-
-    @Override
-    public void onAreaClick(Area area) {
+    public void onCategoryClick(Category category, View view) {
+        navigateToMealList("category",category.getStrCategory(), view);
 
     }
 
     @Override
-    public void onIngClick(Ingredient ingredient) {
+    public void onAreaClick(Area area, View view) {
+        navigateToMealList("area",area.getStrArea(), view);
+    }
 
+    @Override
+    public void onIngClick(Ingredient ingredient, View view) {
+        navigateToMealList("ingredient",ingredient.getStrIngredient(), view);
+    }
+
+    private void navigateToMealList(String type ,String value, View view) {
+        SearchFragmentDirections.ActionSearchFragment2ToMealsOfCategoryFragment myaction =
+                SearchFragmentDirections.actionSearchFragment2ToMealsOfCategoryFragment(type , value);
+       // SearchFragmentDirections.ActionSearchFragment2ToBlankFragment action =
+         //       SearchFragmentDirections.actionSearchFragment2ToBlankFragment(filterValue);
+        Navigation.findNavController(view).navigate(myaction);
     }
     private void setUpFilter() {
         Log.i("TAG", "setUpFilter: Function Called*******");

@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.finalp.R;
-import com.example.finalp.model.Category;
+import com.example.finalp.model.data_models.Category;
 
 import java.util.List;
 
@@ -62,7 +62,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             holder.constraintLayout.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view) {
-                    listener.onCategoryClick(categoryList.get(position));
+                    listener.onCategoryClick(categoryList.get(position),view);
                 }
             });
         }

@@ -13,13 +13,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.finalp.R;
-import com.example.finalp.model.Area;
-import com.example.finalp.model.Category;
-import com.example.finalp.model.Ingredient;
-import com.example.finalp.model.Meal;
-import com.example.finalp.model.Repo;
-import com.example.finalp.model.database.MealLocalDataSource;
-import com.example.finalp.model.network.MealRemoteDataSource;
+import com.example.finalp.model.data_models.Area;
+import com.example.finalp.model.data_models.Category;
+import com.example.finalp.model.data_models.Ingredient;
+import com.example.finalp.model.data_models.Meal;
 import com.example.finalp.model.network.NetworkCallBack_meal;
 
 import java.util.List;
@@ -40,7 +37,7 @@ public class FavoritsFragment extends Fragment implements NetworkCallBack_meal {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // استدعاء الدالة لجلب البيانات
+
         loadData();
     }
 
@@ -73,13 +70,10 @@ public class FavoritsFragment extends Fragment implements NetworkCallBack_meal {
 
     }
 
+
     @Override
-    public void onSuccess(List<Meal> mealList) {
-        if (isAdded() && !isDetached()) {
-            for (Meal meal : mealList) {
-                Log.i(TAG, "Product: " + meal.getStrInstructions());
-            }
-        }
+    public void onSuccessgetMeal(Meal meal) {
+
     }
 
     @Override

@@ -18,7 +18,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.finalp.R;
 
-import com.example.finalp.model.Meal;
+import com.example.finalp.model.data_models.Meal;
 
 import java.util.List;
 
@@ -65,7 +65,7 @@ import java.util.List;
                 @Override
                 public void onClick(View view) {
 
-                    listener.onMealClick(mealList.get(position));
+                    listener.onMealClick(mealList.get(position),view);
                 }
 
             });

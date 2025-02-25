@@ -17,9 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.finalp.R;
-import com.example.finalp.home.view.MealAdapter;
 import com.example.finalp.home.view.onClickAdapter;
-import com.example.finalp.model.Meal;
+import com.example.finalp.model.data_models.Meal;
 
 import java.util.List;
 
@@ -29,6 +28,7 @@ import java.util.List;
 
         public void setMealList(List<Meal> mealList) {
             this.mealList = mealList;
+            notifyDataSetChanged();
         }
 
         List<Meal>mealList ;
@@ -66,7 +66,7 @@ import java.util.List;
                 @Override
                 public void onClick(View view) {
 
-                    listener.onMealClick(mealList.get(position));
+                    listener.onMealClick(mealList.get(position),view);
                 }
 
             });

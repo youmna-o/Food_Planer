@@ -4,7 +4,7 @@ import android.content.Context;
 
 import androidx.lifecycle.LiveData;
 
-import com.example.finalp.model.Meal;
+import com.example.finalp.model.data_models.Meal;
 
 import java.util.List;
 
