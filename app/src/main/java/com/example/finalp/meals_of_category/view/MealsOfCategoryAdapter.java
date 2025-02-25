@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.finalp.R;
-import com.example.finalp.home.view.onClickAdapter;
+import com.example.finalp.search.view.onClickAdapter;
 import com.example.finalp.model.data_models.Meal;
 
 import java.util.List;
@@ -88,8 +88,8 @@ import java.util.List;
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);
                 layout = itemView ;
-                image=itemView.findViewById(R.id.catimage);
-                title=itemView.findViewById(R.id.catName);
+                image=itemView.findViewById(R.id.favimage);
+                title=itemView.findViewById(R.id.favname);
                 constraintLayout =itemView.findViewById(R.id.mealcard);
             }
         }

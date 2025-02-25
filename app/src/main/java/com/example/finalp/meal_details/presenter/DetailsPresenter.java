@@ -1,10 +1,12 @@
 package com.example.finalp.meal_details.presenter;
+import android.util.Log;
+
 import com.example.finalp.meal_details.view.DetailsView;
 import com.example.finalp.model.data_models.Area;
 import com.example.finalp.model.data_models.Category;
 import com.example.finalp.model.data_models.Ingredient;
 import com.example.finalp.model.data_models.Meal;
-import com.example.finalp.model.data_models.Repo;
+import com.example.finalp.model.Repo;
 import com.example.finalp.model.network.NetworkCallBack_meal;
 
 import java.util.List;
@@ -56,6 +58,24 @@ public class DetailsPresenter {
 
                 }
             },mealId);
+    }
+
+    public void onMealClick(Meal meal) {
+        new Thread(() -> {
+            boolean exists = repo.isMealExist(meal);
+            Log.d("MealDatabase", "Meal exists? " + exists + " -> " + meal.getIdMeal());
+
+            if (exists) {
+                repo.delete(meal);
+                Log.d("MealDatabase", "Meal deleted: " + meal.getIdMeal());
+            } else {
+                repo.insert(meal);
+                Log.d("MealDatabase", "Meal inserted: " + meal.getIdMeal());
+            }
+        }).start();
+    }
+    public void addMeal(Meal meal) {
+        new Thread(() -> repo.insert(meal)).start();
     }
 }
 

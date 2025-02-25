@@ -1,9 +1,6 @@
 package com.example.finalp.favorites.view;
 
-import static android.content.ContentValues.TAG;
-
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,18 +8,32 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.finalp.R;
+
+import com.example.finalp.favorites.presenter.FavPresenter;
+import com.example.finalp.home.view.MealAdapter;
+import com.example.finalp.search.view.onClickAdapter;
+import com.example.finalp.model.Repo;
 import com.example.finalp.model.data_models.Area;
 import com.example.finalp.model.data_models.Category;
 import com.example.finalp.model.data_models.Ingredient;
 import com.example.finalp.model.data_models.Meal;
-import com.example.finalp.model.network.NetworkCallBack_meal;
+import com.example.finalp.model.database.MealLocalDataSource;
+import com.example.finalp.model.network.MealRemoteDataSource;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class FavoritsFragment extends Fragment implements NetworkCallBack_meal {
+public class FavoritsFragment extends Fragment implements FavView, OnClickFavAdapter {
 
+    FavPresenter presenter ;
+    FavMealsAdapter adapter ;
+    RecyclerView recyclerView ;
     public FavoritsFragment() {
         // Required empty public constructor
     }
@@ -37,56 +48,37 @@ public class FavoritsFragment extends Fragment implements NetworkCallBack_meal {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        recyclerView =view.findViewById(R.id.favrecycle);
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager layoutManager3 = new LinearLayoutManager(getContext());
+        layoutManager3.setOrientation(RecyclerView.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager3);
+        adapter = new FavMealsAdapter(getContext(), new ArrayList<>(),  this);
+        recyclerView.setAdapter(adapter);
 
-        loadData();
-    }
-
-    private void loadData() {
-       // Repo repo = Repo.getInstance(MealRemoteDataSource.getInstance(), MealLocalDataSource.getInstance(getContext()));
-        //repo.getAllproducts(this);
-    }
-
-    @Override
-    public void onSuccessIng(List<Ingredient> ingredients) {
-        if (isAdded() && !isDetached()) {
-            for (Ingredient ingredient : ingredients) {
-                Log.i(TAG, "Product****************************: " + ingredient.getStrIngredient());
+        presenter = new FavPresenter(this, Repo.getInstance(new MealRemoteDataSource(), MealLocalDataSource.getInstance(getContext())));
+        LiveData<List<Meal>> liveData = presenter.getMeals();
+        liveData.observe(getViewLifecycleOwner(), new Observer<List<Meal>>() {
+            @Override
+            public void onChanged(List<Meal> mealList) {
+                adapter.setMealList(mealList);
+                adapter.notifyDataSetChanged();
             }
-        }
-    }
+        });
 
-    @Override
-    public void onSuccessCategory(List<Category> categorieslList) {
-
-    }
-
-    @Override
-    public void onSuccessArea(List<Area> areaList) {
-
-    }
-
-    @Override
-    public void onSuccessRundom(List<Meal> rundomMealList) {
 
     }
 
 
     @Override
-    public void onSuccessgetMeal(Meal meal) {
-
+    public void setFavMeal(List<Meal> mealList) {
+        adapter.setMealList(mealList);
+        adapter.notifyDataSetChanged();
     }
 
     @Override
-    public void onSuccessgetMealsOfCategory(List<Meal> mealList) {
-        for (Meal meal: mealList) {
-            Log.i(TAG, "Product****************************: " + meal.getStrInstructions());
-        }
-    }
+    public void onFavMealClick(Meal meal, View view) {
+        presenter.deleteMeals(meal);
 
-    @Override
-    public void onFailure(String error) {
-        if (isAdded() && !isDetached()) { // تأكد أن الـ Fragment لا يزال موجودًا
-            Log.e("Retrofit", "Error fetching meals: " + error);
-        }
     }
 }

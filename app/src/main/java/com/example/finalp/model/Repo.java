@@ -1,7 +1,8 @@
-package com.example.finalp.model.data_models;
+package com.example.finalp.model;
 
 import androidx.lifecycle.LiveData;
 
+import com.example.finalp.model.data_models.Meal;
 import com.example.finalp.model.database.MealLocalDataSource;
 import com.example.finalp.model.network.MealRemoteDataSource;
 import com.example.finalp.model.network.NetworkCallBack_meal;
@@ -20,17 +21,6 @@ public class Repo {
         return repo ;
 
     }
-    /*public void getAllMealsByCategory(NetworkCallBack_meal networkCallBackMeal, String categoryName) {
-        remoteDataSource.(networkCallBackMeal, categoryName);
-    }
-
-    public void getAllMealsByArea(NetworkCallBack_meal networkCallBackMeal, String areaName) {
-        remoteDataSource.getMealsByArea(networkCallBackMeal, areaName);
-    }
-
-    public void getAllMealsByIngredient(NetworkCallBack_meal networkCallBackMeal, String ingredientName) {
-        remoteDataSource.getMealsByIngredient(networkCallBackMeal, ingredientName);
-    }*/
     private  Repo(MealRemoteDataSource remoteDataSource ,  MealLocalDataSource localDataSource){
         this.localDataSource=localDataSource;
         this.remoteDataSource=remoteDataSource;

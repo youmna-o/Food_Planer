@@ -13,7 +13,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.finalp.R;
-import com.example.finalp.home.view.onClickAdapter;
 import com.example.finalp.model.data_models.Ingredient;
 
 import java.util.ArrayList;
@@ -31,20 +30,11 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
         this.context = context;
         this.listener = listener;
         if (ingredientList != null) {
-            this.ingredientList.addAll(ingredientList);  // التأكد من أن القائمة ليست null
+            this.ingredientList.addAll(ingredientList);
         }
     }
 
     public void setIngredientList(List<Ingredient> newList) {
-        if (newList == null) {
-            Log.e("AdapterUpdate", "New ingredient list is null!");
-            return;
-        }
-
-        Log.d("AdapterUpdate", "Updating ingredient list...");
-        for (Ingredient ing : newList) {
-            Log.d("AdapterUpdate", "Ingredient: " + ing.getStrIngredient());
-        }
 
         this.ingredientList.clear();
         this.ingredientList.addAll(newList);
@@ -61,19 +51,17 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        if (ingredientList == null || ingredientList.isEmpty()) {
-            Log.e("AdapterError", "ingredientList is null or empty in onBindViewHolder!");
-            return;
-        }
-
         Ingredient ingredient = ingredientList.get(position);
-        if (ingredient == null || ingredient.getStrIngredient() == null) {
-            Log.e("AdapterError", "Null ingredient at position: " + position);
-            return;
-        }
-
         holder.title.setText(ingredient.getStrIngredient());
         Log.d("inadapter", "********************************************Binding: " + ingredient.getStrIngredient());
+        holder.constraintLayout.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+
+                listener.onIngClick(ingredientList.get(position),view);
+            }
+
+        });
     }
 
     @Override
