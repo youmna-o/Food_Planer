@@ -57,14 +57,7 @@ public class FavoritsFragment extends Fragment implements FavView, OnClickFavAda
         recyclerView.setAdapter(adapter);
 
         presenter = new FavPresenter(this, Repo.getInstance(new MealRemoteDataSource(), MealLocalDataSource.getInstance(getContext())));
-        LiveData<List<Meal>> liveData = presenter.getMeals();
-        liveData.observe(getViewLifecycleOwner(), new Observer<List<Meal>>() {
-            @Override
-            public void onChanged(List<Meal> mealList) {
-                adapter.setMealList(mealList);
-                adapter.notifyDataSetChanged();
-            }
-        });
+        presenter.getMeals();
 
 
     }

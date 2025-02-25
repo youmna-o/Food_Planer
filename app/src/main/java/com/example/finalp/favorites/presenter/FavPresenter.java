@@ -8,6 +8,9 @@ import com.example.finalp.model.data_models.Meal;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+
 public class FavPresenter {
     private FavView view ;
     private Repo repo ;
@@ -16,13 +19,24 @@ public class FavPresenter {
         this.view = view;
         this.repo = repo;
     }
-    public LiveData<List<Meal>> getMeals() {
 
-        return repo.getStore();
-    }
+   public void getMeals() {
+       repo.getStore()
+               .subscribeOn(Schedulers.io())
+               .observeOn(AndroidSchedulers.mainThread()).subscribe( mealList -> {
+                   view.setFavMeal(mealList);
+               } );
+   }
     public void deleteMeals(Meal meal) {
+        repo.delete(meal)
+                .andThen(repo.getStore())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        updatedList -> view.setFavMeal(updatedList),
+                        error -> System.out.println("Error deleting product: " + error)
+                );
 
-        new Thread(() -> repo.delete(meal)).start();
     }
 
 

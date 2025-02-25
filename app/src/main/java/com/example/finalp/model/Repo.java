@@ -9,6 +9,10 @@ import com.example.finalp.model.network.NetworkCallBack_meal;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Single;
+
 public class Repo {
     MealLocalDataSource localDataSource ;
     MealRemoteDataSource remoteDataSource ;
@@ -41,18 +45,19 @@ public class Repo {
         remoteDataSource.getMealByID(networkCallBackMeal,id);
     }
 
-    public LiveData<List<Meal>> getStore(){
+
+    public Flowable<List<Meal>> getStore(){
         return  localDataSource.getStoredData();
 
     }
+    public Completable insert(Meal meal){
+        return    localDataSource.insert(meal);
+    }
+    public  Completable  delete(Meal meal){
+        return   localDataSource.delete(meal);
+    }
 
-    public void insert(Meal meal){
-      localDataSource.insert(meal);
-    }
-    public  void  delete(Meal meal){
-        localDataSource.delete(meal);
-    }
-    public boolean isMealExist(Meal meal) {
+    public Single<Boolean> isMealExist(Meal meal) {
        return localDataSource.isMealExist(meal);
     }
 }

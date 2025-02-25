@@ -47,7 +47,7 @@ public class DetailsFragment extends Fragment  implements  DetailsView  {
     private RecyclerView ingredientsRecycler;
     IngredientOfMealAdapter adapter ;
     private FloatingActionButton favouriteButton ,planButton;
-    boolean isFavorite = false;
+    boolean isFavorite ;
     boolean isSaved = false ;
     private DetailsPresenter presenter;
     private Meal currentMeal;
@@ -118,7 +118,6 @@ public class DetailsFragment extends Fragment  implements  DetailsView  {
         planButton.setOnClickListener(v -> {
             isSaved = !isSaved;
             if (isSaved) {
-
                 planButton.setImageResource(R.drawable.baseline_playlist_add_check_24);
 
             } else {

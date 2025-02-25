@@ -11,6 +11,9 @@ import com.example.finalp.model.network.NetworkCallBack_meal;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+
 public class DetailsPresenter {
         private DetailsView view;
         private Repo repo;
@@ -61,21 +64,22 @@ public class DetailsPresenter {
     }
 
     public void onMealClick(Meal meal) {
-        new Thread(() -> {
-            boolean exists = repo.isMealExist(meal);
-            Log.d("MealDatabase", "Meal exists? " + exists + " -> " + meal.getIdMeal());
-
-            if (exists) {
-                repo.delete(meal);
-                Log.d("MealDatabase", "Meal deleted: " + meal.getIdMeal());
-            } else {
-                repo.insert(meal);
-                Log.d("MealDatabase", "Meal inserted: " + meal.getIdMeal());
-            }
-        }).start();
-    }
-    public void addMeal(Meal meal) {
-        new Thread(() -> repo.insert(meal)).start();
+        repo.isMealExist(meal)
+                .observeOn(AndroidSchedulers.mainThread()) // العودة إلى الـ UI Thread
+                .subscribe(exists -> {
+                    if (exists) {
+                        repo.delete(meal)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe();
+                    } else {
+                        repo.insert(meal)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe();
+                    }
+                }, throwable -> {
+                });
     }
 }
 
