@@ -16,22 +16,22 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.finalp.R;
-import com.example.finalp.favorites.view.MyView;
 import com.example.finalp.home.presenter.HomePresenter;
 import com.example.finalp.model.data_models.Area;
 import com.example.finalp.model.data_models.Category;
 import com.example.finalp.model.data_models.Ingredient;
 import com.example.finalp.model.data_models.Meal;
-import com.example.finalp.model.data_models.Repo;
+import com.example.finalp.model.Repo;
 import com.example.finalp.model.database.MealLocalDataSource;
 import com.example.finalp.model.network.MealRemoteDataSource;
+import com.example.finalp.search.view.onClickAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class HomeFragment extends Fragment implements MyView,onClickAdapter {
+public class HomeFragment extends Fragment implements HomeView, onClickAdapter {
 
     TextView textView ;
     TextView password;
@@ -122,8 +122,9 @@ public class HomeFragment extends Fragment implements MyView,onClickAdapter {
         mealAdapter.notifyDataSetChanged();
     }
 
+
     @Override
-    public void onMealClick(Meal meal,View view) {
+    public void onMealClick(Meal meal, View view) {
 
     }
 

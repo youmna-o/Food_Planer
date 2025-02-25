@@ -19,6 +19,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.finalp.R;
 
 import com.example.finalp.model.data_models.Meal;
+import com.example.finalp.search.view.onClickAdapter;
 
 import java.util.List;
 
@@ -32,7 +33,7 @@ import java.util.List;
 
         List<Meal>mealList ;
 
-        private  onClickAdapter listener ;
+        private onClickAdapter listener ;
         private Handler handler = new Handler(Looper.getMainLooper());
         // private L
         private static final String  TAG = "Recycle";
@@ -65,7 +66,7 @@ import java.util.List;
                 @Override
                 public void onClick(View view) {
 
-                    listener.onMealClick(mealList.get(position),view);
+                  //  listener.onMealClick(mealList.get(position),view);
                 }
 
             });
@@ -87,8 +88,8 @@ import java.util.List;
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);
                 layout = itemView ;
-                image=itemView.findViewById(R.id.catimage);
-                title=itemView.findViewById(R.id.catName);
+                image=itemView.findViewById(R.id.favimage);
+                title=itemView.findViewById(R.id.favname);
                 constraintLayout =itemView.findViewById(R.id.mealcard);
             }
         }
