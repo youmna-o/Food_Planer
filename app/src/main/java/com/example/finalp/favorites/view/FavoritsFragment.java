@@ -8,21 +8,14 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.finalp.R;
 
 import com.example.finalp.favorites.presenter.FavPresenter;
-import com.example.finalp.home.view.MealAdapter;
-import com.example.finalp.search.view.onClickAdapter;
 import com.example.finalp.model.Repo;
-import com.example.finalp.model.data_models.Area;
-import com.example.finalp.model.data_models.Category;
-import com.example.finalp.model.data_models.Ingredient;
-import com.example.finalp.model.data_models.Meal;
+import com.example.finalp.model.pojos.Meal;
 import com.example.finalp.model.database.MealLocalDataSource;
 import com.example.finalp.model.network.MealRemoteDataSource;
 
@@ -61,7 +54,6 @@ public class FavoritsFragment extends Fragment implements FavView, OnClickFavAda
 
 
     }
-
 
     @Override
     public void setFavMeal(List<Meal> mealList) {

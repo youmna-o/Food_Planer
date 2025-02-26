@@ -1,12 +1,11 @@
 package com.example.finalp.model.database;
 
-import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-import com.example.finalp.model.data_models.Meal;
+import com.example.finalp.model.pojos.Meal;
 
 import java.util.List;
 
@@ -24,5 +23,8 @@ public interface MealDAO {
     Completable deleteMeal(Meal meal);
     @Query("SELECT COUNT(*) FROM meal_table WHERE idMeal = :mealID")
     Single<Integer> isMealExist(String mealID);
+
+    @Query("SELECT * FROM meal_table WHERE idMeal IN (:mealIds)")
+    Flowable<List<Meal>> getMealsByIds(List<String> mealIds);
 }
 

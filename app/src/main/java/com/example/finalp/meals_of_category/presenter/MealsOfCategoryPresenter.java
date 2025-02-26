@@ -1,10 +1,10 @@
 package com.example.finalp.meals_of_category.presenter;
 
 import com.example.finalp.meals_of_category.view.MealsOfCategoryView;
-import com.example.finalp.model.data_models.Area;
-import com.example.finalp.model.data_models.Category;
-import com.example.finalp.model.data_models.Ingredient;
-import com.example.finalp.model.data_models.Meal;
+import com.example.finalp.model.pojos.Area;
+import com.example.finalp.model.pojos.Category;
+import com.example.finalp.model.pojos.Ingredient;
+import com.example.finalp.model.pojos.Meal;
 import com.example.finalp.model.Repo;
 import com.example.finalp.model.network.NetworkCallBack_meal;
 

@@ -18,7 +18,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.finalp.R;
 
-import com.example.finalp.model.data_models.Meal;
+import com.example.finalp.model.pojos.Meal;
 import com.example.finalp.search.view.onClickAdapter;
 
 import java.util.List;

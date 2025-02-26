@@ -1,11 +1,14 @@
 package com.example.finalp.model;
 
-import androidx.lifecycle.LiveData;
+import android.util.Log;
 
-import com.example.finalp.model.data_models.Meal;
+import com.example.finalp.model.database.SavedMealDAO;
+import com.example.finalp.model.pojos.Meal;
+import com.example.finalp.model.pojos.PlanMeal;
 import com.example.finalp.model.database.MealLocalDataSource;
 import com.example.finalp.model.network.MealRemoteDataSource;
 import com.example.finalp.model.network.NetworkCallBack_meal;
+import com.example.finalp.model.pojos.SavedMeal;
 
 import java.util.List;
 
@@ -54,10 +57,54 @@ public class Repo {
         return    localDataSource.insert(meal);
     }
     public  Completable  delete(Meal meal){
+
         return   localDataSource.delete(meal);
     }
 
     public Single<Boolean> isMealExist(Meal meal) {
        return localDataSource.isMealExist(meal);
     }
+    ///////////////////////////////////////////////
+    public Flowable<List<SavedMeal>> geSaved(){
+        return  localDataSource.getSavedData();
+
+    }
+    public Completable insertSaved(SavedMeal meal){
+        return    localDataSource.insert(meal);
+    }
+    public  Completable  deleteSaved(SavedMeal meal){
+
+        return   localDataSource.delete(meal);
+    }
+
+    public Single<Boolean> isSavedMealExist(SavedMeal meal) {
+        return localDataSource.isMealExist(meal);
+    }
+////////////////////////////////////////////////
+    public Flowable<List<PlanMeal>> getStorePlans(){
+        return  localDataSource.getStoredPlans();
+
+    }
+    public Completable insertPlans(PlanMeal meal){
+        return    localDataSource.insert(meal);
+    }
+    public  Completable  deletePlans(PlanMeal meal){
+
+        return   localDataSource.delete(meal);
+    }
+
+    public Single<Boolean> isPlanExist(PlanMeal meal) {
+
+        return localDataSource.isMealExist(meal);
+    }
+    public Single<List<String>> getMealIdsByDate(String date) {
+        return localDataSource.getMealIdsByDate(date);
+    }
+
+    public Flowable<List<SavedMeal>> getMealsByIds(List<String> mealIds) {
+        Log.d("Repo", "Fetching meals for IDs: " + mealIds);
+        return localDataSource.getMealsByIds(mealIds).doOnNext(meals -> Log.d("Repo", "Meals retrieved from DB: " + meals));
+    }
+
+
 }

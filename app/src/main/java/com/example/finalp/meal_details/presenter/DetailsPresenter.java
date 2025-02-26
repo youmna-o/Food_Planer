@@ -1,13 +1,14 @@
 package com.example.finalp.meal_details.presenter;
-import android.util.Log;
 
 import com.example.finalp.meal_details.view.DetailsView;
-import com.example.finalp.model.data_models.Area;
-import com.example.finalp.model.data_models.Category;
-import com.example.finalp.model.data_models.Ingredient;
-import com.example.finalp.model.data_models.Meal;
+import com.example.finalp.model.pojos.Area;
+import com.example.finalp.model.pojos.Category;
+import com.example.finalp.model.pojos.Ingredient;
+import com.example.finalp.model.pojos.Meal;
 import com.example.finalp.model.Repo;
 import com.example.finalp.model.network.NetworkCallBack_meal;
+import com.example.finalp.model.pojos.PlanMeal;
+import com.example.finalp.model.pojos.SavedMeal;
 
 import java.util.List;
 
@@ -65,7 +66,7 @@ public class DetailsPresenter {
 
     public void onMealClick(Meal meal) {
         repo.isMealExist(meal)
-                .observeOn(AndroidSchedulers.mainThread()) // العودة إلى الـ UI Thread
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(exists -> {
                     if (exists) {
                         repo.delete(meal)
@@ -81,6 +82,43 @@ public class DetailsPresenter {
                 }, throwable -> {
                 });
     }
+    public void onMealPlaneClick(PlanMeal meal) {
+        repo.isPlanExist(meal)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(exists -> {
+                    if (exists) {
+                        repo.deletePlans(meal)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe();
+                    } else {
+                        repo.insertPlans(meal)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe();
+                    }
+                }, throwable -> {
+                });
+    }
+    public void onPlaneToSaveClick(SavedMeal meal) {
+        repo.isSavedMealExist(meal)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(exists -> {
+                    if (exists) {
+                        repo.deleteSaved(meal)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe();
+                    } else {
+                        repo.insertSaved(meal)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe();
+                    }
+                }, throwable -> {
+                });
+    }
+
 }
 
 
