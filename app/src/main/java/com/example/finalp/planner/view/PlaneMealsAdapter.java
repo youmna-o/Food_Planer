@@ -20,23 +20,24 @@ import com.example.finalp.R;
 import com.example.finalp.favorites.view.FavMealsAdapter;
 import com.example.finalp.favorites.view.OnClickFavAdapter;
 import com.example.finalp.model.pojos.Meal;
+import com.example.finalp.model.pojos.SavedMeal;
 
 import java.util.List;
 
     public class PlaneMealsAdapter  extends RecyclerView.Adapter<PlaneMealsAdapter.ViewHolder> {
         private  final Context context ;
 
-        public void setMealList(List<Meal> mealList) {
+        public void setMealList(List<SavedMeal> mealList) {
             this.mealList = mealList;
             notifyDataSetChanged();
         }
 
-        List<Meal>mealList ;
+        List<SavedMeal>mealList ;
 
         private onPlanedMealClick listener ;
         private Handler handler = new Handler(Looper.getMainLooper());
         private static final String  TAG = "Recycle";
-        public PlaneMealsAdapter (Context context, List<Meal> mealList , onPlanedMealClick listener) {
+        public PlaneMealsAdapter (Context context, List<SavedMeal> mealList , onPlanedMealClick listener) {
             this.listener=listener;
             this.context = context;
             this.mealList=mealList;

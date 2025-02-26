@@ -8,6 +8,7 @@ import com.example.finalp.model.pojos.Meal;
 import com.example.finalp.model.Repo;
 import com.example.finalp.model.network.NetworkCallBack_meal;
 import com.example.finalp.model.pojos.PlanMeal;
+import com.example.finalp.model.pojos.SavedMeal;
 
 import java.util.List;
 
@@ -92,6 +93,24 @@ public class DetailsPresenter {
                                 .subscribe();
                     } else {
                         repo.insertPlans(meal)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe();
+                    }
+                }, throwable -> {
+                });
+    }
+    public void onPlaneToSaveClick(SavedMeal meal) {
+        repo.isSavedMealExist(meal)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(exists -> {
+                    if (exists) {
+                        repo.deleteSaved(meal)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe();
+                    } else {
+                        repo.insertSaved(meal)
                                 .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .subscribe();

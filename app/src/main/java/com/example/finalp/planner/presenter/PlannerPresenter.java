@@ -5,6 +5,7 @@ import android.util.Log;
 import com.example.finalp.model.Repo;
 import com.example.finalp.model.pojos.Meal;
 import com.example.finalp.model.pojos.PlanMeal;
+import com.example.finalp.model.pojos.SavedMeal;
 import com.example.finalp.planner.view.PlannerView;
 
 import java.util.ArrayList;
@@ -54,7 +55,7 @@ public class PlannerPresenter {
                 .flatMapPublisher(mealIds -> {
                     if (mealIds.isEmpty()) {
                         Log.d("PlannerPresenter", "⚠ No meal IDs found for this date!");
-                        return Flowable.just(new ArrayList<Meal>());
+                        return Flowable.just(new ArrayList<SavedMeal>());
                     }
                     return repo.getMealsByIds(mealIds);
                 })

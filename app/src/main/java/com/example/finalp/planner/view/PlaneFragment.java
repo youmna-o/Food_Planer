@@ -23,6 +23,7 @@ import com.example.finalp.model.database.MealLocalDataSource;
 import com.example.finalp.model.network.MealRemoteDataSource;
 import com.example.finalp.model.pojos.Meal;
 import com.example.finalp.model.pojos.PlanMeal;
+import com.example.finalp.model.pojos.SavedMeal;
 import com.example.finalp.planner.presenter.PlannerPresenter;
 
 import java.util.ArrayList;
@@ -78,7 +79,6 @@ public class PlaneFragment extends Fragment implements onPlanedMealClick, Planne
                         String selectedDate = selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear;
                         Log.d("bb", "Selected Date: " + selectedDate);
 
-                        // جلب البيانات من الـ Presenter بناءً على التاريخ
                         presenter.getMealsByDate(selectedDate);
                         Log.d("DataCheck", "Fetching meals for date: " + selectedDate);
                     }, year, month, day);
@@ -88,7 +88,7 @@ public class PlaneFragment extends Fragment implements onPlanedMealClick, Planne
     }
 
     @Override
-    public void setMealsPlane(List<Meal> mealList) {
+    public void setMealsPlane(List<SavedMeal> mealList) {
         if (mealList != null && !mealList.isEmpty()) {
             Log.d("RecyclerView", "Updating with " + mealList.size() + " meals.");
             adapter.setMealList(mealList);
@@ -106,7 +106,7 @@ public class PlaneFragment extends Fragment implements onPlanedMealClick, Planne
     }
 
     @Override
-    public void onPlanedMealClick(Meal meal, View view) {
+    public void onPlanedMealClick(SavedMeal meal, View view) {
 
     }
 }

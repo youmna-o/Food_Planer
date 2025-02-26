@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.example.finalp.model.pojos.Meal;
 import com.example.finalp.model.pojos.PlanMeal;
+import com.example.finalp.model.pojos.SavedMeal;
 
 
 import java.util.List;
@@ -17,9 +18,11 @@ public class MealLocalDataSource {
     private Context context;
     private MealDAO mealDAO;
     private PlanMealDAO planeMealDAO;
+    private SavedMealDAO savedMealDAO;
 
     private Flowable<List<Meal>> storedMeals;
     private Flowable<List<PlanMeal>> storedPlans;
+    private Flowable<List<SavedMeal>> savedMeals;
     private static MealLocalDataSource repo = null;
 
     private MealLocalDataSource (Context _context) {
@@ -27,8 +30,11 @@ public class MealLocalDataSource {
         MealDataBase db = MealDataBase.getInstance (context.getApplicationContext ());
         mealDAO = db.getMeals();
         planeMealDAO=db.getPlans();
+        savedMealDAO=db.getSavedMeals();
+
         storedMeals = mealDAO.getAllMeals();
         storedPlans=planeMealDAO.getAllMeals();
+        savedMeals=savedMealDAO.getSavedMeals();
 
 
     }
@@ -41,6 +47,12 @@ public class MealLocalDataSource {
 
     public Flowable<List<Meal>> getStoredData() {
         return storedMeals;
+    }
+    public Flowable<List<PlanMeal>> getStoredPlans() {
+        return storedPlans;
+    }
+    public Flowable<List<SavedMeal>> getSavedData() {
+        return savedMeals;
     }
 
 
@@ -55,10 +67,21 @@ public class MealLocalDataSource {
                 .map(count -> count > 0)
                 .subscribeOn(Schedulers.io());
     }
+    //////////////////////////////////////////////////
 
-    public Flowable<List<PlanMeal>> getStoredPlans() {
-        return storedPlans;
+
+    public Completable delete (SavedMeal meal) {
+        return   savedMealDAO.deleteMeal(meal);
     }
+    public Completable insert (SavedMeal meal) {
+        return   savedMealDAO.insertMeal(meal);
+    }
+    public Single<Boolean> isMealExist(SavedMeal meal) {
+        return savedMealDAO.isMealExist(meal.getIdMeal())
+                .map(count -> count > 0)
+                .subscribeOn(Schedulers.io());
+    }
+//////////////////////////////////////////////////////////
 
 
     public Completable delete (PlanMeal meal) {
@@ -76,8 +99,8 @@ public class MealLocalDataSource {
     public Single<List<String>> getMealIdsByDate(String date) {
         return planeMealDAO.getMealIdsByDate(date);
     }
-    public Flowable<List<Meal>> getMealsByIds(List<String> mealIds) {
-        return mealDAO.getMealsByIds(mealIds);
+    public Flowable<List<SavedMeal>> getMealsByIds(List<String> mealIds) {
+        return savedMealDAO.getMealsByIds(mealIds);
     }
 
 

@@ -28,6 +28,7 @@ import com.example.finalp.model.Repo;
 import com.example.finalp.model.database.MealLocalDataSource;
 import com.example.finalp.model.network.MealRemoteDataSource;
 import com.example.finalp.model.pojos.PlanMeal;
+import com.example.finalp.model.pojos.SavedMeal;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 
@@ -49,6 +50,7 @@ public class DetailsFragment extends Fragment  implements  DetailsView  {
     boolean isSaved = false ;
     private DetailsPresenter presenter;
     private Meal currentMeal;
+    private SavedMeal currenMealToSAve;
 
 
     public DetailsFragment() {
@@ -94,7 +96,6 @@ public class DetailsFragment extends Fragment  implements  DetailsView  {
         presenter = new DetailsPresenter(this, Repo.getInstance(new MealRemoteDataSource(), MealLocalDataSource.getInstance(getContext())));
         presenter.getMealDetails(id);
 
-        Log.d("TAG", "onViewCreated: //////////////////////");
 
 
         favouriteButton.setOnClickListener(v -> {
@@ -134,6 +135,57 @@ public class DetailsFragment extends Fragment  implements  DetailsView  {
     @Override
     public void showMealDetailsById(Meal meal) {
         this.currentMeal = meal;
+        this.currenMealToSAve = new SavedMeal(
+                meal.getIdMeal(),
+                meal.getStrMeal(),
+                meal.getStrCategory(),
+                meal.getStrArea(),
+                meal.getStrInstructions(),
+                meal.getStrMealThumb(),
+                meal.getStrYoutube(),
+                meal.getStrIngredient1(),
+                meal.getStrIngredient2(),
+                meal.getStrIngredient3(),
+                meal.getStrIngredient4(),
+                meal.getStrIngredient5(),
+                meal.getStrIngredient6(),
+                meal.getStrIngredient7(),
+                meal.getStrIngredient8(),
+                meal.getStrIngredient9(),
+                meal.getStrIngredient10(),
+                meal.getStrIngredient11(),
+                meal.getStrIngredient12(),
+                meal.getStrIngredient13(),
+                meal.getStrIngredient14(),
+                meal.getStrIngredient15(),
+                meal.getStrIngredient16(),
+                meal.getStrIngredient17(),
+                meal.getStrIngredient18(),
+                meal.getStrIngredient19(),
+                meal.getStrIngredient20(),
+                meal.getStrMeasure1(),
+                meal.getStrMeasure2(),
+                meal.getStrMeasure3(),
+                meal.getStrMeasure4(),
+                meal.getStrMeasure5(),
+                meal.getStrMeasure6(),
+                meal.getStrMeasure7(),
+                meal.getStrMeasure8(),
+                meal.getStrMeasure9(),
+                meal.getStrMeasure10(),
+                meal.getStrMeasure11(),
+                meal.getStrMeasure12(),
+                meal.getStrMeasure13(),
+                meal.getStrMeasure14(),
+                meal.getStrMeasure15(),
+                meal.getStrMeasure16(),
+                meal.getStrMeasure17(),
+                meal.getStrMeasure18(),
+                meal.getStrMeasure19(),
+                meal.getStrMeasure20()
+        );
+
+
         mealName.setText(meal.strMeal);
         mealCountry.setText(meal.strArea);
         steps.setText(meal.strInstructions);
@@ -208,10 +260,11 @@ public class DetailsFragment extends Fragment  implements  DetailsView  {
                 getContext(),
                 (view, selectedYear, selectedMonth, selectedDay) -> {
                     String selectedDate = selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear;
-                    Log.d("date", "showDatePickerDialog: "+selectedDate);
-                    if (currentMeal != null) {
+                    if (currentMeal != null && currenMealToSAve != null) {
                         PlanMeal planMeal = new PlanMeal(currentMeal.getIdMeal(),selectedDate);
+                        presenter.onPlaneToSaveClick(currenMealToSAve);
                         presenter.onMealPlaneClick(planMeal);
+
                     }
                     },
                 year, month, day

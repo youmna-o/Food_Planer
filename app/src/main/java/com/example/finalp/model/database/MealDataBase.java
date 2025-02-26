@@ -8,12 +8,14 @@ import androidx.room.RoomDatabase;
 
 import com.example.finalp.model.pojos.Meal;
 import com.example.finalp.model.pojos.PlanMeal;
+import com.example.finalp.model.pojos.SavedMeal;
 
 
-@Database(entities = {Meal.class, PlanMeal.class},version = 2)
+@Database(entities = {Meal.class, PlanMeal.class, SavedMeal.class},version = 3)
 public abstract class MealDataBase extends  RoomDatabase{
     private  static MealDataBase instance = null ;
     public abstract  MealDAO getMeals();
+    public abstract SavedMealDAO getSavedMeals();
     public abstract PlanMealDAO getPlans();
     public static synchronized  MealDataBase getInstance(Context context) {
         if (instance == null) {
