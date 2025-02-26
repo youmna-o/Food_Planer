@@ -1,6 +1,5 @@
 package com.example.finalp.model.database;
 
-import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -13,10 +12,9 @@ import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Single;
 
-@Dao
-public interface MealDAO {
-    @Query("SELECT * FROM meal_table")
-    Flowable<List<Meal>> getAllMeals();
+public interface FavMealDAO {
+    @Query("SELECT * FROM favmeal_table")
+    Flowable<List<Meal>> getFavMeals();
     @Insert
     Completable insertMeal(Meal meal);
     @Delete
@@ -24,7 +22,4 @@ public interface MealDAO {
     @Query("SELECT COUNT(*) FROM meal_table WHERE idMeal = :mealID")
     Single<Integer> isMealExist(String mealID);
 
-    @Query("SELECT * FROM meal_table WHERE idMeal IN (:mealIds)")
-    Flowable<List<Meal>> getMealsByIds(List<String> mealIds);
 }
-

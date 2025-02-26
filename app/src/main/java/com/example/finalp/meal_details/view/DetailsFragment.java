@@ -1,5 +1,6 @@
 package com.example.finalp.meal_details.view;
 
+import android.app.DatePickerDialog;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -20,22 +21,19 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.finalp.R;
-import com.example.finalp.favorites.view.OnClickFavAdapter;
-import com.example.finalp.search.view.onClickAdapter;
 import com.example.finalp.meal_details.presenter.DetailsPresenter;
-import com.example.finalp.model.data_models.Area;
-import com.example.finalp.model.data_models.Category;
-import com.example.finalp.model.data_models.Ingredient;
-import com.example.finalp.model.data_models.Meal;
+import com.example.finalp.model.pojos.Ingredient;
+import com.example.finalp.model.pojos.Meal;
 import com.example.finalp.model.Repo;
 import com.example.finalp.model.database.MealLocalDataSource;
 import com.example.finalp.model.network.MealRemoteDataSource;
-import com.example.finalp.search.view.IngredientAdapter;
+import com.example.finalp.model.pojos.PlanMeal;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -47,7 +45,7 @@ public class DetailsFragment extends Fragment  implements  DetailsView  {
     private RecyclerView ingredientsRecycler;
     IngredientOfMealAdapter adapter ;
     private FloatingActionButton favouriteButton ,planButton;
-    boolean isFavorite ;
+    boolean isFavorite = false;
     boolean isSaved = false ;
     private DetailsPresenter presenter;
     private Meal currentMeal;
@@ -116,8 +114,11 @@ public class DetailsFragment extends Fragment  implements  DetailsView  {
         });
 
         planButton.setOnClickListener(v -> {
+            showDatePickerDialog();
+
             isSaved = !isSaved;
             if (isSaved) {
+
                 planButton.setImageResource(R.drawable.baseline_playlist_add_check_24);
 
             } else {
@@ -137,11 +138,11 @@ public class DetailsFragment extends Fragment  implements  DetailsView  {
         mealCountry.setText(meal.strArea);
         steps.setText(meal.strInstructions);
         String video=meal.getStrYoutube();
-       // Log.d("vv", "*******************showMealDetailsById: "+meal.strMeal+meal.strArea+meal.getStrIngredient2());
+        // Log.d("vv", "*******************showMealDetailsById: "+meal.strMeal+meal.strArea+meal.getStrIngredient2());
         Log.d("MealData", "Meal Object: " + new Gson().toJson(meal));
         Glide.with(requireContext()).load(meal.strMealThumb).into(mealImage);
 
-       loadYouTubeVideo(video);
+        //  loadYouTubeVideo(video);
 
         List<Ingredient> ingredients = new ArrayList<>();
         for (int i = 1; i <= 20; i++) {
@@ -192,6 +193,34 @@ public class DetailsFragment extends Fragment  implements  DetailsView  {
             videoWebView.setVisibility(View.GONE);
         }
     }
+    private void showDatePickerDialog() {
+        Calendar calendar = Calendar.getInstance();
+        long today = calendar.getTimeInMillis();
 
+        calendar.add(Calendar.DAY_OF_MONTH, 7);
+        long weekAhead = calendar.getTimeInMillis();
+        calendar = Calendar.getInstance();
+
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                getContext(),
+                (view, selectedYear, selectedMonth, selectedDay) -> {
+                    String selectedDate = selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear;
+                    Log.d("date", "showDatePickerDialog: "+selectedDate);
+                    if (currentMeal != null) {
+                        PlanMeal planMeal = new PlanMeal(currentMeal.getIdMeal(),selectedDate);
+                        presenter.onMealPlaneClick(planMeal);
+                    }
+                    },
+                year, month, day
+        );
+
+        datePickerDialog.getDatePicker().setMinDate(today);
+        datePickerDialog.getDatePicker().setMaxDate(weekAhead);
+
+        datePickerDialog.show();
+    }
 
 }

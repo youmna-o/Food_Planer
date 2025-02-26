@@ -1,4 +1,4 @@
-package com.example.finalp.model.data_models;
+package com.example.finalp.model.pojos;
 
 import java.util.List;
 

@@ -13,7 +13,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.finalp.R;
-import com.example.finalp.model.data_models.Ingredient;
+import com.example.finalp.model.pojos.Ingredient;
 
 import java.util.ArrayList;
 import java.util.List;

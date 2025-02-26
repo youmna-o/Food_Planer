@@ -14,7 +14,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.finalp.R;
-import com.example.finalp.model.data_models.Area;
+import com.example.finalp.model.pojos.Area;
 import com.example.finalp.search.view.onClickAdapter;
 
 import java.util.List;

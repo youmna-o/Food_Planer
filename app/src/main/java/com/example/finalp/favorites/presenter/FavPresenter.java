@@ -1,12 +1,8 @@
 package com.example.finalp.favorites.presenter;
 
-import androidx.lifecycle.LiveData;
-
 import com.example.finalp.favorites.view.FavView;
 import com.example.finalp.model.Repo;
-import com.example.finalp.model.data_models.Meal;
-
-import java.util.List;
+import com.example.finalp.model.pojos.Meal;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.schedulers.Schedulers;

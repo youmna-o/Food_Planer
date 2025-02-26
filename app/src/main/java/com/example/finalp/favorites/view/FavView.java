@@ -1,6 +1,6 @@
 package com.example.finalp.favorites.view;
 
-import com.example.finalp.model.data_models.Meal;
+import com.example.finalp.model.pojos.Meal;
 
 import java.util.List;
 

@@ -48,7 +48,7 @@
         android:label="Favorits Meal" />
     <fragment
         android:id="@+id/planeFragment"
-        android:name="com.example.finalp.PlaneFragment"
+        android:name="com.example.finalp.planner.view.PlaneFragment"
         android:label="Your Plane" />
     <fragment
         android:id="@+id/searchFragment2"

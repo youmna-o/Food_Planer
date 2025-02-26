@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.finalp.R;
-import com.example.finalp.model.data_models.Category;
+import com.example.finalp.model.pojos.Category;
 import com.example.finalp.search.view.onClickAdapter;
 
 import java.util.List;
