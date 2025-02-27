@@ -61,33 +61,6 @@ public class MainActivity extends AppCompatActivity implements HomeView {
 
 
 
-        /* favButton = findViewById(R.id.favButton);
-         actionButton = findViewById(R.id.actionButton);
-         favButton.setOnClickListener(v -> {
-            isFavorite = !isFavorite;
-            if (isFavorite) {
-                favButton.setImageResource(R.drawable.baseline_favorite_24);
-
-            } else {
-                favButton.setImageResource(R.drawable.baseline_favorite_border_24);
-
-            }
-        });
-
-        actionButton.setOnClickListener(v -> {
-            isSaved = !isSaved;
-            if (isSaved) {
-
-                actionButton.setImageResource(R.drawable.baseline_playlist_add_check_24);
-                //favButton.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.red)));
-            } else {
-
-                actionButton.setImageResource(R.drawable.baseline_playlist_add_24);
-                //favButton.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.purple_500)));
-            }
-        });*/
-
-
 
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
@@ -134,8 +107,6 @@ public class MainActivity extends AppCompatActivity implements HomeView {
 
     @Override
     public void setCategory(List<Category> categoryList) {
-       // adapter =new CategoryAdapter(this , new ArrayList<Category>(),this);
-        //recyclerView.setAdapter(adapter);
         categoryAdapter.setCategoryList(categoryList);
         categoryAdapter.notifyDataSetChanged();
 
