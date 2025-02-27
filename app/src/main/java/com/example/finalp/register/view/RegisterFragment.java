@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 
 import com.example.finalp.R;
@@ -54,7 +55,8 @@ public class RegisterFragment extends Fragment implements RegisterView {
     @Override
     public void onRegisterSuccess() {
         Toast.makeText(getContext(), "Registration Successful", Toast.LENGTH_SHORT).show();
-        Navigation.findNavController(requireView()).navigate(R.id.action_register_to_homeFragment);
+        Navigation.findNavController(requireView()).navigate(R.id.action_register_to_homeFragment, null,
+                new NavOptions.Builder().setPopUpTo(R.id.register, true).build());
     }
 
     @Override

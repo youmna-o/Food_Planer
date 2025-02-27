@@ -142,4 +142,5 @@ public class HomeFragment extends Fragment implements HomeView, onClickAdapter {
     public void onIngClick(Ingredient ingredient,View view) {
 
     }
+
 }

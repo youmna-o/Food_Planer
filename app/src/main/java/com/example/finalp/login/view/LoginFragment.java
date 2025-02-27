@@ -1,5 +1,6 @@
 package com.example.finalp.login.view;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 
 import com.example.finalp.R;
@@ -67,7 +69,7 @@ public class LoginFragment extends Fragment implements LoginView {
 
         google.setOnClickListener(view1 -> presenter.signInWithGoogle());
         sign.setOnClickListener(view1 -> navigateToRegister());
-        skip.setOnClickListener(view1 -> navigateToHome());
+        skip.setOnClickListener(view1 -> showSkipDialog());
         loginbtn.setOnClickListener(view1 -> {
             String email = emailtxt.getText().toString().trim();
             String password = passwordtxt.getText().toString().trim();
@@ -87,7 +89,8 @@ public class LoginFragment extends Fragment implements LoginView {
 
     @Override
     public void navigateToHome() {
-        Navigation.findNavController(requireView()).navigate(R.id.action_login_to_homeFragment);
+        Navigation.findNavController(requireView()).navigate(R.id.action_login_to_homeFragment, null,
+                new NavOptions.Builder().setPopUpTo(R.id.login, true).build());
     }
 
     @Override
@@ -117,5 +120,13 @@ public class LoginFragment extends Fragment implements LoginView {
                 showGoogleSignInError("Google Sign-In Failed: " + e.getMessage());
             }
         }
+    }
+    private void showSkipDialog() {
+        new AlertDialog.Builder(requireContext())
+                .setTitle("Skip Login?")
+                .setMessage("If you don't log in, you will lose the favorite and plan features.")
+                .setPositiveButton("OK", (dialog, which) -> navigateToHome())
+                .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
+                .show();
     }
 }

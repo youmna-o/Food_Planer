@@ -26,7 +26,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements HomeView {
+public class MainActivity extends AppCompatActivity  {
     private NavController navController;
     private NavigationView navigationView;
     private BottomNavigationView bottomNavigationView;
@@ -46,22 +46,6 @@ public class MainActivity extends AppCompatActivity implements HomeView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-     //   presenrer = new HomePresenter(this, Repo.getInstance(new MealRemoteDataSource(), MealLocalDataSource.getInstance(this)));
-       // presenrer.getAllMeals();
-
-       /* recyclerView = findViewById(R.id.catrecycle);
-        recyclerView.setHasFixedSize(true);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
-        layoutManager.setOrientation(RecyclerView.HORIZONTAL);
-        recyclerView.setLayoutManager(layoutManager);
-        adapter =new CategoryAdapter(this , new ArrayList<Category>(),this);
-        recyclerView.setAdapter(adapter);*/
-
-
-
-
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.fragmentscontainer);
@@ -100,29 +84,8 @@ public class MainActivity extends AppCompatActivity implements HomeView {
 
 
 
-    @Override
-    public void setMeal(List<Meal> mealList) {
 
-    }
 
-    @Override
-    public void setCategory(List<Category> categoryList) {
-        categoryAdapter.setCategoryList(categoryList);
-        categoryAdapter.notifyDataSetChanged();
-
-    }
-
-    @Override
-    public void setArea(List<Area> areaList) {
-        areaAdapter.setAreaList(areaList);
-        areaAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void setRundom(List<Meal> rundomList) {
-        rondomadapter.setMealList(rundomList);
-        rondomadapter.notifyDataSetChanged();
-    }
 
 
 }
