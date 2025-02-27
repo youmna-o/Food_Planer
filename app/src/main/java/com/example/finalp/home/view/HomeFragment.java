@@ -72,7 +72,7 @@ public class HomeFragment extends Fragment implements HomeView, onClickAdapter {
         category = view.findViewById(R.id.categoryrecycle);
         category.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        layoutManager.setOrientation(RecyclerView.HORIZONTAL);
+        layoutManager.setOrientation(RecyclerView.VERTICAL);
         category.setLayoutManager(layoutManager);
         categoryAdapter = new CategoryAdapter(getContext(), new ArrayList<>(), this);
         category.setAdapter(categoryAdapter);

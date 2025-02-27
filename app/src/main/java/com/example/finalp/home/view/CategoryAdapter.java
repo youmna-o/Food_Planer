@@ -84,9 +84,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);
                 layout = itemView ;
-                image=itemView.findViewById(R.id.ingredImage);
-                title=itemView.findViewById(R.id.ingredname);
-                constraintLayout =itemView.findViewById(R.id.singleIngred);
+                image=itemView.findViewById(R.id.imagCat);
+                title=itemView.findViewById(R.id.nameCat);
+                constraintLayout =itemView.findViewById(R.id.sigleCat);
             }
         }
 
