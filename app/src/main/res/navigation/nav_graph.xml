@@ -70,7 +70,7 @@
     <fragment
         android:id="@+id/mealsOfCategoryFragment"
         android:name="com.example.finalp.meals_of_category.view.MealsOfCategoryFragment"
-        android:label="MealsOfCategoryFragment" >
+        android:label="Meals Of This Category">
         <argument
             android:name="filter"
             app:argType="string" />
@@ -84,7 +84,7 @@
     <fragment
         android:id="@+id/splashFragment"
         android:name="com.example.finalp.splash.view.SplashFragment"
-        android:label="SplashFragment" >
+        android:label="Splash">
         <action
             android:id="@+id/action_splashFragment_to_login"
             app:destination="@id/login" />

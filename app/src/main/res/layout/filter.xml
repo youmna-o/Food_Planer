@@ -7,10 +7,12 @@
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chipGroup"
-        android:layout_width="290dp"
-        android:layout_height="81dp"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="338dp"
+        android:layout_height="76dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:singleSelection="true">
@@ -18,23 +20,35 @@
         <com.google.android.material.chip.Chip
             android:id="@+id/categorychip"
             style="@style/Widget.Material3.Chip.Filter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Category" />
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:fontFamily="@font/myfont"
+            android:text="Category"
+            android:textAppearance="@style/CustomChipTextStyle"
+            android:textColor="@color/green"
+            android:textSize="20sp" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/areachip"
             style="@style/Widget.Material3.Chip.Filter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Area" />
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:fontFamily="@font/myfont"
+            android:text="Area"
+            android:textAppearance="@style/CustomChipTextStyle"
+            android:textColor="@color/green"
+            android:textSize="20sp" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/ingredchip"
             style="@style/Widget.Material3.Chip.Filter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ingredient" />
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:fontFamily="@font/myfont"
+            android:text="Ingredient"
+            android:textAppearance="@style/CustomChipTextStyle"
+            android:textColor="@color/green"
+            android:textSize="20sp" />
     </com.google.android.material.chip.ChipGroup>
 
     <androidx.recyclerview.widget.RecyclerView
