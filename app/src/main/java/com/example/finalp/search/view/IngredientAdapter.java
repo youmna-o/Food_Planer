@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.finalp.R;
 import com.example.finalp.model.pojos.Ingredient;
 
@@ -53,7 +54,10 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Ingredient ingredient = ingredientList.get(position);
         holder.title.setText(ingredient.getStrIngredient());
-        Log.d("inadapter", "********************************************Binding: " + ingredient.getStrIngredient());
+        String imageUrl = "https://www.themealdb.com/images/ingredients/" + ingredient.getStrIngredient() + "-Small.png";
+        Glide.with(context)
+                .load(imageUrl)
+                .into(holder.image);
         holder.constraintLayout.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {

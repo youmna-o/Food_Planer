@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +52,7 @@ public class DetailsFragment extends Fragment  implements  DetailsView  {
     private DetailsPresenter presenter;
     private Meal currentMeal;
     private SavedMeal currenMealToSAve;
+
 
 
     public DetailsFragment() {
@@ -112,6 +114,7 @@ public class DetailsFragment extends Fragment  implements  DetailsView  {
                     presenter.onMealClick(currentMeal);
                 }
             }
+            favouriteButton.setEnabled(true);
         });
 
         planButton.setOnClickListener(v -> {
@@ -196,21 +199,22 @@ public class DetailsFragment extends Fragment  implements  DetailsView  {
 
         //  loadYouTubeVideo(video);
 
-        List<Ingredient> ingredients = new ArrayList<>();
+        List<Pair<String, String>> ingredientList = new ArrayList<>();
+
         for (int i = 1; i <= 20; i++) {
             String ingredientName = getMealField(meal, "strIngredient" + i);
+            String measurement = getMealField(meal, "strMeasure" + i);
 
             if (ingredientName != null && !ingredientName.trim().isEmpty()) {
-                Ingredient ingredient = new Ingredient(ingredientName);
-                ingredients.add(ingredient);
-                Log.d("IngredientCreation", "Added: " + ingredient.toString());
+                ingredientList.add(new Pair<>(ingredientName, measurement != null ? measurement : ""));
+                Log.d("IngredientCreation", "Added: " + ingredientName + " - " + measurement);
             }
         }
 
-        Log.d("Test", "Final Ingredients List: " + ingredients.size());
-        Log.d("Test", "Final Ingredients List: " + ingredients);
+        Log.d("Test", "Final Ingredients List: " + ingredientList.size());
+        Log.d("Test", "Final Ingredients List: " + ingredientList);
 
-        adapter.setIngredientList(ingredients);
+        adapter.setIngredientList(ingredientList);
         adapter.notifyDataSetChanged();
     }
     private String getMealField(Meal meal, String fieldName) {

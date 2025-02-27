@@ -2,6 +2,7 @@ package com.example.finalp.meal_details.view;
 
 import android.content.Context;
 import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.finalp.R;
 import com.example.finalp.model.pojos.Ingredient;
 
@@ -19,75 +21,55 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-    public class IngredientOfMealAdapter extends RecyclerView.Adapter<IngredientOfMealAdapter.ViewHolder> {
-        private final Context context;
-        private List<Ingredient> ingredientList = new ArrayList<>();
-        private static final String TAG = "Recycle";
+public class IngredientOfMealAdapter extends RecyclerView.Adapter<IngredientOfMealAdapter.ViewHolder> {
+    Context context;
+    ArrayList<Pair<String, String>> ingredients;
 
-        public IngredientOfMealAdapter(Context context, List<Ingredient> ingredientList) {
-            this.context = context;
-            if (ingredientList != null) {
-                this.ingredientList.addAll(ingredientList);
-            }
+    public IngredientOfMealAdapter(Context context, ArrayList<Pair<String, String>> ingredients) {
+        this.context = context;
+        this.ingredients = ingredients;
+    }
+
+    public void setIngredientList(List<Pair<String, String>> newIngredients) {
+        this.ingredients.clear();
+        this.ingredients.addAll(newIngredients);
+        notifyDataSetChanged();
+    }
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View view = inflater.inflate(R.layout.ingredient, parent, false);
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Pair<String, String> ingredientPair = ingredients.get(position);
+        holder.ingredientName.setText(ingredientPair.first);
+        holder.measurementName.setText(ingredientPair.second);
+
+        String imageUrl = "https://www.themealdb.com/images/ingredients/" + ingredientPair.first + "-Small.png";
+        Glide.with(context)
+                .load(imageUrl)
+                .into(holder.ingredientImage);
+    }
+
+    @Override
+    public int getItemCount() {
+        return ingredients.size();
+    }
+
+    class ViewHolder extends RecyclerView.ViewHolder {
+        TextView ingredientName, measurementName;
+        ImageView ingredientImage;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            ingredientName = itemView.findViewById(R.id.ingredientName);
+            measurementName = itemView.findViewById(R.id.measurementName);
+            ingredientImage = itemView.findViewById(R.id.ingredientImg);
         }
-
-        public void setIngredientList(List<Ingredient> newList) {
-            if (newList == null) {
-                Log.e("AdapterUpdate", "New ingredient list is null!");
-                return;
-            }
-
-            Log.d("AdapterUpdate", "Updating ingredient list...");
-            for (Ingredient ing : newList) {
-                Log.d("AdapterUpdate", "Ingredient: " + ing.getStrIngredient());
-            }
-
-            this.ingredientList.clear();
-            this.ingredientList.addAll(newList);
-            notifyDataSetChanged();
-        }
-
-        @NonNull
-        @Override
-        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-            View v = inflater.inflate(R.layout.single_ingredient, parent, false);
-            return new ViewHolder(v);
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-            if (ingredientList == null || ingredientList.isEmpty()) {
-                Log.e("AdapterError", "ingredientList is null or empty in onBindViewHolder!");
-                return;
-            }
-
-            Ingredient ingredient = ingredientList.get(position);
-            if (ingredient == null || ingredient.getStrIngredient() == null) {
-                Log.e("AdapterError", "Null ingredient at position: " + position);
-                return;
-            }
-
-            holder.title.setText(ingredient.getStrIngredient());
-            Log.d("inadapter", "********************************************Binding: " + ingredient.getStrIngredient());
-
-        }
-
-        @Override
-        public int getItemCount() {
-            return (ingredientList != null) ? ingredientList.size() : 0;
-        }
-
-        public static class ViewHolder extends RecyclerView.ViewHolder {
-            ImageView image;
-            TextView title;
-            ConstraintLayout constraintLayout;
-
-            public ViewHolder(@NonNull View itemView) {
-                super(itemView);
-                image = itemView.findViewById(R.id.ingredImage);
-                title = itemView.findViewById(R.id.ingredname);
-                constraintLayout = itemView.findViewById(R.id.singleIngred);
-            }
-        }
+    }
 }

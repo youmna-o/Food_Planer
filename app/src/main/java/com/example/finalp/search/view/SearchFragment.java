@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.finalp.R;
 import com.example.finalp.home.view.AreaAdapter;
 import com.example.finalp.home.view.CategoryAdapter;
+import com.example.finalp.meal_details.view.IngredientOfMealAdapter;
 import com.example.finalp.model.pojos.Area;
 import com.example.finalp.model.pojos.Category;
 import com.example.finalp.model.pojos.Ingredient;
@@ -38,6 +39,7 @@ public class SearchFragment extends Fragment implements SearchView, onClickAdapt
     private AreaAdapter areaAdapter ;
     private SearchPresenter presenter;
     private IngredientAdapter ingredientAdapter;
+    private IngredientOfMealAdapter ingredientOfMealAdapter;
     ChipGroup chipGroup ;
 
     public SearchFragment() {
