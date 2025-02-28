@@ -3,7 +3,9 @@ package com.example.finalp.model;
 import android.util.Log;
 
 import com.example.finalp.model.database.SavedMealDAO;
+import com.example.finalp.model.network.MealService;
 import com.example.finalp.model.pojos.Meal;
+import com.example.finalp.model.pojos.MealResponse;
 import com.example.finalp.model.pojos.PlanMeal;
 import com.example.finalp.model.database.MealLocalDataSource;
 import com.example.finalp.model.network.MealRemoteDataSource;
@@ -15,6 +17,7 @@ import java.util.List;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class Repo {
     MealLocalDataSource localDataSource ;
@@ -104,6 +107,19 @@ public class Repo {
     public Flowable<List<SavedMeal>> getMealsByIds(List<String> mealIds) {
         Log.d("Repo", "Fetching meals for IDs: " + mealIds);
         return localDataSource.getMealsByIds(mealIds).doOnNext(meals -> Log.d("Repo", "Meals retrieved from DB: " + meals));
+    }
+   public  Completable ClearAll(){
+        return  localDataSource.clearAllData();
+    }
+   /*public Completable ClearAll() {
+       return Completable.fromAction(() -> {
+           localDataSource.clearAllData().blockingAwait();
+       }).subscribeOn(Schedulers.io());
+   }*/
+
+    public Flowable<MealResponse> getMealsByName(String name){
+        return  remoteDataSource.getMealByName(name);
+
     }
 
 

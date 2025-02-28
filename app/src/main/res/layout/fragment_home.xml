@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -15,7 +15,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
@@ -25,49 +25,51 @@
                 android:layout_marginTop="16dp"
                 android:background="@drawable/border_edit_text_version_4"
                 android:padding="20dp"
-                android:text="Your Day Meal"
+                android:text="What’s Cooking Today"
+                android:textColor="@color/green"
+                android:fontFamily="@font/myfont"
                 android:textAlignment="center"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textSize="32sp"
+                android:textStyle="bold"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rondommealrecycle"
                 android:layout_width="match_parent"
-                android:layout_height="250dp" />
-
+                android:layout_height="279dp"
+                android:nestedScrollingEnabled="false" />
 
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"
-                android:layout_height="28dp"
-                android:text="@string/countries"
+                android:layout_height="51dp"
+                android:fontFamily="@font/myfont"
+                android:text="Countries"
+                android:layout_gravity="top"
                 android:textColor="@color/green"
-                android:textSize="24sp" />
+                android:textSize="32sp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/countryrecycle"
                 android:layout_width="match_parent"
-                android:layout_height="119dp" />
+                android:layout_height="103dp"
+                android:nestedScrollingEnabled="false" />
 
             <TextView
                 android:id="@+id/textView5"
                 android:layout_width="match_parent"
-                android:layout_height="38dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:fontFamily="@font/myfont"
                 android:text="@string/Categories"
                 android:textColor="@color/green"
-                android:textSize="24sp" />
+                android:textSize="32sp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/categoryrecycle"
                 android:layout_width="match_parent"
-                android:layout_height="305dp" />
-
-
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"/>
 
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

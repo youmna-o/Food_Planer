@@ -34,7 +34,7 @@
                 android:text="@string/Meal_Of_Day"
                 android:textAlignment="center"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toTopOf="@+id/favimage"
                 app:layout_constraintEnd_toEndOf="@+id/favimage"
                 app:layout_constraintHorizontal_bias="1.0"

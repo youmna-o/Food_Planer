@@ -1,7 +1,6 @@
 package com.example.finalp.search.view;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,9 +79,9 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            image = itemView.findViewById(R.id.ingredImage);
-            title = itemView.findViewById(R.id.ingredname);
-            constraintLayout = itemView.findViewById(R.id.singleIngred);
+            image = itemView.findViewById(R.id.imagCat);
+            title = itemView.findViewById(R.id.nameCat);
+            constraintLayout = itemView.findViewById(R.id.sigleCat);
         }
     }
 }

@@ -90,7 +90,7 @@ import java.util.List;
                 layout = itemView ;
                 image=itemView.findViewById(R.id.favimage);
                 title=itemView.findViewById(R.id.favname);
-                constraintLayout =itemView.findViewById(R.id.mealcard);
+                constraintLayout =itemView.findViewById(R.id.conMealCard);
             }
         }
 

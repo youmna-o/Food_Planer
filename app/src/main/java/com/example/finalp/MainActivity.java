@@ -1,6 +1,9 @@
 package com.example.finalp;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,133 +29,41 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements HomeView {
+public class MainActivity extends AppCompatActivity implements MainView {
     private NavController navController;
     private NavigationView navigationView;
     private BottomNavigationView bottomNavigationView;
     private DrawerLayout drawerLayout;
     MealAdapter homeAdapter;
-    HomePresenter presenrer;
-    FloatingActionButton favButton ;
-    FloatingActionButton actionButton ;
+   // HomePresenter presenrer;
+    FloatingActionButton favButton;
+    FloatingActionButton actionButton;
     boolean isFavorite = false;
-    boolean isSaved = false ;
+    boolean isSaved = false;
     RecyclerView recyclerView;
     CategoryAdapter categoryAdapter;
     AreaAdapter areaAdapter;
     MealAdapter rondomadapter;
+    MainPresenter myPresenter ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-     //   presenrer = new HomePresenter(this, Repo.getInstance(new MealRemoteDataSource(), MealLocalDataSource.getInstance(this)));
-       // presenrer.getAllMeals();
-
-       /* recyclerView = findViewById(R.id.catrecycle);
-        recyclerView.setHasFixedSize(true);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
-        layoutManager.setOrientation(RecyclerView.HORIZONTAL);
-        recyclerView.setLayoutManager(layoutManager);
-        adapter =new CategoryAdapter(this , new ArrayList<Category>(),this);
-        recyclerView.setAdapter(adapter);*/
-
-
-
-        /* favButton = findViewById(R.id.favButton);
-         actionButton = findViewById(R.id.actionButton);
-         favButton.setOnClickListener(v -> {
-            isFavorite = !isFavorite;
-            if (isFavorite) {
-                favButton.setImageResource(R.drawable.baseline_favorite_24);
-
-            } else {
-                favButton.setImageResource(R.drawable.baseline_favorite_border_24);
-
-            }
-        });
-
-        actionButton.setOnClickListener(v -> {
-            isSaved = !isSaved;
-            if (isSaved) {
-
-                actionButton.setImageResource(R.drawable.baseline_playlist_add_check_24);
-                //favButton.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.red)));
-            } else {
-
-                actionButton.setImageResource(R.drawable.baseline_playlist_add_24);
-                //favButton.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.purple_500)));
-            }
-        });*/
-
-
-
-
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.fragmentscontainer);
         navController = navHostFragment.getNavController();
         bottomNavigationView = findViewById(R.id.bottom_navigationView);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
-        NavigationUI.setupActionBarWithNavController(this, navController);
-
-        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
-            if (destination.getId() == R.id.login) {
-                hideAppBar();
-            } else {
-                showAppBar();
-            }
-        });
-    }
-
-    private void hideAppBar() {
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.hide();
-        }
-    }
-
-    private void showAppBar() {
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.show();
-        }
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        return navController.navigateUp() || super.onSupportNavigateUp();
-    }
-
-
-
-    @Override
-    public void setMeal(List<Meal> mealList) {
+       // NavigationUI.setupActionBarWithNavController(this, navController);
+        myPresenter = new MainPresenter(this ,this);
+        myPresenter.goToLogin(navController);
 
     }
 
     @Override
-    public void setCategory(List<Category> categoryList) {
-       // adapter =new CategoryAdapter(this , new ArrayList<Category>(),this);
-        //recyclerView.setAdapter(adapter);
-        categoryAdapter.setCategoryList(categoryList);
-        categoryAdapter.notifyDataSetChanged();
-
+    public void goToLogin(View view) {
+        myPresenter.goToLogin(navController);
     }
-
-    @Override
-    public void setArea(List<Area> areaList) {
-        areaAdapter.setAreaList(areaList);
-        areaAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void setRundom(List<Meal> rundomList) {
-        rondomadapter.setMealList(rundomList);
-        rondomadapter.notifyDataSetChanged();
-    }
-
-
 }
-
