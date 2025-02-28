@@ -44,6 +44,9 @@
         <action
             android:id="@+id/action_homeFragment_to_profileFragment2"
             app:destination="@id/profileFragment2" />
+        <action
+            android:id="@+id/action_homeFragment_to_noDataFragment"
+            app:destination="@id/noDataFragment" />
     </fragment>
     <fragment
         android:id="@+id/favoritsFragment"
@@ -107,4 +110,12 @@
         android:name="com.example.finalp.OfflineFragment"
         android:label="fragment_offline"
         tools:layout="@layout/fragment_offline" />
+    <fragment
+        android:id="@+id/noDataFragment"
+        android:name="com.example.finalp.NoDataFragment"
+        android:label="Your Data" >
+        <action
+            android:id="@+id/action_noDataFragment_to_login"
+            app:destination="@id/login" />
+    </fragment>
 </navigation>
