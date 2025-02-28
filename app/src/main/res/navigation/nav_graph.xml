@@ -102,7 +102,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment2"
-        android:name="com.example.finalp.ProfileFragment"
+        android:name="com.example.finalp.Profile.view.ProfileFragment"
         android:label="profile"
         tools:layout="@layout/fragment_profile" >
         <action
