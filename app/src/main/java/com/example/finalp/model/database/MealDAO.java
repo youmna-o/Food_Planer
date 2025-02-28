@@ -21,10 +21,16 @@ public interface MealDAO {
     Completable insertMeal(Meal meal);
     @Delete
     Completable deleteMeal(Meal meal);
+
     @Query("SELECT COUNT(*) FROM meal_table WHERE idMeal = :mealID")
     Single<Integer> isMealExist(String mealID);
 
     @Query("SELECT * FROM meal_table WHERE idMeal IN (:mealIds)")
     Flowable<List<Meal>> getMealsByIds(List<String> mealIds);
+
+    @Query("DELETE FROM meal_table")
+    Completable deleteAllMeals();
+
+
 }
 

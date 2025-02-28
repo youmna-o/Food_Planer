@@ -1,6 +1,9 @@
 package com.example.finalp;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,13 +29,13 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainView {
     private NavController navController;
     private NavigationView navigationView;
     private BottomNavigationView bottomNavigationView;
     private DrawerLayout drawerLayout;
     MealAdapter homeAdapter;
-    HomePresenter presenrer;
+   // HomePresenter presenrer;
     FloatingActionButton favButton;
     FloatingActionButton actionButton;
     boolean isFavorite = false;
@@ -41,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     CategoryAdapter categoryAdapter;
     AreaAdapter areaAdapter;
     MealAdapter rondomadapter;
+    MainPresenter myPresenter ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,35 +56,14 @@ public class MainActivity extends AppCompatActivity {
         navController = navHostFragment.getNavController();
         bottomNavigationView = findViewById(R.id.bottom_navigationView);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
-        NavigationUI.setupActionBarWithNavController(this, navController);
+       // NavigationUI.setupActionBarWithNavController(this, navController);
+        myPresenter = new MainPresenter(this ,this);
+        myPresenter.goToLogin(navController);
 
-        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
-            if (destination.getId() == R.id.login) {
-                hideAppBar();
-            } else {
-                showAppBar();
-            }
-        });
-    }
-
-    private void hideAppBar() {
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.hide();
-        }
-    }
-
-    private void showAppBar() {
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.show();
-        }
     }
 
     @Override
-    public boolean onSupportNavigateUp() {
-        return navController.navigateUp() || super.onSupportNavigateUp();
-
+    public void goToLogin(View view) {
+        myPresenter.goToLogin(navController);
     }
-
 }

@@ -10,6 +10,9 @@ import com.example.finalp.model.network.NetworkCallBack_meal;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+
 public class MealsOfCategoryPresenter {
 
         private MealsOfCategoryView view;
@@ -20,10 +23,6 @@ public class MealsOfCategoryPresenter {
             this.repo=repo;
         }
 
-        public void addMeal(Meal meal) {
-
-            new Thread(() -> repo.insert(meal)).start();
-        }
         public void getMealsOfThisCat(String cat){
             repo.getAllMealsofThisCategory(new NetworkCallBack_meal() {
 
@@ -143,6 +142,13 @@ public class MealsOfCategoryPresenter {
 
             }
         }, ing);
+    }
+    public void getMealsByName(String name){
+            repo.getMealsByName(name).subscribeOn(Schedulers.io()).
+                    observeOn(AndroidSchedulers.mainThread()).
+                    subscribe(mealResponse -> {
+                        view.setMeal(mealResponse.getMeals());
+                    });
     }
 
 

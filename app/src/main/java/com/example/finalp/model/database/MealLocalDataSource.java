@@ -32,6 +32,7 @@ public class MealLocalDataSource {
         planeMealDAO=db.getPlans();
         savedMealDAO=db.getSavedMeals();
 
+
         storedMeals = mealDAO.getAllMeals();
         storedPlans=planeMealDAO.getAllMeals();
         savedMeals=savedMealDAO.getSavedMeals();
@@ -48,13 +49,6 @@ public class MealLocalDataSource {
     public Flowable<List<Meal>> getStoredData() {
         return storedMeals;
     }
-    public Flowable<List<PlanMeal>> getStoredPlans() {
-        return storedPlans;
-    }
-    public Flowable<List<SavedMeal>> getSavedData() {
-        return savedMeals;
-    }
-
 
     public Completable delete (Meal meal) {
               return   mealDAO.deleteMeal(meal);
@@ -67,8 +61,13 @@ public class MealLocalDataSource {
                 .map(count -> count > 0)
                 .subscribeOn(Schedulers.io());
     }
+
     //////////////////////////////////////////////////
 
+
+    public Flowable<List<SavedMeal>> getSavedData() {
+        return savedMeals;
+    }
 
     public Completable delete (SavedMeal meal) {
         return   savedMealDAO.deleteMeal(meal);
@@ -83,6 +82,9 @@ public class MealLocalDataSource {
     }
 //////////////////////////////////////////////////////////
 
+    public Flowable<List<PlanMeal>> getStoredPlans() {
+        return storedPlans;
+    }
 
     public Completable delete (PlanMeal meal) {
         return   planeMealDAO.deleteMeal(meal);
@@ -101,6 +103,14 @@ public class MealLocalDataSource {
     }
     public Flowable<List<SavedMeal>> getMealsByIds(List<String> mealIds) {
         return savedMealDAO.getMealsByIds(mealIds);
+    }
+    ///////////////////////////////////////////
+    public Completable clearAllData() {
+        return Completable.fromAction(() -> {
+            mealDAO.deleteAllMeals().blockingAwait();
+            planeMealDAO.deleteAllPlans().blockingAwait();
+            savedMealDAO.deleteAllSavedMeals().blockingAwait();
+        }).subscribeOn(Schedulers.io());
     }
 
 

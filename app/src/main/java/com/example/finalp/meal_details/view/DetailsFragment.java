@@ -1,6 +1,8 @@
 package com.example.finalp.meal_details.view;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -77,6 +79,8 @@ public class DetailsFragment extends Fragment  implements  DetailsView  {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        SharedPreferences sharedPreferences =getContext().getSharedPreferences("UserPref", Context.MODE_PRIVATE);
+        boolean isLogged = sharedPreferences.getBoolean("Login",false);
         String id = DetailsFragmentArgs.fromBundle(getArguments()).getId();
 
         mealImage = view.findViewById(R.id.mealListImage);
@@ -99,7 +103,10 @@ public class DetailsFragment extends Fragment  implements  DetailsView  {
         presenter.getMealDetails(id);
 
 
-
+        if(!isLogged){
+            favouriteButton.setEnabled(false);
+            planButton.setEnabled(false);
+        }
         favouriteButton.setOnClickListener(v -> {
             isFavorite = !isFavorite;
             if (isFavorite) {
@@ -197,7 +204,7 @@ public class DetailsFragment extends Fragment  implements  DetailsView  {
         Log.d("MealData", "Meal Object: " + new Gson().toJson(meal));
         Glide.with(requireContext()).load(meal.strMealThumb).into(mealImage);
 
-        //  loadYouTubeVideo(video);
+       //  loadYouTubeVideo(video);
 
         List<Pair<String, String>> ingredientList = new ArrayList<>();
 
