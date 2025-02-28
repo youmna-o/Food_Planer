@@ -56,27 +56,11 @@ public class MainActivity extends AppCompatActivity implements MainView {
         navController = navHostFragment.getNavController();
         bottomNavigationView = findViewById(R.id.bottom_navigationView);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
-        NavigationUI.setupActionBarWithNavController(this, navController);
+       // NavigationUI.setupActionBarWithNavController(this, navController);
         myPresenter = new MainPresenter(this ,this);
         myPresenter.goToLogin(navController);
 
     }
-    @Override
-    public void hideAppBar() {
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.hide();
-        }
-    }
-
-    @Override
-    public void showAppBar() {
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.show();
-        }
-    }
-
 
     @Override
     public void goToLogin(View view) {

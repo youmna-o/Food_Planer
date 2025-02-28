@@ -8,6 +8,7 @@ import com.example.finalp.model.pojos.CategoryResponse;
 import com.example.finalp.model.pojos.IngredientResponse;
 import com.example.finalp.model.pojos.MealResponse;
 
+import io.reactivex.rxjava3.core.Flowable;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -39,5 +40,5 @@ public interface MealService {
     Call<MealResponse> getMealsByIngrediant(@Query("i") String ing);
 
     @GET("search.php")
-    Call<MealResponse> getMealWithName(@Query("s") String name) ;
+    Flowable<MealResponse> getMealWithName(@Query("s") String name) ;
 }

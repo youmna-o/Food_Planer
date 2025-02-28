@@ -4,6 +4,9 @@ import com.example.finalp.model.pojos.AreaResponse;
 import com.example.finalp.model.pojos.CategoryResponse;
 import com.example.finalp.model.pojos.IngredientResponse;
 import com.example.finalp.model.pojos.MealResponse;
+
+import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory;
+import io.reactivex.rxjava3.core.Flowable;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -26,7 +29,8 @@ public class MealRemoteDataSource {
     }
 
     public MealRemoteDataSource() {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(url).addConverterFactory(GsonConverterFactory.create()).build();
+      //  Retrofit retrofit = new Retrofit.Builder().baseUrl(url).addConverterFactory(GsonConverterFactory.create()).build();
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(url).addConverterFactory(GsonConverterFactory.create()).addCallAdapterFactory(RxJava3CallAdapterFactory.create()).build();
         mealService = retrofit.create(MealService.class);
     }
     public  void getDataOverNetwork(NetworkCallBack_meal networkCallBackMeal) {
@@ -185,6 +189,11 @@ public class MealRemoteDataSource {
 
         });
     }
-
+    public Flowable<MealResponse> getMealByName(String name){
+        return mealService.getMealWithName(name);
 
     }
+
+
+
+}

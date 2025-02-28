@@ -17,6 +17,9 @@ import android.widget.TextView;
 
 import com.example.finalp.Profile.presenter.ProfilePresenter;
 import com.example.finalp.R;
+import com.example.finalp.model.Repo;
+import com.example.finalp.model.database.MealLocalDataSource;
+import com.example.finalp.model.network.MealRemoteDataSource;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -52,10 +55,8 @@ public class ProfileFragment extends Fragment  implements  ProfileView{
         super.onViewCreated(view, savedInstanceState);
         textView=view.findViewById(R.id.myemail);
         signout=view.findViewById(R.id.signOut);
-        presenter=new ProfilePresenter(requireContext(),this);
+        presenter=new ProfilePresenter(requireContext(),this, Repo.getInstance(new MealRemoteDataSource(), MealLocalDataSource.getInstance(getContext())));
         presenter.checkUser();
-
-
         signout.setOnClickListener(view1 -> {
             presenter.signOut();
 
@@ -70,7 +71,8 @@ public class ProfileFragment extends Fragment  implements  ProfileView{
 
     @Override
     public void signOut() {
-        Navigation.findNavController(requireView()).navigate(R.id.action_profileFragment2_to_login);
+
+            Navigation.findNavController(requireView()).navigate(R.id.action_profileFragment2_to_login);
 
     }
 

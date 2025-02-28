@@ -28,5 +28,7 @@ public interface PlanMealDAO {
         @Query("SELECT mealId FROM plan_table WHERE date = :date")
         Single<List<String>> getMealIdsByDate(String date);
 
+        @Query("DELETE FROM plan_table")
+        Completable deleteAllPlans();
 
 }

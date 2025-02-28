@@ -26,4 +26,7 @@ public interface SavedMealDAO {
 
     @Query("SELECT * FROM savedMeal_table WHERE idMeal IN (:mealIds)")
     Flowable<List<SavedMeal>> getMealsByIds(List<String> mealIds);
+
+    @Query("DELETE FROM savedMeal_table")
+    Completable deleteAllSavedMeals();
 }
