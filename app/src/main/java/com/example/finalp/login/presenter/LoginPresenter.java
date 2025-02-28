@@ -2,6 +2,7 @@ package com.example.finalp.login.presenter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Patterns;
 
 
 import com.example.finalp.login.LoginRepository;
@@ -32,8 +33,19 @@ public class LoginPresenter {
             view.showLoginError("Enter your email");
             return;
         }
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            view.showLoginError("Invalid email format");
+            return;
+        }
+
         if (password.isEmpty()) {
             view.showLoginError("Enter your password");
+            return;
+        }
+
+        if (password.length() < 6) {
+            view.showLoginError("Password must be at least 6 characters");
             return;
         }
 
