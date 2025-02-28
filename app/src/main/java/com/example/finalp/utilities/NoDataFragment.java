@@ -1,4 +1,4 @@
-package com.example.finalp;
+package com.example.finalp.utilities;
 
 import android.os.Bundle;
 
@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.example.finalp.R;
 
 public class NoDataFragment extends Fragment {
 

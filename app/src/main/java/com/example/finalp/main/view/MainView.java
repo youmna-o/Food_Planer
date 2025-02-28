@@ -1,4 +1,4 @@
-package com.example.finalp;
+package com.example.finalp.main.view;
 
 import android.view.View;
 

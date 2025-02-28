@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.finalp.utilities.NetworkChecker;
+import com.example.finalp.utilities.OfflineFragment;
 import com.example.finalp.R;
 import com.example.finalp.home.view.AreaAdapter;
 import com.example.finalp.home.view.CategoryAdapter;
@@ -41,6 +43,7 @@ public class SearchFragment extends Fragment implements SearchView, onClickAdapt
     private IngredientAdapter ingredientAdapter;
     private IngredientOfMealAdapter ingredientOfMealAdapter;
     ChipGroup chipGroup ;
+    NetworkChecker networkChecker ;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -55,7 +58,7 @@ public class SearchFragment extends Fragment implements SearchView, onClickAdapt
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.filter, container, false);
-
+        networkChecker = new NetworkChecker(requireContext());
         chipGroup=view.findViewById(R.id.chipGroup);
         chipGroup.setSingleSelection(true);
          setUpFilter();
@@ -69,13 +72,10 @@ public class SearchFragment extends Fragment implements SearchView, onClickAdapt
          catadapter = new CategoryAdapter(getContext(), new ArrayList<>(), this);
         searchRecyclerView.setAdapter(catadapter);
 
-        presenter = new SearchPresenter(this, Repo.getInstance(new MealRemoteDataSource(), MealLocalDataSource.getInstance(getContext())));
+        presenter = new SearchPresenter(this, Repo.getInstance(new MealRemoteDataSource(), MealLocalDataSource.getInstance(getContext())),networkChecker);
+        presenter.checkNetwork();
         presenter.getAllMeals();
-        Log.i("TAG", "onCreateView: Fragment Created////////////");
-
         setUpFilter();
-        Log.i("TAG", "onCreateView: Fragment Created****************");
-
         return view;
     }
 
@@ -111,6 +111,14 @@ public class SearchFragment extends Fragment implements SearchView, onClickAdapt
             ((IngredientAdapter) searchRecyclerView.getAdapter()).setIngredientList(ingredientList);
             searchRecyclerView.getAdapter().notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void showOfflineFragment() {
+        getParentFragmentManager().beginTransaction()
+                .replace(R.id.fragmentscontainer, new OfflineFragment())
+                .commit();
+
     }
 
     @Override
