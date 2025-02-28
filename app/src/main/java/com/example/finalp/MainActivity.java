@@ -26,17 +26,17 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity {
     private NavController navController;
     private NavigationView navigationView;
     private BottomNavigationView bottomNavigationView;
     private DrawerLayout drawerLayout;
     MealAdapter homeAdapter;
     HomePresenter presenrer;
-    FloatingActionButton favButton ;
-    FloatingActionButton actionButton ;
+    FloatingActionButton favButton;
+    FloatingActionButton actionButton;
     boolean isFavorite = false;
-    boolean isSaved = false ;
+    boolean isSaved = false;
     RecyclerView recyclerView;
     CategoryAdapter categoryAdapter;
     AreaAdapter areaAdapter;
@@ -80,13 +80,7 @@ public class MainActivity extends AppCompatActivity  {
     @Override
     public boolean onSupportNavigateUp() {
         return navController.navigateUp() || super.onSupportNavigateUp();
+
     }
 
-
-
-
-
-
-
 }
-
