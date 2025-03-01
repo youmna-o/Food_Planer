@@ -88,9 +88,9 @@ public class ProfileFragment extends Fragment  implements  ProfileView , Details
 
         });
         backup.setOnClickListener(view1 -> {
+            String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                DatabaseReference mealsRef = FirebaseDatabase.getInstance().getReference("meals").child(currentUserId); ;
 
-                DatabaseReference mealsRef = FirebaseDatabase.getInstance().getReference("meals");
-                String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
             mealsRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -102,17 +102,21 @@ public class ProfileFragment extends Fragment  implements  ProfileView , Details
 
                         List<Meal> mealList = new ArrayList<>();
 
-                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            for (DataSnapshot mealSnapshot : snapshot.getChildren()) {
-                                Meal meal = mealSnapshot.getValue(Meal.class);
-                                if (meal != null && meal.getIdMeal() != null) {
-                                    mealList.add(meal);
-                                }
+                        for (DataSnapshot mealSnapshot : dataSnapshot.getChildren()) {
+                            Meal meal = mealSnapshot.getValue(Meal.class);
+                            if (meal != null && meal.getIdMeal() != null) {
+                                mealList.add(meal);
+                                Log.d("Firebase", "Meal Loaded: " + meal.toString());
+                            } else {
+                                Log.e("Firebase", "Meal is NULL or missing fields");
                             }
                         }
+
                         for (Meal meal : mealList) {
-                           detailsPresenter.onMealClick(meal);
+                            detailsPresenter.onMealClick(meal);
                         }
+
+                        Log.d("Firebase", "Total meals loaded for user " + currentUserId + ": " + mealList.size());
                     }
 
                     @Override
