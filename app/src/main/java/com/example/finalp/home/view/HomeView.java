@@ -13,4 +13,5 @@ public interface HomeView {
     void setCategory(List<Category> categoryList);
     void setArea(List<Area> areaList);
     void setRundom(List<Meal> rundomList);
+    void showOfflineFragment();
 }

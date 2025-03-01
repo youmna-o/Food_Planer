@@ -111,12 +111,12 @@
     </fragment>
     <fragment
         android:id="@+id/offlineFragment"
-        android:name="com.example.finalp.OfflineFragment"
+        android:name="com.example.finalp.utilities.OfflineFragment"
         android:label="fragment_offline"
         tools:layout="@layout/fragment_offline" />
     <fragment
         android:id="@+id/noDataFragment"
-        android:name="com.example.finalp.NoDataFragment"
+        android:name="com.example.finalp.utilities.NoDataFragment"
         android:label="Your Data" >
         <action
             android:id="@+id/action_noDataFragment_to_login"

@@ -15,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.finalp.utilities.NetworkChecker;
+import com.example.finalp.utilities.OfflineFragment;
 import com.example.finalp.R;
 import com.example.finalp.home.presenter.HomePresenter;
 import com.example.finalp.model.pojos.Area;
@@ -44,6 +46,7 @@ public class HomeFragment extends Fragment implements HomeView, onClickAdapter {
     CategoryAdapter categoryAdapter;
     AreaAdapter areaAdapter;
     MealAdapter mealAdapter;
+    private NetworkChecker networkChecker;
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -67,7 +70,7 @@ public class HomeFragment extends Fragment implements HomeView, onClickAdapter {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        networkChecker = new NetworkChecker(requireContext());
 
         category = view.findViewById(R.id.categoryrecycle);
         category.setHasFixedSize(true);
@@ -93,7 +96,8 @@ public class HomeFragment extends Fragment implements HomeView, onClickAdapter {
         mealAdapter = new MealAdapter(getContext(), new ArrayList<>(),  this);
         rundomMeal.setAdapter(mealAdapter);
 
-        presenrer = new HomePresenter(this, Repo.getInstance(new MealRemoteDataSource(), MealLocalDataSource.getInstance(getContext())));
+        presenrer = new HomePresenter(this, Repo.getInstance(new MealRemoteDataSource(), MealLocalDataSource.getInstance(getContext())),networkChecker);
+        presenrer.checkNetwork();
         presenrer.getAllMeals();
 
     }
@@ -122,7 +126,12 @@ public class HomeFragment extends Fragment implements HomeView, onClickAdapter {
         mealAdapter.notifyDataSetChanged();
     }
 
-
+    @Override
+    public void showOfflineFragment() {
+        getParentFragmentManager().beginTransaction()
+                .replace(R.id.fragmentscontainer, new OfflineFragment())
+                .commit();
+    }
     @Override
     public void onMealClick(Meal meal, View view) {
 
@@ -142,5 +151,6 @@ public class HomeFragment extends Fragment implements HomeView, onClickAdapter {
     public void onIngClick(Ingredient ingredient,View view) {
 
     }
+
 
 }
