@@ -9,6 +9,7 @@ import com.example.finalp.model.pojos.SavedMeal;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Single;
@@ -54,7 +55,8 @@ public class MealLocalDataSource {
               return   mealDAO.deleteMeal(meal);
     }
     public Completable insert (Meal meal) {
-        return   mealDAO.insertMeal(meal);
+        return   mealDAO.insertMeal(meal).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
     public Single<Boolean> isMealExist(Meal meal) {
         return mealDAO.isMealExist(meal.getIdMeal())

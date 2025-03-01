@@ -33,6 +33,9 @@ import com.example.finalp.model.network.MealRemoteDataSource;
 import com.example.finalp.model.pojos.PlanMeal;
 import com.example.finalp.model.pojos.SavedMeal;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 
 import java.lang.reflect.Field;
@@ -113,15 +116,16 @@ public class DetailsFragment extends Fragment  implements  DetailsView  {
                 favouriteButton.setImageResource(R.drawable.baseline_favorite_24);
                 if (currentMeal != null) {
                     presenter.onMealClick(currentMeal);
-                }
 
-            } else {
-                favouriteButton.setImageResource(R.drawable.baseline_favorite_border_24);
-                if (currentMeal != null) {
-                    presenter.onMealClick(currentMeal);
+                    String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                    DatabaseReference mealsRef = FirebaseDatabase.getInstance().getReference("meals").child(userId);
+
+                    String mealId = mealsRef.push().getKey();
+                    mealsRef.child(mealId).setValue(currentMeal)
+                            .addOnSuccessListener(aVoid -> Log.d("Firebase", "Meal saved successfully!"))
+                            .addOnFailureListener(e -> Log.e("Firebase", "Failed to save meal", e));
                 }
             }
-            favouriteButton.setEnabled(true);
         });
 
         planButton.setOnClickListener(v -> {

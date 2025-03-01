@@ -3,6 +3,7 @@ package com.example.finalp.model.database;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.example.finalp.model.pojos.Meal;
@@ -17,7 +18,7 @@ import io.reactivex.rxjava3.core.Single;
 public interface MealDAO {
     @Query("SELECT * FROM meal_table")
     Flowable<List<Meal>> getAllMeals();
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     Completable insertMeal(Meal meal);
     @Delete
     Completable deleteMeal(Meal meal);
