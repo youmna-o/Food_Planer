@@ -102,42 +102,6 @@ public class DetailsPresenter {
                 }, throwable -> Log.e("Database", "Error checking if meal exists", throwable));
     }
 
-  /*  public void onMealPlaneClick(PlanMeal meal) {
-        repo.isPlanExist(meal)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(exists -> {
-                    if (exists) {
-                        repo.deletePlans(meal)
-                                .subscribeOn(Schedulers.io())
-                                .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe();
-                    } else {
-                        repo.insertPlans(meal)
-                                .subscribeOn(Schedulers.io())
-                                .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe();
-                    }
-                }, throwable -> {
-                });
-    }
-    public void onPlaneToSaveClick(SavedMeal meal) {
-        repo.isSavedMealExist(meal)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(exists -> {
-                    if (exists) {
-                        repo.deleteSaved(meal)
-                                .subscribeOn(Schedulers.io())
-                                .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe();
-                    } else {
-                        repo.insertSaved(meal)
-                                .subscribeOn(Schedulers.io())
-                                .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe();
-                    }
-                }, throwable -> {
-                });
-    }*/
     public void onSavedMealClick(SavedMeal meal) {
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference savedRef = FirebaseDatabase.getInstance().getReference("meals").child(userId)

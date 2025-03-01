@@ -35,17 +35,13 @@ public class SearchPresenter {
         repo.getAllMeals(new NetworkCallBack_meal() {
             @Override
             public void onSuccessIng(List<Ingredient> ingredientList) {
-              /*  for (Ingredient ingredient : ingredients) {
-                    Log.i(TAG, "Product****************************: " +ingredient.getStrIngredient());
-                }*/
+
                 view.setIngredient(ingredientList);
             }
 
             @Override
             public void onSuccessCategory(List<Category> categorieslList) {
-               /* for (Category category : categorieslList) {
-                    Log.i(TAG, "categorieslList////////: " +category.strCategory);
-                }*/
+
                 view.setCategory(categorieslList);
 
             }

@@ -115,12 +115,6 @@ public class Repo {
    public  Completable ClearAll(){
         return  localDataSource.clearAllData();
     }
-   /*public Completable ClearAll() {
-       return Completable.fromAction(() -> {
-           localDataSource.clearAllData().blockingAwait();
-       }).subscribeOn(Schedulers.io());
-   }*/
-
     public Flowable<MealResponse> getMealsByName(String name){
         return  remoteDataSource.getMealByName(name);
 

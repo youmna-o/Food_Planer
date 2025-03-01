@@ -29,17 +29,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
     private NavigationView navigationView;
     private BottomNavigationView bottomNavigationView;
     BottomAppBar bottomAppBar ;
-    private DrawerLayout drawerLayout;
-    MealAdapter homeAdapter;
-   // HomePresenter presenrer;
-    FloatingActionButton favButton;
-    FloatingActionButton actionButton;
-    boolean isFavorite = false;
-    boolean isSaved = false;
-    RecyclerView recyclerView;
-    CategoryAdapter categoryAdapter;
-    AreaAdapter areaAdapter;
-    MealAdapter rondomadapter;
     MainPresenter myPresenter ;
 
     @Override
