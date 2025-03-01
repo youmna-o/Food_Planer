@@ -1,11 +1,12 @@
-package com.example.finalp;
+package com.example.finalp.main.presenter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.view.View;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.navigation.NavController;
+
+import com.example.finalp.main.view.MainView;
+import com.example.finalp.R;
 
 public class MainPresenter {
     private Context context ;
@@ -22,7 +23,7 @@ public class MainPresenter {
             } else {
                 view.showAppBar();
             }*/
-            if(destination.getId()==R.id.favoritsFragment ||destination.getId()==R.id.planeFragment||destination.getId()==R.id.profileFragment2){
+            if(destination.getId()== R.id.favoritsFragment ||destination.getId()==R.id.planeFragment||destination.getId()==R.id.profileFragment2){
                 SharedPreferences sharedPreferences =context.getSharedPreferences("UserPref", Context.MODE_PRIVATE);
                 boolean isLogged = sharedPreferences.getBoolean("Login",false);
                 if(!isLogged){

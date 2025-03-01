@@ -1,5 +1,6 @@
 package com.example.finalp.home.presenter;
 
+import com.example.finalp.utilities.NetworkChecker;
 import com.example.finalp.home.view.HomeView;
 import com.example.finalp.model.pojos.Area;
 import com.example.finalp.model.pojos.Category;
@@ -13,39 +14,36 @@ import java.util.List;
 public class HomePresenter {
     private HomeView view;
     private Repo repo;
+    private NetworkChecker networkChecker;
 
-    public HomePresenter(HomeView view, Repo repo){
+    public HomePresenter(HomeView view, Repo repo,NetworkChecker networkChecker){
         this.view=view;
         this.repo=repo;
+        this.networkChecker=networkChecker;
     }
 
 
     public void addMeal(Meal meal) {
         new Thread(() -> repo.insert(meal)).start();
     }
+    public void checkNetwork() {
+        if (!networkChecker.isConnected()) {
+            view.showOfflineFragment();
+        }
+    }
     public void getAllMeals(){
         repo.getAllMeals(new NetworkCallBack_meal() {
             @Override
             public void onSuccessIng(List<Ingredient> ingredients) {
-                /*for (Ingredient ingredient : ingredients) {
-                    Log.i(TAG, "Product****************************: " +ingredient.getStrIngredient());
-                }*/
             }
 
             @Override
             public void onSuccessCategory(List<Category> categorieslList) {
-               /* for (Category category : categorieslList) {
-                    Log.i(TAG, "categorieslList////////: " +category.strCategory);
-                }*/
                 view.setCategory(categorieslList);
-
             }
 
             @Override
             public void onSuccessArea(List<Area> areaList) {
-               /* for (Area area : areaList) {
-                    Log.i(TAG, "////////: " +area.strArea);
-                }*/
                 view.setArea(areaList);
             }
 
@@ -53,7 +51,6 @@ public class HomePresenter {
             public void onSuccessRundom(List<Meal> rundomMealList) {
                 view.setRundom(rundomMealList);
             }
-
 
 
             @Override
@@ -71,6 +68,8 @@ public class HomePresenter {
             }
         });
     }
+
+
 
 
 

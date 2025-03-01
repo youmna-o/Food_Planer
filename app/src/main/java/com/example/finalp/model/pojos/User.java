@@ -1,4 +1,4 @@
-package com.example.finalp;
+package com.example.finalp.model.pojos;
 
 import java.io.Serializable;
 
