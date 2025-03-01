@@ -11,6 +11,9 @@ import com.example.finalp.model.Repo;
 import com.example.finalp.model.network.NetworkCallBack_meal;
 import com.example.finalp.model.pojos.PlanMeal;
 import com.example.finalp.model.pojos.SavedMeal;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
@@ -67,6 +70,11 @@ public class DetailsPresenter {
     }
 
     public void onMealClick(Meal meal) {
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference favRef = FirebaseDatabase.getInstance().getReference("meals").child(userId)
+                .child("favorites")
+                .child(meal.getIdMeal());
+
         repo.isMealExist(meal)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(exists -> {
@@ -78,6 +86,7 @@ public class DetailsPresenter {
                                         () -> Log.d("Database", "Meal Deleted: " + meal.getIdMeal()),
                                         throwable -> Log.e("Database", "Error deleting meal", throwable)
                                 );
+                        favRef.removeValue();
                     } else {
                         repo.insert(meal)
                                 .subscribeOn(Schedulers.io())
@@ -86,11 +95,14 @@ public class DetailsPresenter {
                                         () -> Log.d("Database", "Meal Saved: " + meal.getIdMeal()),
                                         throwable -> Log.e("Database", "Error saving meal", throwable)
                                 );
+                        favRef.setValue(meal) // حفظ في Firebase
+                                .addOnSuccessListener(aVoid -> Log.d("Firebase", "Meal saved successfully!"))
+                                .addOnFailureListener(e -> Log.e("Firebase", "Failed to save meal", e));
                     }
                 }, throwable -> Log.e("Database", "Error checking if meal exists", throwable));
     }
 
-    public void onMealPlaneClick(PlanMeal meal) {
+  /*  public void onMealPlaneClick(PlanMeal meal) {
         repo.isPlanExist(meal)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(exists -> {
@@ -125,7 +137,57 @@ public class DetailsPresenter {
                     }
                 }, throwable -> {
                 });
+    }*/
+    public void onSavedMealClick(SavedMeal meal) {
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference savedRef = FirebaseDatabase.getInstance().getReference("meals").child(userId)
+                .child("savedMeals")
+                .child(meal.getIdMeal());
+
+        repo.isSavedMealExist(meal)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(exists -> {
+                    if (exists) {
+                        repo.deleteSaved(meal)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe();
+                        savedRef.removeValue();
+                    } else {
+                        repo.insertSaved(meal)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe();
+                        savedRef.setValue(meal);
+                    }
+                }, throwable -> Log.e("Database", "Error checking if saved meal exists", throwable));
     }
+    public void onPlannedMealClick(PlanMeal meal) {
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference plannedRef = FirebaseDatabase.getInstance().getReference("meals").child(userId)
+                .child("plannedMeals")
+                .child(meal.getMealId());
+
+        repo.isPlanExist(meal)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(exists -> {
+                    if (exists) {
+                        repo.deletePlans(meal)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe();
+                        plannedRef.removeValue();
+                    } else {
+                        repo.insertPlans(meal)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe();
+                        plannedRef.setValue(meal);
+                    }
+                }, throwable -> Log.e("Database", "Error checking if planned meal exists", throwable));
+    }
+
+
 
 }
 

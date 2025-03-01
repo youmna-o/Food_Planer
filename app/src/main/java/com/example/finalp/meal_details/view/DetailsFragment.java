@@ -57,6 +57,7 @@ public class DetailsFragment extends Fragment  implements  DetailsView  {
     private DetailsPresenter presenter;
     private Meal currentMeal;
     private SavedMeal currenMealToSAve;
+    private PlanMeal planMeal ;
 
 
 
@@ -117,13 +118,13 @@ public class DetailsFragment extends Fragment  implements  DetailsView  {
                 if (currentMeal != null) {
                     presenter.onMealClick(currentMeal);
 
-                    String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                 /*   String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
                     DatabaseReference mealsRef = FirebaseDatabase.getInstance().getReference("meals").child(userId);
 
                     String mealId = mealsRef.push().getKey();
                     mealsRef.child(mealId).setValue(currentMeal)
                             .addOnSuccessListener(aVoid -> Log.d("Firebase", "Meal saved successfully!"))
-                            .addOnFailureListener(e -> Log.e("Firebase", "Failed to save meal", e));
+                            .addOnFailureListener(e -> Log.e("Firebase", "Failed to save meal", e));*/
                 }
             }
         });
@@ -277,8 +278,10 @@ public class DetailsFragment extends Fragment  implements  DetailsView  {
                     String selectedDate = selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear;
                     if (currentMeal != null && currenMealToSAve != null) {
                         PlanMeal planMeal = new PlanMeal(currentMeal.getIdMeal(),selectedDate);
-                        presenter.onPlaneToSaveClick(currenMealToSAve);
-                        presenter.onMealPlaneClick(planMeal);
+                        presenter.onSavedMealClick(currenMealToSAve);
+                        presenter.onPlannedMealClick(planMeal);
+                      //  presenter.onPlaneToSaveClick(currenMealToSAve);
+                       // presenter.onMealPlaneClick(planMeal);
 
                     }
                     },

@@ -76,7 +76,8 @@ public class Repo {
 
     }
     public Completable insertSaved(SavedMeal meal){
-        return    localDataSource.insert(meal);
+        return    localDataSource.insert(meal) .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
     public  Completable  deleteSaved(SavedMeal meal){
 
@@ -92,7 +93,8 @@ public class Repo {
 
     }
     public Completable insertPlans(PlanMeal meal){
-        return    localDataSource.insert(meal);
+        return    localDataSource.insert(meal) .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
     public  Completable  deletePlans(PlanMeal meal){
 
@@ -108,7 +110,6 @@ public class Repo {
     }
 
     public Flowable<List<SavedMeal>> getMealsByIds(List<String> mealIds) {
-        Log.d("Repo", "Fetching meals for IDs: " + mealIds);
         return localDataSource.getMealsByIds(mealIds).doOnNext(meals -> Log.d("Repo", "Meals retrieved from DB: " + meals));
     }
    public  Completable ClearAll(){

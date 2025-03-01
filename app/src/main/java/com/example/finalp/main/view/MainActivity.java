@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
             }
         });
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
-       // NavigationUI.setupActionBarWithNavController(this, navController);
         myPresenter = new MainPresenter(this ,this);
         myPresenter.goToLogin(navController);
 

@@ -75,7 +75,9 @@ public class MealLocalDataSource {
         return   savedMealDAO.deleteMeal(meal);
     }
     public Completable insert (SavedMeal meal) {
-        return   savedMealDAO.insertMeal(meal);
+
+        return   savedMealDAO.insertMeal(meal).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
     public Single<Boolean> isMealExist(SavedMeal meal) {
         return savedMealDAO.isMealExist(meal.getIdMeal())
@@ -92,7 +94,8 @@ public class MealLocalDataSource {
         return   planeMealDAO.deleteMeal(meal);
     }
     public Completable insert (PlanMeal meal) {
-        return   planeMealDAO.insertMeal(meal);
+        return   planeMealDAO.insertMeal(meal).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     public Single<Boolean> isMealExist(PlanMeal meal) {
