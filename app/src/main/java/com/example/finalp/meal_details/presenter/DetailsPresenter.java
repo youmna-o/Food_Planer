@@ -1,5 +1,7 @@
 package com.example.finalp.meal_details.presenter;
 
+import android.util.Log;
+
 import com.example.finalp.meal_details.view.DetailsView;
 import com.example.finalp.model.pojos.Area;
 import com.example.finalp.model.pojos.Category;
@@ -72,16 +74,22 @@ public class DetailsPresenter {
                         repo.delete(meal)
                                 .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe();
+                                .subscribe(
+                                        () -> Log.d("Database", "Meal Deleted: " + meal.getIdMeal()),
+                                        throwable -> Log.e("Database", "Error deleting meal", throwable)
+                                );
                     } else {
                         repo.insert(meal)
                                 .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe();
+                                .subscribe(
+                                        () -> Log.d("Database", "Meal Saved: " + meal.getIdMeal()),
+                                        throwable -> Log.e("Database", "Error saving meal", throwable)
+                                );
                     }
-                }, throwable -> {
-                });
+                }, throwable -> Log.e("Database", "Error checking if meal exists", throwable));
     }
+
     public void onMealPlaneClick(PlanMeal meal) {
         repo.isPlanExist(meal)
                 .observeOn(AndroidSchedulers.mainThread())
