@@ -57,6 +57,7 @@ public class DetailsFragment extends Fragment  implements  DetailsView  {
     private DetailsPresenter presenter;
     private Meal currentMeal;
     private SavedMeal currenMealToSAve;
+    private PlanMeal planMeal ;
 
 
 
@@ -117,13 +118,6 @@ public class DetailsFragment extends Fragment  implements  DetailsView  {
                 if (currentMeal != null) {
                     presenter.onMealClick(currentMeal);
 
-                    String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                    DatabaseReference mealsRef = FirebaseDatabase.getInstance().getReference("meals").child(userId);
-
-                    String mealId = mealsRef.push().getKey();
-                    mealsRef.child(mealId).setValue(currentMeal)
-                            .addOnSuccessListener(aVoid -> Log.d("Firebase", "Meal saved successfully!"))
-                            .addOnFailureListener(e -> Log.e("Firebase", "Failed to save meal", e));
                 }
             }
         });
@@ -134,7 +128,6 @@ public class DetailsFragment extends Fragment  implements  DetailsView  {
             isSaved = !isSaved;
             if (isSaved) {
 
-             //   planButton.setImageResource(R.drawable.baseline_playlist_add_check_24);
 
             } else {
 
@@ -204,11 +197,9 @@ public class DetailsFragment extends Fragment  implements  DetailsView  {
         mealCountry.setText(meal.strArea);
         steps.setText(meal.strInstructions);
         String video=meal.getStrYoutube();
-        // Log.d("vv", "*******************showMealDetailsById: "+meal.strMeal+meal.strArea+meal.getStrIngredient2());
-        Log.d("MealData", "Meal Object: " + new Gson().toJson(meal));
         Glide.with(requireContext()).load(meal.strMealThumb).into(mealImage);
 
-       //  loadYouTubeVideo(video);
+         loadYouTubeVideo(video);
 
         List<Pair<String, String>> ingredientList = new ArrayList<>();
 
@@ -218,12 +209,9 @@ public class DetailsFragment extends Fragment  implements  DetailsView  {
 
             if (ingredientName != null && !ingredientName.trim().isEmpty()) {
                 ingredientList.add(new Pair<>(ingredientName, measurement != null ? measurement : ""));
-                Log.d("IngredientCreation", "Added: " + ingredientName + " - " + measurement);
             }
         }
 
-        Log.d("Test", "Final Ingredients List: " + ingredientList.size());
-        Log.d("Test", "Final Ingredients List: " + ingredientList);
 
         adapter.setIngredientList(ingredientList);
         adapter.notifyDataSetChanged();
@@ -233,8 +221,6 @@ public class DetailsFragment extends Fragment  implements  DetailsView  {
             Field field = meal.getClass().getDeclaredField(fieldName);
             field.setAccessible(true);
             Object value = field.get(meal);
-
-            Log.d("ReflectionTest", "Field " + fieldName + ": " + value);
             return (value != null && !value.toString().trim().isEmpty()) ? value.toString() : null;
         } catch (NoSuchFieldException e) {
             Log.e("ReflectionTest", "Field not found: " + fieldName);
@@ -277,8 +263,9 @@ public class DetailsFragment extends Fragment  implements  DetailsView  {
                     String selectedDate = selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear;
                     if (currentMeal != null && currenMealToSAve != null) {
                         PlanMeal planMeal = new PlanMeal(currentMeal.getIdMeal(),selectedDate);
-                        presenter.onPlaneToSaveClick(currenMealToSAve);
-                        presenter.onMealPlaneClick(planMeal);
+                        presenter.onSavedMealClick(currenMealToSAve);
+                        presenter.onPlannedMealClick(planMeal);
+
 
                     }
                     },

@@ -26,7 +26,7 @@
         android:layout_marginEnd="29dp"
         android:fontFamily="@font/myfont"
         android:text="Pick To Show Your Plan"
-        android:textSize="32sp"
+        android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/recyclerPlane"
         app:layout_constraintEnd_toEndOf="parent"

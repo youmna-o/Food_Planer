@@ -25,6 +25,8 @@ import com.example.finalp.model.Repo;
 import com.example.finalp.model.database.MealLocalDataSource;
 import com.example.finalp.model.network.MealRemoteDataSource;
 import com.example.finalp.model.pojos.Meal;
+import com.example.finalp.model.pojos.PlanMeal;
+import com.example.finalp.model.pojos.SavedMeal;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -47,6 +49,7 @@ public class ProfileFragment extends Fragment  implements  ProfileView , Details
     StorageReference storageRef ;
     StorageReference imagesRef ;
     StorageReference spaceRef ;
+
  TextView textView ;
  Button signout , backup ;
  SharedPreferences sharedPreferences ;
@@ -88,44 +91,80 @@ public class ProfileFragment extends Fragment  implements  ProfileView , Details
         });
         backup.setOnClickListener(view1 -> {
             String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                DatabaseReference mealsRef = FirebaseDatabase.getInstance().getReference("meals").child(currentUserId); ;
+            Log.d("Yomna", "onViewCreated: " + currentUserId);
+            DatabaseReference mealsRef = FirebaseDatabase.getInstance().getReference("meals").child(currentUserId);
 
-
-            mealsRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (!dataSnapshot.exists()) {
-                            Log.e("Firebase", "No data found in Firebase!");
-                            return;
+            DatabaseReference favRef = mealsRef.child("favorites");
+            favRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    List<Meal> favMeals = new ArrayList<>();
+                    for (DataSnapshot mealSnapshot : snapshot.getChildren()) {
+                        Meal meal = mealSnapshot.getValue(Meal.class);
+                        if (meal != null && meal.getIdMeal() != null) {
+                            favMeals.add(meal);
                         }
-
-                        List<Meal> mealList = new ArrayList<>();
-
-                        for (DataSnapshot mealSnapshot : dataSnapshot.getChildren()) {
-                            Meal meal = mealSnapshot.getValue(Meal.class);
-                            if (meal != null && meal.getIdMeal() != null) {
-                                mealList.add(meal);
-                                Log.d("Firebase", "Meal Loaded: " + meal.toString());
-                            } else {
-                                Log.e("Firebase", "Meal is NULL or missing fields");
-                            }
-                        }
-
-                        for (Meal meal : mealList) {
-                            detailsPresenter.onMealClick(meal);
-                        }
-
-                        Log.d("Firebase", "Total meals loaded for user " + currentUserId + ": " + mealList.size());
                     }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        Log.e("Firebase", "Failed to restore backup", databaseError.toException());
+                    for (Meal meal : favMeals) {
+                        detailsPresenter.onMealClick(meal);
                     }
-                });
+                }
 
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.e("Firebase", "Failed to restore favorites", error.toException());
+                }
+            });
 
+            DatabaseReference savedRef = mealsRef.child("savedMeals");
+            savedRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    List<SavedMeal> savedMeals = new ArrayList<>();
+                    for (DataSnapshot mealSnapshot : snapshot.getChildren()) {
+                        SavedMeal meal = mealSnapshot.getValue(SavedMeal.class);
+                        if (meal != null && meal.getIdMeal() != null) {
+                            savedMeals.add(meal);
+                            Log.d("Firebase", "Saved Meal Loaded: " + meal.toString());
+                        }
+                    }
+                    for (SavedMeal meal : savedMeals) {
+                        detailsPresenter.onSavedMealClick(meal);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.e("Firebase", "Failed to restore saved meals", error.toException());
+                }
+            });
+
+            DatabaseReference planedRef = mealsRef.child("plannedMeals");
+            planedRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    List<PlanMeal> planedMeals = new ArrayList<>();
+                    for (DataSnapshot mealSnapshot : snapshot.getChildren()) {
+                        PlanMeal meal = mealSnapshot.getValue(PlanMeal.class);
+                        if (meal != null && meal.getMealId() != null) {
+                            planedMeals.add(meal);
+                            Log.d("Firebase", "Planed Meal Loaded: " + meal.toString());
+                        }
+                    }
+                    for (PlanMeal meal : planedMeals) {
+                        detailsPresenter.onPlannedMealClick(meal);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.e("Firebase", "Failed to restore planed meals", error.toException());
+                }
+            });
+
+            Log.d("Firebase", "Backup restoration started for user: " + currentUserId);
         });
+
     }
 
 

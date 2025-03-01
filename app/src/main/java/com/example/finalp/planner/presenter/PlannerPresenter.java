@@ -39,8 +39,8 @@ public class PlannerPresenter {
 
     public void deletePlanMeals(PlanMeal meal) {
         repo.deletePlans(meal)
-                .andThen(repo.getMealIdsByDate(meal.getDate())) // بعد الحذف، نحصل على mealId الخاصة بهذا اليوم
-                .flatMapPublisher(mealIds -> repo.getMealsByIds(mealIds)) // ثم نحصل على قائمة الوجبات المرتبطة بهذه الوجبات
+                .andThen(repo.getMealIdsByDate(meal.getDate()))
+                .flatMapPublisher(mealIds -> repo.getMealsByIds(mealIds))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

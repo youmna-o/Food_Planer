@@ -87,6 +87,7 @@
         android:layout_width="310dp"
         android:layout_height="64dp"
         android:layout_marginTop="24dp"
+        android:textSize="20sp"
 
 
         android:backgroundTint="@color/green"
@@ -120,6 +121,8 @@
         android:text="Welcom To Register"
         android:textColor="@color/green"
         android:textSize="32dp"
+        android:gravity="center"
+        android:fontFamily="@font/myfont"
         app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
