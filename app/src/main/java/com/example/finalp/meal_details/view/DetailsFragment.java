@@ -113,7 +113,7 @@ public class DetailsFragment extends Fragment  implements  DetailsView  {
         favouriteButton.setOnClickListener(v -> {
             isFavorite = !isFavorite;
             if (isFavorite) {
-                favouriteButton.setImageResource(R.drawable.baseline_favorite_24);
+               // favouriteButton.setImageResource(R.drawable.baseline_favorite_24);
                 if (currentMeal != null) {
                     presenter.onMealClick(currentMeal);
 
@@ -134,7 +134,7 @@ public class DetailsFragment extends Fragment  implements  DetailsView  {
             isSaved = !isSaved;
             if (isSaved) {
 
-                planButton.setImageResource(R.drawable.baseline_playlist_add_check_24);
+             //   planButton.setImageResource(R.drawable.baseline_playlist_add_check_24);
 
             } else {
 

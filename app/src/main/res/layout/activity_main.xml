@@ -31,6 +31,7 @@
             android:layout_height="match_parent"
             android:background="@color/green"
             app:fabCradleMargin="10dp"
+            android:visibility="gone"
             app:fabCradleRoundedCornerRadius="50dp">
 
 
@@ -43,6 +44,7 @@
             android:layout_marginEnd="20dp"
             android:background="@android:color/transparent"
             app:labelVisibilityMode="labeled"
+            android:visibility="gone"
 
             app:menu="@menu/menu" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

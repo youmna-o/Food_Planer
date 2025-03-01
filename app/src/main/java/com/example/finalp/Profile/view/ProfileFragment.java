@@ -77,7 +77,6 @@ public class ProfileFragment extends Fragment  implements  ProfileView , Details
         super.onViewCreated(view, savedInstanceState);
         FirebaseApp.initializeApp(getContext());
         detailsPresenter = new DetailsPresenter(this, Repo.getInstance(new MealRemoteDataSource(), MealLocalDataSource.getInstance(getContext())));
-
         textView=view.findViewById(R.id.myemail);
         backup=view.findViewById(R.id.backup);
         signout=view.findViewById(R.id.signOut);
