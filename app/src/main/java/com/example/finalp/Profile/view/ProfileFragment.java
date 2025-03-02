@@ -33,11 +33,6 @@ import com.google.firebase.storage.StorageReference;
 
 
 public class ProfileFragment extends Fragment  implements  ProfileView , DetailsView {
-    FirebaseStorage storage ;
-    StorageReference storageRef ;
-    StorageReference imagesRef ;
-    StorageReference spaceRef ;
-
  TextView textView ;
  Button signout , backup ;
  SharedPreferences sharedPreferences ;

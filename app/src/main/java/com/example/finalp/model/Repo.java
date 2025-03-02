@@ -140,8 +140,7 @@ public class Repo {
                             insertOperations.add(localDataSource.insert(meal));
                         }
                     }
-
-                    // تنفيذ كل العمليات بشكل متتابع
+                    
                     Completable.concat(insertOperations)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
@@ -165,7 +164,7 @@ public class Repo {
                     for (DataSnapshot mealSnapshot : snapshot.getChildren()) {
                         SavedMeal meal = mealSnapshot.getValue(SavedMeal.class);
                         if (meal != null && meal.getIdMeal() != null) {
-                            insertOperations.add(repo.insertSaved(meal)); // استدعاء insert للوجبات المحفوظة
+                            insertOperations.add(repo.insertSaved(meal));
                         }
                     }
 
@@ -192,7 +191,7 @@ public class Repo {
                     for (DataSnapshot mealSnapshot : snapshot.getChildren()) {
                         PlanMeal meal = mealSnapshot.getValue(PlanMeal.class);
                         if (meal != null && meal.getMealId() != null) {
-                            insertOperations.add(repo.insertPlans(meal)); // استدعاء insert للوجبات المخططة
+                            insertOperations.add(repo.insertPlans(meal));
                         }
                     }
 
