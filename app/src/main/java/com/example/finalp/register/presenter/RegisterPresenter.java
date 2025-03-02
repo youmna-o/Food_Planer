@@ -5,16 +5,23 @@ import android.util.Patterns;
 
 import com.example.finalp.register.RegisterRepository;
 import com.example.finalp.register.view.RegisterView;
+import com.example.finalp.utilities.NetworkChecker;
 
 public class RegisterPresenter {
     private RegisterRepository repository;
     private RegisterView view;
+    private NetworkChecker networkChecker;
 
-    public RegisterPresenter(RegisterView view, Context context) {
+    public RegisterPresenter(RegisterView view, Context context, NetworkChecker networkChecker) {
         this.view = view;
         this.repository = new RegisterRepository(context);
+        this.networkChecker=networkChecker;
     }
-
+    public void checkNetwork() {
+        if (!networkChecker.isConnected()) {
+            view.showOfflineFragment();
+        }
+    }
     public void registerUser(String email, String password, String confirmPassword) {
         if (email.isEmpty()) {
             view.showError("Enter your email");

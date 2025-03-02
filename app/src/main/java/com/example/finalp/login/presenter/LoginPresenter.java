@@ -7,6 +7,7 @@ import android.util.Patterns;
 
 import com.example.finalp.login.LoginRepository;
 import com.example.finalp.login.view.LoginView;
+import com.example.finalp.utilities.NetworkChecker;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -16,10 +17,12 @@ public class LoginPresenter {
     private final LoginView view;
     private final LoginRepository repository;
     private final GoogleSignInClient googleSignInClient;
+    private NetworkChecker networkChecker;
 
-    public LoginPresenter(LoginView view, Context context) {
+    public LoginPresenter(LoginView view, Context context , NetworkChecker networkChecker) {
         this.view = view;
         this.repository = new LoginRepository(context);
+        this.networkChecker=networkChecker;
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken("760233796809-ttef1v37f4kp5dvhpq2hqtpkghb72ifq.apps.googleusercontent.com")
@@ -27,7 +30,11 @@ public class LoginPresenter {
                 .build();
         googleSignInClient = GoogleSignIn.getClient(context, gso);
     }
-
+    public void checkNetwork() {
+        if (!networkChecker.isConnected()) {
+            view.showOfflineFragment();
+        }
+    }
     public void loginUser(String email, String password) {
         if (email.isEmpty()) {
             view.showLoginError("Enter your email");

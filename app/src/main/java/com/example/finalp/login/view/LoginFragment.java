@@ -21,6 +21,8 @@ import androidx.navigation.Navigation;
 
 import com.example.finalp.R;
 import com.example.finalp.login.presenter.LoginPresenter;
+import com.example.finalp.utilities.NetworkChecker;
+import com.example.finalp.utilities.OfflineFragment;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -40,6 +42,7 @@ public class LoginFragment extends Fragment implements LoginView {
     Button loginbtn, google;
     TextView sign, skip;
     TextInputEditText emailtxt, passwordtxt;
+    NetworkChecker networkChecker ;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -48,7 +51,7 @@ public class LoginFragment extends Fragment implements LoginView {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = new LoginPresenter(this, requireContext());
+
     }
 
     @Override
@@ -66,7 +69,8 @@ public class LoginFragment extends Fragment implements LoginView {
         loginbtn = view.findViewById(R.id.register);
         emailtxt = view.findViewById(R.id.emailtxt);
         passwordtxt = view.findViewById(R.id.passwordtxt);
-
+        networkChecker = new NetworkChecker(requireContext());
+        presenter = new LoginPresenter(this, requireContext(),networkChecker);
         google.setOnClickListener(view1 -> presenter.signInWithGoogle());
         sign.setOnClickListener(view1 -> navigateToRegister());
         skip.setOnClickListener(view1 -> showSkipDialog());
@@ -75,6 +79,7 @@ public class LoginFragment extends Fragment implements LoginView {
             String password = passwordtxt.getText().toString().trim();
             presenter.loginUser(email, password);
         });
+        presenter.checkNetwork();
     }
 
     @Override
@@ -106,6 +111,14 @@ public class LoginFragment extends Fragment implements LoginView {
     @Override
     public void showGoogleSignInError(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showOfflineFragment() {
+        getParentFragmentManager().beginTransaction()
+                .replace(R.id.fragmentscontainer, new OfflineFragment())
+                .commit();
+
     }
 
     @Override

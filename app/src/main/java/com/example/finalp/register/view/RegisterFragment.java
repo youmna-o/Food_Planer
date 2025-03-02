@@ -15,12 +15,15 @@ import androidx.navigation.Navigation;
 
 import com.example.finalp.R;
 import com.example.finalp.register.presenter.RegisterPresenter;
+import com.example.finalp.utilities.NetworkChecker;
+import com.example.finalp.utilities.OfflineFragment;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class RegisterFragment extends Fragment implements RegisterView {
     private RegisterPresenter presenter;
     private TextInputEditText emailtxt, passwordtxt , confirmPassword;
     private Button registerbtn;
+    NetworkChecker networkChecker;
 
 
     public RegisterFragment() {
@@ -40,8 +43,9 @@ public class RegisterFragment extends Fragment implements RegisterView {
         passwordtxt = view.findViewById(R.id.txtpassword);
         registerbtn = view.findViewById(R.id.register);
         confirmPassword=view.findViewById(R.id.conPassword);
-
-        presenter = new RegisterPresenter(this, requireContext());
+        networkChecker = new NetworkChecker(requireContext());
+        presenter = new RegisterPresenter(this, requireContext(),networkChecker);
+        presenter.checkNetwork();
 
         registerbtn.setOnClickListener(v -> {
             String email = emailtxt.getText().toString().trim();
@@ -70,6 +74,14 @@ public class RegisterFragment extends Fragment implements RegisterView {
         } else {
             Toast.makeText(getContext(), "Error: " + message, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void showOfflineFragment() {
+        getParentFragmentManager().beginTransaction()
+                .replace(R.id.fragmentscontainer, new OfflineFragment())
+                .commit();
+
     }
 }
 

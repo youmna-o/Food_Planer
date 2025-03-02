@@ -9,4 +9,5 @@ public interface LoginView {
     void navigateToRegister();
     void navigateToGoogleSignIn(Intent signInIntent);
     void showGoogleSignInError(String message);
+    void showOfflineFragment();
 }
