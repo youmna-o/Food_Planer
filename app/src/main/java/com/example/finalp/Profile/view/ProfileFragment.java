@@ -25,23 +25,11 @@ import com.example.finalp.model.Repo;
 import com.example.finalp.model.database.MealLocalDataSource;
 import com.example.finalp.model.network.MealRemoteDataSource;
 import com.example.finalp.model.pojos.Meal;
-import com.example.finalp.model.pojos.PlanMeal;
-import com.example.finalp.model.pojos.SavedMeal;
 import com.google.firebase.FirebaseApp;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.gson.Gson;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 
 public class ProfileFragment extends Fragment  implements  ProfileView , DetailsView {
@@ -90,79 +78,8 @@ public class ProfileFragment extends Fragment  implements  ProfileView , Details
 
         });
         backup.setOnClickListener(view1 -> {
-            String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-            Log.d("Yomna", "onViewCreated: " + currentUserId);
-            DatabaseReference mealsRef = FirebaseDatabase.getInstance().getReference("meals").child(currentUserId);
+            presenter.restoreBackup();
 
-            DatabaseReference favRef = mealsRef.child("favorites");
-            favRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    List<Meal> favMeals = new ArrayList<>();
-                    for (DataSnapshot mealSnapshot : snapshot.getChildren()) {
-                        Meal meal = mealSnapshot.getValue(Meal.class);
-                        if (meal != null && meal.getIdMeal() != null) {
-                            favMeals.add(meal);
-                        }
-                    }
-                    for (Meal meal : favMeals) {
-                        detailsPresenter.onMealClick(meal);
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    Log.e("Firebase", "Failed to restore favorites", error.toException());
-                }
-            });
-
-            DatabaseReference savedRef = mealsRef.child("savedMeals");
-            savedRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    List<SavedMeal> savedMeals = new ArrayList<>();
-                    for (DataSnapshot mealSnapshot : snapshot.getChildren()) {
-                        SavedMeal meal = mealSnapshot.getValue(SavedMeal.class);
-                        if (meal != null && meal.getIdMeal() != null) {
-                            savedMeals.add(meal);
-                            Log.d("Firebase", "Saved Meal Loaded: " + meal.toString());
-                        }
-                    }
-                    for (SavedMeal meal : savedMeals) {
-                        detailsPresenter.onSavedMealClick(meal);
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    Log.e("Firebase", "Failed to restore saved meals", error.toException());
-                }
-            });
-
-            DatabaseReference planedRef = mealsRef.child("plannedMeals");
-            planedRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    List<PlanMeal> planedMeals = new ArrayList<>();
-                    for (DataSnapshot mealSnapshot : snapshot.getChildren()) {
-                        PlanMeal meal = mealSnapshot.getValue(PlanMeal.class);
-                        if (meal != null && meal.getMealId() != null) {
-                            planedMeals.add(meal);
-                            Log.d("Firebase", "Planed Meal Loaded: " + meal.toString());
-                        }
-                    }
-                    for (PlanMeal meal : planedMeals) {
-                        detailsPresenter.onPlannedMealClick(meal);
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    Log.e("Firebase", "Failed to restore planed meals", error.toException());
-                }
-            });
-
-            Log.d("Firebase", "Backup restoration started for user: " + currentUserId);
         });
 
     }

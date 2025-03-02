@@ -87,10 +87,12 @@ public class MealLocalDataSource {
 //////////////////////////////////////////////////////////
 
     public Flowable<List<PlanMeal>> getStoredPlans() {
+
         return storedPlans;
     }
 
     public Completable delete (PlanMeal meal) {
+
         return   planeMealDAO.deleteMeal(meal);
     }
     public Completable insert (PlanMeal meal) {

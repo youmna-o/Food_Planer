@@ -2,6 +2,8 @@ package com.example.finalp.model;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.example.finalp.model.database.SavedMealDAO;
 import com.example.finalp.model.network.MealService;
 import com.example.finalp.model.pojos.Meal;
@@ -11,7 +13,13 @@ import com.example.finalp.model.database.MealLocalDataSource;
 import com.example.finalp.model.network.MealRemoteDataSource;
 import com.example.finalp.model.network.NetworkCallBack_meal;
 import com.example.finalp.model.pojos.SavedMeal;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -119,6 +127,90 @@ public class Repo {
         return  remoteDataSource.getMealByName(name);
 
     }
+    public Completable restoreFavoritesFromFirebase(String userId) {
+        return Completable.create(emitter -> {
+            DatabaseReference favRef = FirebaseDatabase.getInstance().getReference("meals").child(userId).child("favorites");
+            favRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    List<Completable> insertOperations = new ArrayList<>();
+                    for (DataSnapshot mealSnapshot : snapshot.getChildren()) {
+                        Meal meal = mealSnapshot.getValue(Meal.class);
+                        if (meal != null && meal.getIdMeal() != null) {
+                            insertOperations.add(localDataSource.insert(meal));
+                        }
+                    }
+
+                    // تنفيذ كل العمليات بشكل متتابع
+                    Completable.concat(insertOperations)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(() -> emitter.onComplete(), emitter::onError);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    emitter.onError(error.toException());
+                }
+            });
+        });
+    }
+    public Completable restoreSavedMealsFromFirebase(String userId) {
+        return Completable.create(emitter -> {
+            DatabaseReference savedRef = FirebaseDatabase.getInstance().getReference("meals").child(userId).child("savedMeals");
+            savedRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    List<Completable> insertOperations = new ArrayList<>();
+                    for (DataSnapshot mealSnapshot : snapshot.getChildren()) {
+                        SavedMeal meal = mealSnapshot.getValue(SavedMeal.class);
+                        if (meal != null && meal.getIdMeal() != null) {
+                            insertOperations.add(repo.insertSaved(meal)); // استدعاء insert للوجبات المحفوظة
+                        }
+                    }
+
+                    Completable.concat(insertOperations)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(() -> emitter.onComplete(), emitter::onError);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    emitter.onError(error.toException());
+                }
+            });
+        });
+    }
+    public Completable restorePlannedMealsFromFirebase(String userId) {
+        return Completable.create(emitter -> {
+            DatabaseReference plannedRef = FirebaseDatabase.getInstance().getReference("meals").child(userId).child("plannedMeals");
+            plannedRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    List<Completable> insertOperations = new ArrayList<>();
+                    for (DataSnapshot mealSnapshot : snapshot.getChildren()) {
+                        PlanMeal meal = mealSnapshot.getValue(PlanMeal.class);
+                        if (meal != null && meal.getMealId() != null) {
+                            insertOperations.add(repo.insertPlans(meal)); // استدعاء insert للوجبات المخططة
+                        }
+                    }
+
+                    Completable.concat(insertOperations)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(() -> emitter.onComplete(), emitter::onError);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    emitter.onError(error.toException());
+                }
+            });
+        });
+    }
+
+
 
 
 }

@@ -60,6 +60,7 @@ public class HomePresenter {
 
             @Override
             public void onSuccessgetMealsOfCategory(List<Meal> mealList) {
+
                 view.setMeal(mealList);
             }
 

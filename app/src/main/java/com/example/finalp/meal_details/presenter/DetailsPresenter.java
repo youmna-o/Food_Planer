@@ -95,7 +95,7 @@ public class DetailsPresenter {
                                         () -> Log.d("Database", "Meal Saved: " + meal.getIdMeal()),
                                         throwable -> Log.e("Database", "Error saving meal", throwable)
                                 );
-                        favRef.setValue(meal) // حفظ في Firebase
+                        favRef.setValue(meal)
                                 .addOnSuccessListener(aVoid -> Log.d("Firebase", "Meal saved successfully!"))
                                 .addOnFailureListener(e -> Log.e("Firebase", "Failed to save meal", e));
                     }

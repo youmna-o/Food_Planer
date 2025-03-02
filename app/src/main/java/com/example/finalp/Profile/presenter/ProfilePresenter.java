@@ -11,6 +11,8 @@ import com.example.finalp.model.Repo;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import io.reactivex.rxjava3.core.Completable;
+
 public class ProfilePresenter {
     private Context context ;
     private ProfileView view;
@@ -22,12 +24,24 @@ public class ProfilePresenter {
         this.repo=repo;
         this.sharedPreferences=context.getSharedPreferences("UserPref", Context.MODE_PRIVATE);
     }
+    public void restoreBackup() {
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        if (userId == null) return;
+        Completable.mergeArray(
+                repo.restoreFavoritesFromFirebase(userId),
+                repo.restoreSavedMealsFromFirebase(userId),
+                repo.restorePlannedMealsFromFirebase(userId)
+        ).subscribe(() -> {
+        }, throwable -> {
+            Log.e("Firebase", "Error restoring backup", throwable);
+        });
+    }
+
     public void signOut(){
         FirebaseAuth.getInstance().signOut();
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean("Login",false);
         editor.apply();
-        //view.signOut();
         repo.ClearAll()
                 .subscribe(() -> {
                     Log.d("DB", "All data deleted successfully");

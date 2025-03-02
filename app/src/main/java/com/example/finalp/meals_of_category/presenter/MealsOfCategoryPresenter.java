@@ -151,10 +151,6 @@ public class MealsOfCategoryPresenter {
                     });
     }
 
-
-
-
-
     }
 
 
